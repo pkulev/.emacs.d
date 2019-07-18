@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: raisepp inserts import pformat and raise Exception(pformat())
+# key: raisepp
+# --
+from pprint import pformat
+raise Exception(pformat(vars($1)))

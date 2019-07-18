@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mipy -- insert minted python environment block
+# key: mipy
+# --
+\begin{minted}{python}
+  $1
+\end{minted}
