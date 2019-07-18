@@ -86,6 +86,299 @@
        :ensure t)
     #+end_src
 
+* Help & manuals
+** Better help
+   #+begin_src elisp
+     (use-package helpful
+       :ensure t
+       :bind
+       ("C-h f" . #'helpful-callable)
+       ("C-h v" . #'helpful-variable)
+       ("C-h k" . #'helpful-key)
+       ("C-h F" . #'helpful-at-point)
+       ("C-h F" . #'helpful-function)
+       ("C-h C" . #'helpful-command))
+   #+end_src
+
+** Free keys
+   #+begin_src elisp
+     (use-package free-keys
+       :ensure t)
+    #+end_src
+** Which key
+   #+begin_src elisp
+     (use-package which-key
+       :ensure t
+       :delight
+       :config
+       (which-key-mode))
+   #+end_src
+
+* Customize
+  #+begin_src elisp
+    (use-package cus-edit
+      :ensure nil
+      :after files
+      :preface
+      (defun load-custom-file ()
+	(load custom-file 'noerror))
+      (provide 'cus-edit)
+      :hook (after-init . #'load-custom-file)
+      :config
+      (setq custom-file "~/.emacs.d/custom-file.el"))
+   #+end_src
+
+* GUI Components / Appearance
+
+** Emacs variables that defined in C source code
+  #+begin_src elisp
+    (use-package emacs
+      :ensure nil
+      :init
+      (put 'narrow-to-page 'disabled nil)
+      (put 'narrow-to-region 'disabled nil)
+      (put 'downcase-region 'disabled nil)
+      :custom
+      (use-dialog-box nil "Dialogs via minibuffer only.")
+      (tool-bar-mode nil "Disable toolbar.")
+      (menu-bar-mode nil "Disable menubar.")
+      (scroll-bar-mode nil "Disable scrollbar.")
+      (blink-cursor-mode nil "Disable cursor blinking.")
+      (scroll-step 1 "Scroll line by line.")
+      (scroll-margin 4 "Top and bottom scrolling margin.")
+      (scroll-conservatively 101 "If >100 then never recenter point.")
+      (inhibit-splash-screen t "Don't show the splash screen.")
+      (initial-scratch-message nil "Disable initial scratch message.")
+
+      (indicate-empty-lines t "Visually indicate empty lines.")
+      (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe."))
+  #+end_src
+
+** Emacs C source code
+   I quite often jump into C code from describe-* buffers.
+    #+begin_src elisp
+      (use-package find-func
+	:ensure nil
+	:custom
+	(find-function-C-source-directory (expand-file-name "~/proj/emacs") "Emacs sources."))
+    #+end_src
+
+** Autorevert
+    #+begin_src elisp
+    (use-package autorevert
+      :ensure nil
+      :delight auto-revert-mode)
+    #+end_src
+
+** Frame
+   Disable suspending (C-z), it's annoing and doesn't work properly with WSL.
+   #+begin_src elisp
+     (use-package frame
+       :ensure nil
+       :bind
+       ("C-z" . nil))
+   #+end_src
+
+** Simple
+   #+begin_src elisp
+     (use-package simple
+       :ensure nil
+       :delight
+       (visual-line-mode)
+       :config
+       (defalias 'yes-or-no-p 'y-or-n-p)
+       :custom
+       (line-number-mode t "Show line number in modeline.")
+       (column-number-mode t "Show column number in modeline.")
+       (size-indication-mode t "Show file size in modeline.")
+       (global-visual-line-mode t "Enable visual-line-mode."))
+   #+end_src
+
+** Fonts & faces
+*** COMMENT Fira ligatures for emacs
+    Doesn't work properly yet.
+    #+begin_src elisp
+      (use-package fira-code-symbol
+	:ensure nil
+	:delight
+	:hook
+	(lisp-mode-hook . fira-code-symbol)
+	(geiser-mode-hook . fira-code-symbol)
+	(python-mode-hook . fira-code-symbol)
+	(tuareg-mode-hook . fira-code-symbol)
+	:quelpa
+	(fira-code-symbol :repo "pkulev/fira-code-symbol"
+			  :fetcher github :upgrade t))
+    #+end_src
+
+*** COMMENT Hack font
+    #+begin_src elisp
+      (use-package faces
+	:ensure nil
+	:config
+	(set-face-attribute 'default
+			    nil
+			    :family "Hack"
+			    :weight 'regular
+			    :width 'semi-condensed
+			    :height 120)
+    #+end_src
+
+*** Fira Code font
+    #+begin_src elisp
+      (use-package faces
+	:ensure nil
+	:config
+	(set-face-attribute 'default
+			    nil
+			    :family "FiraCode"
+			    :weight 'semi-light
+			    :width 'semi-condensed
+			    :height 130))
+    #+end_src
+
+*** Current line higlighting
+
+    #+begin_src elisp
+    (use-package hl-line
+      :ensure nil
+      :config
+      (global-hl-line-mode 1)
+      (set-face-background 'hl-line "#3e4446")
+      (set-face-foreground 'highlight nil))
+    #+end_src
+
+*** Fringe settings
+    #+begin_src elisp
+      (use-package fringe
+	:ensure nil
+	:custom
+	(fringe-mode '(8 . 0)))
+    #+end_src
+
+*** =reverse-im=
+    #+begin_src elisp
+      (use-package reverse-im
+	:ensure t
+	:config
+	(reverse-im-activate "russian-computer"))
+    #+end_src
+
+** Theme
+*** COMMENT Cool theme
+    #+begin_src elisp
+      (use-package color-theme-sanityinc-tomorrow
+	:disabled
+	:ensure t
+	:init (load-theme 'sanityinc-tomorrow-eighties 'noconfirm))
+    #+end_src
+
+*** Very cool theme
+    #+begin_src elisp
+      (use-package zerodark-theme
+	:ensure t
+	:config
+	(load-theme 'zerodark 'noconfirm)
+	(zerodark-setup-modeline-format))
+     #+end_src
+
+** Icons
+   #+begin_src elisp
+     (use-package all-the-icons
+       :ensure t
+       :defer t
+       :config
+       (setq all-the-icons-mode-icon-alist
+	     `(,@all-the-icons-mode-icon-alist
+	       (package-menu-mode all-the-icons-octicon "package" :v-adjust 0.0))))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package all-the-icons-dired
+       :ensure t
+       :hook
+       (dired-mode . all-the-icons-dired-mode))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package all-the-icons-ivy
+       :ensure t
+       :after ivy
+       :custom
+       (all-the-icons-ivy-buffer-commands '() "Don't use for buffers.")
+       :config
+       (all-the-icons-ivy-setup))
+   #+end_src
+
+** Whistles
+   #+begin_src elisp
+     (use-package time
+       :ensure nil
+       :custom
+       (display-time-mode nil "Don't display time at modeline."))
+  #+end_src
+
+  #+begin_src elisp
+     (use-package nyan-mode
+       :ensure t
+       :custom
+       (nyan-bar-length 16)
+       :config
+       (nyan-mode))
+  #+end_src
+
+  #+begin_src elisp
+     (use-package highlight-indent-guides
+       :ensure t
+       :defer t
+       :delight
+       :hook
+       (prog-mode . highlight-indent-guides-mode)
+       :custom
+       (highlight-indent-guides-method 'character))
+   #+end_src
+* Buffer management
+** COMMENT buffer selection
+   #+begin_src elisp
+     (use-package bs
+       :ensure nil
+       :bind ("M-z" . bs-show))
+   #+end_src
+
+** ibuffer
+   #+begin_src elisp
+     (use-package ibuffer
+       :ensure nil
+       :defer t
+       :config
+       (defalias 'list-buffers 'ibuffer))
+   #+end_src
+
+** ace-window
+   Jump to window by number.
+   #+begin_src elisp
+     (use-package ace-window
+       :ensure t
+       :bind ("C-x w" . ace-window))
+   #+end_src
+
+* Dired
+  #+begin_src elisp
+    (use-package dired
+      :ensure nil
+      :bind ([remap list-directory] . dired)
+      :config
+      (setq dired-recursive-deletes 'top))
+
+    (use-package dired-x
+      :ensure nil)
+
+    ;; TODO
+    (use-package dired-subtree
+      :ensure t)
+  #+end_src
+
+
 * Local variables
   Tangle config on save hook.
   #+begin_src elisp :tangle no
