@@ -1,0 +1,21 @@
+# ignore everything
+*
+
+# except some things:
+
+# .gitignore itself
+!.gitignore
+
+# emacs config source
+!readme.org
+
+# tangled emacs config
+!init.el
+
+# useful snippets
+!snippets/
+!snippets/**
+
+# useful eshell aliases
+!/eshell/
+!/eshell/alias
