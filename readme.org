@@ -1,0 +1,18 @@
+#+TITLE: Emacs configuration
+#+PROPERTY: header-args:elisp :tangle "init.el"
+
+* Local variables
+  Tangle config on save hook.
+  #+begin_src elisp :tangle no
+    ;; Local Variables:
+    ;; eval: (add-hook 'after-save-hook (lambda () (org-babel-tangle)) nil t)
+    ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+    ;; End:
+  #+end_src
+
+  Disable annoying checkdoc linter for cases if I want to open init.el.
+  #+begin_src elisp
+    ;; Local Variables:
+    ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+    ;; End:
+  #+end_src
