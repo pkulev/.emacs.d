@@ -1,6 +1,91 @@
 #+TITLE: Emacs configuration
 #+PROPERTY: header-args:elisp :tangle "init.el"
 
+* Package management
+  Initial bootstrapping and things related to package management.
+
+** Repositories
+   Set emacs package repositories.
+  #+begin_src elisp
+    (require 'package)
+    (setq package-enable-at-startup nil)
+
+    (setq package-archives
+          (append (eval (car (get 'package-archives 'standard-value)))
+                  '(("org" . "http://orgmode.org/elpa/")
+                    ("melpa" . "http://melpa.org/packages/")
+                    ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
+    (package-initialize)
+  #+end_src
+
+** =use-package=
+   Bootstrap =use-package= using built-in package.el.
+   All further configuration will be performed using it's DSL.
+
+   #+begin_src elisp
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package)
+      (require 'use-package)
+      (setq use-package-always-ensure t))
+   #+end_src
+
+*** Environment variables
+    Set some rare used environment variables to control further configuration.
+    #+begin_src elisp
+      (when (getenv "FAST") (setq use-package-always-ensure t))
+      (when (getenv "STATS") (setq use-package-compute-statistics t))
+    #+end_src
+
+*** =use-package= dependencies
+    #+begin_src elisp
+      (use-package bind-key
+	:ensure t)
+
+      (use-package delight
+	:ensure t)
+     #+end_src
+
+** System package management
+   =system-packages= allows to install packages via system package manager in
+   a configurable way.
+   #+begin_src elisp
+     (use-package system-packages
+       :ensure t
+       :custom
+       (system-packages-noconfirm t))
+   #+end_src
+
+** Installation from sources
+     =Quelpa= allows to build and install packages from sources.
+     =quelpa-use-package= is integration package.
+     #+begin_src elisp
+       (use-package quelpa
+	 :ensure t
+	 :custom (quelpa-update-melpa-p nil))
+
+       (use-package quelpa-use-package
+	 :ensure t)
+     #+end_src
+
+** Improvements for =package.el=
+   =paradox= can install packages asynchronously and has better UI for *M-x list-packages*.
+   #+begin_src elisp
+     (use-package paradox
+       :ensure t
+       :custom
+       (paradox-execute-asynchronously t)
+       :config
+       (paradox-enable))
+   #+end_src
+
+** Temporarily package installation
+   =try= installs package into temp directory without polluting /.emacs.d/.
+   #+begin_src elisp
+     (use-package try
+       :ensure t)
+    #+end_src
+
 * Local variables
   Tangle config on save hook.
   #+begin_src elisp :tangle no
