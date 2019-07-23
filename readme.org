@@ -128,6 +128,18 @@
       (setq custom-file "~/.emacs.d/custom-file.el"))
    #+end_src
 
+   Host-specific private source of data
+   #+begin_src elisp
+     (use-package my/private-el
+       :ensure nil
+       :preface
+       (defun my/private-el-load ()
+	 (load "~/private.el" 'noerror))
+       (provide 'my/private-el)
+       :init
+       (my/private-el-load))
+   #+end_src
+
 * GUI Components / Appearance
 
 ** Emacs variables that defined in C source code

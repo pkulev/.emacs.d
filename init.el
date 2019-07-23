@@ -75,6 +75,15 @@
   :config
   (setq custom-file "~/.emacs.d/custom-file.el"))
 
+(use-package my/private-el
+  :ensure nil
+  :preface
+  (defun my/private-el-load ()
+    (load "~/private.el" 'noerror))
+  (provide 'my/private-el)
+  :init
+  (my/private-el-load))
+
 (use-package emacs
   :ensure nil
   :init
