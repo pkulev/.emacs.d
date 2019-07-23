@@ -553,6 +553,17 @@
   :commands (calendar)
   :config (setq calendar-week-start-day 1))
 
+(use-package telega
+  :ensure nil
+  :quelpa
+  (telega :repo "zevlg/telega.el"
+	  :fetcher github :upgrade t)
+  :load-path "~/proj/telega.el"
+  :commands (telega)
+  :defer t
+  :config
+  (add-hook 'telega-root-mode-hook (lambda () (telega-notifications-mode 1))))
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:

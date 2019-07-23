@@ -620,6 +620,19 @@
 	     ("<S-f2>" . bm-previous)))
   #+end_src
 
+* Email & Messengers
+  #+begin_src elisp
+    (use-package telega
+      :ensure nil
+      :quelpa
+      (telega :repo "zevlg/telega.el"
+	      :fetcher github :upgrade t)
+      :load-path "~/proj/telega.el"
+      :commands (telega)
+      :defer t
+      :config
+      (add-hook 'telega-root-mode-hook (lambda () (telega-notifications-mode 1))))
+  #+end_src
 
 * Local variables
   Tangle config on save hook.
