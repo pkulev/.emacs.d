@@ -86,6 +86,12 @@
        :ensure t)
     #+end_src
 
+** Additional packages
+   #+begin_src elisp
+     (use-package anaphora
+       :ensure t)
+   #+end_src
+
 * Help & manuals
 ** Better help
    #+begin_src elisp
@@ -742,9 +748,11 @@
        (add-to-list 'org-structure-template-alist '("sp" . "src python"))
        (add-to-list 'org-structure-template-alist '("se" . "src elisp")))
 
-     (use-package org-tempo)
+     (use-package org-tempo
+       :ensure t)
 
-     (use-package org-protocol)
+     (use-package org-protocol
+       :ensure t)
 
      (use-package org-bullets
        :ensure t

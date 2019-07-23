@@ -45,6 +45,15 @@
 (use-package try
   :ensure t)
 
+(use-package anaphora
+  :ensure t)
+
+(use-package f
+  :ensure t)
+
+(use-package s
+  :ensure t)
+
 (use-package helpful
   :ensure t
   :bind
