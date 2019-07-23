@@ -378,6 +378,87 @@
       :ensure t)
   #+end_src
 
+* Navigation
+** Imenu jumps
+   #+begin_src elisp
+     (use-package imenu
+       :ensure nil
+       :bind ("C-c C-j" . imenu)
+       :config
+       (setq imenu-auto-rescan t)
+       (setq imenu-use-popup-menu nil))
+   #+end_src
+
+** Avy
+   #+begin_src elisp
+     (use-package avy
+       :ensure t
+       :bind (("C-c j" . avy-goto-word-or-subword-1)
+	      ("C-:" . avy-goto-char)
+	      ("C-'" . avy-goto-char-2)))
+   #+end_src
+
+* Editing
+** Multiple cursors
+   #+begin_src elisp
+     (use-package multiple-cursors
+       :ensure t
+       :bind (("C-S-c C-S-c" . mc/edit-lines)
+	      ("C->" . mc/mark-next-like-this)
+	      ("C-<" . mc/mark-previous-like-this)
+	      ("C-c C-<" . mc/mark-all-like-this)))
+   #+end_src
+
+** Copy & Paste things
+
+*** Copy as format
+    #+begin_src elisp
+      (use-package copy-as-format
+	:ensure t
+	:bind
+	(:prefix-map
+	 copy-as-format-prefix-map
+	 :prefix "C-x c"
+	 ("f" . copy-as-format)
+	 ("a" . copy-as-format-asciidoc)
+	 ("b" . copy-as-format-bitbucket)
+	 ("d" . copy-as-format-disqus)
+	 ("g" . copy-as-format-github)
+	 ("l" . copy-as-format-gitlab)
+	 ("c" . copy-as-format-hipchat)
+	 ("h" . copy-as-format-html)
+	 ("j" . copy-as-format-jira)
+	 ("m" . copy-as-format-markdown)
+	 ("w" . copy-as-format-mediawiki)
+	 ("o" . copy-as-format-org-mode)
+	 ("p" . copy-as-format-pod)
+	 ("r" . copy-as-format-rst)
+	 ("s" . copy-as-format-slack)))
+     #+end_src
+
+*** Links
+    #+begin_src elisp
+      (use-package link-hint
+	:ensure t
+	:bind
+	(("C-x M-l o" . link-hint-open-link)
+	 ("C-c M-l c" . link-hint-copy-link)))
+    #+end_src
+
+* Shell tools
+  #+begin_src elisp
+    (use-package shell
+      :ensure nil
+      :custom
+      (explicit-shell-file-name "/bin/zsh" "Default inferior shell."))
+  #+end_src
+
+  #+begin_src elisp
+    (use-package shell-pop
+      :ensure t
+      :bind (("C-`" . shell-pop)))
+  #+end_src
+
 
 * Local variables
   Tangle config on save hook.

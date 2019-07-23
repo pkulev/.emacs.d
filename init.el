@@ -220,6 +220,63 @@
 (use-package dired-subtree
   :ensure t)
 
+(use-package imenu
+  :ensure nil
+  :bind ("C-c C-j" . imenu)
+  :config
+  (setq imenu-auto-rescan t)
+  (setq imenu-use-popup-menu nil))
+
+(use-package avy
+  :ensure t
+  :bind (("C-c j" . avy-goto-word-or-subword-1)
+         ("C-:" . avy-goto-char)
+         ("C-'" . avy-goto-char-2)))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
+
+(use-package copy-as-format
+  :ensure t
+  :bind
+  (:prefix-map
+   copy-as-format-prefix-map
+   :prefix "C-x c"
+   ("f" . copy-as-format)
+   ("a" . copy-as-format-asciidoc)
+   ("b" . copy-as-format-bitbucket)
+   ("d" . copy-as-format-disqus)
+   ("g" . copy-as-format-github)
+   ("l" . copy-as-format-gitlab)
+   ("c" . copy-as-format-hipchat)
+   ("h" . copy-as-format-html)
+   ("j" . copy-as-format-jira)
+   ("m" . copy-as-format-markdown)
+   ("w" . copy-as-format-mediawiki)
+   ("o" . copy-as-format-org-mode)
+   ("p" . copy-as-format-pod)
+   ("r" . copy-as-format-rst)
+   ("s" . copy-as-format-slack)))
+
+(use-package link-hint
+  :ensure t
+  :bind
+  (("C-x M-l o" . link-hint-open-link)
+   ("C-c M-l c" . link-hint-copy-link)))
+
+(use-package shell
+  :ensure nil
+  :custom
+  (explicit-shell-file-name "/bin/zsh" "Default inferior shell."))
+
+(use-package shell-pop
+  :ensure t
+  :bind (("C-`" . shell-pop)))
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
