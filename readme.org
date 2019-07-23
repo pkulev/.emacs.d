@@ -459,6 +459,167 @@
       :bind (("C-`" . shell-pop)))
   #+end_src
 
+* Path
+** Syncing PATH
+   #+begin_src elisp
+       (use-package exec-path-from-shell
+	 :ensure t
+	 :config
+	 (exec-path-from-shell-initialize))
+   #+end_src
+
+** Autosaves
+   Don't spawn them across the filesystem.
+   #+begin_src elisp
+     (use-package files
+       :ensure nil
+       :custom
+       (backup-directory-alist
+	`((".*" . ,(concat user-emacs-directory "autosaves/"))))
+       (auto-save-file-name-transforms
+	`((".*" ,(concat user-emacs-directory "autosaves/") t))))
+   #+end_src
+
+** Quick emacs configuration file access
+   #+begin_src elisp
+     (use-package my-config-mode
+       :ensure nil
+       :preface
+       (defun my-config-open ()
+	 (interactive)
+	 (find-file (concat user-emacs-directory "init.el")))
+
+       (defun my-config-eval ()
+	   (interactive)
+	 (load-file (concat user-emacs-directory "init.el")))
+
+       (provide 'my-config-mode)
+
+       :bind
+       (:map mode-specific-map
+	     ("e o" . #'my-config-open)
+	     ("e e" . #'my-config-eval)))
+   #+end_src
+* Autocomplete
+** Company
+   #+begin_src elisp
+     (use-package company
+       :ensure t
+       :delight
+       :bind
+       (:map company-active-map
+	     ("C-n" . company-select-next-or-abort)
+	     ("C-p" . company-select-previous-or-abort))
+       :hook
+       (after-init . global-company-mode))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package company-quickhelp
+       :ensure t
+       :custom
+       (company-quickhelp-delay 3)
+       :config
+       (company-quickhelp-mode 1))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package company-shell
+       :ensure t
+       :config
+       (add-to-list 'company-backends 'company-shell))
+   #+end_src
+
+** Counsel
+   #+begin_src elisp
+     (use-package counsel
+       :ensure t
+       :delight
+       :defer nil
+       :bind (([remap menu-bar-open] . counsel-tmm)
+	      ([remap insert-char] . counsel-unicode-char)
+	      ([remap isearch-forward] . counsel-grep-or-swiper))
+       :config
+       (counsel-mode))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package counsel-projectile
+       :ensure t
+       :after counsel projectile
+       :bind
+       ("C-c p s" . counsel-projectile-ag)
+       :config
+       (counsel-projectile-mode))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package counsel-dash
+       :ensure t
+       :after counsel eww
+       :requires eww
+       :bind
+       ;; (:map mode-specific-map ("d i" . counsel-dash-install-docset)
+       ;;                         ("d u" . counsel-dash-uninstall-docset))
+       ;;                          (""))
+       :config
+       (add-hook 'python-mode-hook (lambda () (setq-local counsel-dash-docsets '("Python"))))
+       :custom
+       (counsel-dash-browser-func 'eww-browse-url))
+   #+end_src
+
+** Swiper
+   #+begin_src elisp
+     (use-package swiper
+       :ensure t
+       :delight
+       :defer nil
+       :bind
+       (([remap isearch-forward-symbol-at-point] . #'swiper-thing-at-point)))
+   #+end_src
+
+** Ivy
+   #+begin_src elisp
+     (use-package ivy
+       :ensure t
+       :delight
+       :custom
+       (ivy-use-virtual-buffers t)
+       (ivy-re-builders-alist '((t . ivy--regex-plus) (t . ivy--regex-fuzzy)))
+       (ivy-count-format "%d/%d " "Show anzu-like counter.")
+       (ivy-use-selectable-prompt t "Make the prompt line selectable.")
+       :custom-face
+       (ivy-current-match ((t (:inherit 'hl-line))))
+       :bind
+       (:map mode-specific-map ("C-r" . ivy-resume))
+       :config
+       (ivy-mode t))
+
+     (use-package ivy-rich
+       :ensure t
+       :after ivy
+       :config
+       (ivy-rich-mode))
+   #+end_src
+
+* COMMENT Bookmarks
+  #+begin_src elisp
+    (use-package bookmark
+      :ensure nil
+      :config
+      (setq bookmark-save-flag t)
+      (awhen (file-present? (bookmarks-file))
+	(bookmark-load it t))
+      (setq bookmark-default-file (bookmarks-file)))
+
+    ;; TODO:
+    (use-package bm
+      :ensure t
+      :bind (("<C-f2>" . bm-toggle)
+	     ("<f2>"   . bm-next)
+	     ("<S-f2>" . bm-previous)))
+  #+end_src
+
 
 * Local variables
   Tangle config on save hook.
