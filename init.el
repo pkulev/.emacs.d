@@ -14,7 +14,7 @@
   (require 'use-package)
   (setq use-package-always-ensure t))
 
-(when (getenv "FAST") (setq use-package-always-ensure t))
+(when (getenv "FAST") (setq use-package-always-ensure nil))
 (when (getenv "STATS") (setq use-package-compute-statistics t))
 
 (use-package bind-key
@@ -316,23 +316,23 @@
     (find-file (concat user-emacs-directory "init.el")))
 
   (defun my-config-eval ()
-      (interactive)
+    (interactive)
     (load-file (concat user-emacs-directory "init.el")))
 
   (provide 'my-config-mode)
 
   :bind
   (:map mode-specific-map
-	("e o" . #'my-config-open)
-	("e e" . #'my-config-eval)))
+        ("e o" . #'my-config-open)
+        ("e e" . #'my-config-eval)))
 
 (use-package company
   :ensure t
   :delight
   :bind
   (:map company-active-map
-	("C-n" . company-select-next-or-abort)
-	("C-p" . company-select-previous-or-abort))
+        ("C-n" . company-select-next-or-abort)
+        ("C-p" . company-select-previous-or-abort))
   :hook
   (after-init . global-company-mode))
 
@@ -353,8 +353,8 @@
   :delight
   :defer nil
   :bind (([remap menu-bar-open] . counsel-tmm)
-	 ([remap insert-char] . counsel-unicode-char)
-	 ([remap isearch-forward] . counsel-grep-or-swiper))
+         ([remap insert-char] . counsel-unicode-char)
+         ([remap isearch-forward] . counsel-grep-or-swiper))
   :config
   (counsel-mode))
 
@@ -407,11 +407,26 @@
   :config
   (ivy-rich-mode))
 
+(use-package bookmark
+  :ensure nil
+  :config
+  (setq bookmark-save-flag t)
+  (awhen (file-present? (bookmarks-file))
+    (bookmark-load it t))
+  (setq bookmark-default-file (bookmarks-file)))
+
+;; TODO:
+(use-package bm
+  :ensure t
+  :bind (("<C-f2>" . bm-toggle)
+         ("<f2>"   . bm-next)
+         ("<S-f2>" . bm-previous)))
+
 (use-package telega
   :ensure nil
   :quelpa
   (telega :repo "zevlg/telega.el"
-	  :fetcher github :upgrade t)
+          :fetcher github :upgrade t)
   :load-path "~/proj/telega.el"
   :commands (telega)
   :defer t
@@ -425,15 +440,15 @@
   (defun +org/agenda-skip-all-siblings-but-first ()
     "Skip all but the first non-done entry."
     (let (should-skip-entry)
-      (unless (+org/current-is-todo))
-     (setq should-skip-entry t
-      (save-excursion
-        (while (and (not should-skip-entry) (org-goto-sibling t))
-          (when (+org/current-is-todo)
-            (setq should-skip-entry t))
-          (when should-skip-entry))
-        (or (outline-next-heading
-             (goto-char (point-max))))))))
+      (unless (+org/current-is-todo)
+        (setq should-skip-entry t
+              (save-excursion
+                (while (and (not should-skip-entry) (org-goto-sibling t))
+                  (when (+org/current-is-todo)
+                    (setq should-skip-entry t))
+                  (when should-skip-entry))
+                (or (outline-next-heading
+                     (goto-char (point-max)))))))))
 
   (defun +org/current-is-todo ()
     (string= "TODO" (org-get-todo-state)))
@@ -511,9 +526,11 @@
   (add-to-list 'org-structure-template-alist '("sp" . "src python"))
   (add-to-list 'org-structure-template-alist '("se" . "src elisp")))
 
-(use-package org-tempo)
+(use-package org-tempo
+  :ensure nil)
 
-(use-package org-protocol)
+(use-package org-protocol
+  :ensure nil)
 
 (use-package org-bullets
   :ensure t
@@ -555,8 +572,8 @@
   :ensure nil
   :quelpa
   (org-pomodoro :repo "pkulev/org-pomodoro"
-		:fetcher github :branch "feature/customize-mode-line"
-		:upgrade t)
+                :fetcher github :branch "feature/customize-mode-line"
+                :upgrade t)
   :bind
   (:map mode-specific-map ("o p" . org-pomodoro))
   :custom
@@ -571,169 +588,22 @@
   :commands (calendar)
   :config (setq calendar-week-start-day 1))
 
-(use-package telega
-  :ensure nil
-  :quelpa
-  (telega :repo "zevlg/telega.el"
-	  :fetcher github :upgrade t)
-  :load-path "~/proj/telega.el"
-  :commands (telega)
+(use-package org-jira
+  :if (boundp 'my/private-jira-url)
+  :ensure t
   :defer t
-  :config
-  (add-hook 'telega-root-mode-hook (lambda () (telega-notifications-mode 1))))
-
-(use-package org
-  ;; :hook (auto-save . org-save-all-org-buffers)
-  :ensure t
-  :init
-  (defun +org/agenda-skip-all-siblings-but-first ()
-    "Skip all but the first non-done entry."
-    (let (should-skip-entry)
-      (unless (+org/current-is-todo))
-     (setq should-skip-entry t
-      (save-excursion
-        (while (and (not should-skip-entry) (org-goto-sibling t))
-          (when (+org/current-is-todo)
-            (setq should-skip-entry t))
-          (when should-skip-entry))
-        (or (outline-next-heading
-             (goto-char (point-max))))))))
-
-  (defun +org/current-is-todo ()
-    (string= "TODO" (org-get-todo-state)))
-
-  (defun +org/opened-buffer-files ()
-    "Return the list of files currently opened in emacs."
-    ;; (remove-if-not #'(lambda (x) (string-match "\\.org$" x))
-    ;;                   (delq nil (mapcar #'buffer-file-name (buffer-list))))
-    (delq nil
-          (mapcar (lambda (x)
-                    (if (and (buffer-file-name x)
-                             (string-match "\\.org$" (buffer-file-name x)))
-                        (buffer-file-name x)))
-                  (buffer-list))))
-
-  (defun +org/all-org-files ()
-    "Return the list of all org files in `org-directory'."
-
-    (remove-if-not #'(lambda (x) (string-match "\\.org$" x))
-                   (directory-files org-directory 'full)))
-
-  :ensure org-plus-contrib
-  :bind (("C-c a" . org-agenda)
-         ("C-c b" . org-iswitchb)
-         ("C-c l" . org-store-link)
-         ("C-c c" . org-capture))
   :custom
-  (org-directory "~/orgs")
-  (org-log-done 'note)
-  (org-log-refile t)
-  (org-agenda-files `(,(concat org-directory "/inbox.org")
-                      ,(concat org-directory "/next.org")
-                      ,(concat org-directory "/tickler.org")))
-  ;; (org-refile-targets '((+org/opened-buffer-files :maxlevel . 9)))
-  (org-refile-targets '((+org/all-org-files :maxlevel . 9)))
-  (org-refile-use-cache t)
-  (org-capture-templates
-   `(("t" "Todo [inbox]" entry
-      (file+headline "/inbox.org" "Tasks")
-      "* TODO %i%?")
-     ("T" "Tickler" entry (file+headline "/tickler.org" "Tickler")
-      "* %i%? \n %U")
-     ("P" "Project [projects]" entry
-      (file+headline "~/orgs/projects.org", "Projects")
-      "* TODO %i%?")
-     ("p" "Protocol" entry
-      (file+headline "~/orgs/links.org" "Inbox")
-      "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-     ("L" "Protocol Link" entry
-      (file+headline "~/orgs/links.org" "Inbox")
-      "* %? [[%:link][%:description]] \nCaptured On: %U")))
-  (org-todo-keywords '((sequence
-                        "NEXT(n)" "TODO(t)" "INPROGRESS(p)" "WAITING(w)"
-                        "|" "DONE(d)" "CANCELLED(c)")))
-  (org-refile-use-outline-path 'file)
-  (org-outline-path-complete-in-steps nil)
-  ;; (org-refile-targets '(("~/orgs/next.org" :maxlevel . 3)
-  ;;                       ("~/orgs/someday.org" :level . 1)
-  ;;                       ("~/orgs/tickler.org" :maxlevel . 2)
-  ;;                       ("~/orgs/future-projects.org" :level . 1)))
-  (org-agenda-custom-commands
-   '(("o" "At the office" tags-todo "@office"
-      ((org-agenda-overriding-header "Office")
-       (org-agenda-skip-function #'+org/agenda-skip-all-siblings-but-first)))))
-  :config
-  ;; (run-with-idle-timer 300 t (lambda ()
-  ;;                              (org-refile-cache-clear)
-  ;;                              (org-refile-get-targets)))
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((emacs-lisp . t)
-                               (python . t)
-                               (shell . t)
-                               (scheme . t)))
-  (add-to-list 'org-structure-template-alist '("ss" . "src scheme"))
-  (add-to-list 'org-structure-template-alist '("sp" . "src python"))
-  (add-to-list 'org-structure-template-alist '("se" . "src elisp")))
+  (jiralib-url my/private-jira-url))
 
-(use-package org-tempo)
-
-(use-package org-protocol)
-
-(use-package org-bullets
+;; TODO:
+;; https://sourceforge.net/p/confluence-el/wiki/Home/
+(use-package confluence
+  :if (boundp 'my/private-confluence-url)
   :ensure t
+  :defer t
   :custom
-  ;; org-bullets-bullet-list
-  ;; default: ◉ ○ ✸ ✿
-  ;; large: ♥ ● ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶
-  ;; Small: ► • ★ ▸
-  ;; (org-bullets-bullet-list '("•"))
-  ;; others: ▼, ↴, ⬎, ⤷,…, and ⋱
-  ;; (org-ellipsis "…")
-  (org-ellipsis "⤵")
-  :hook
-  (org-mode . org-bullets-mode))
-
-(use-package ob-mongo
-  :ensure t)
-
-(use-package ob-async
-  :ensure t)
-
-(use-package yankpad
-  :ensure t
-  :defer org
-  :bind
-  ("C-c y m" . yankpad-map)
-  ("C-c y e" . yankpad-expand)
-  :config
-  (add-to-list 'company-backends #'company-yankpad))
-
-(defun link-message ()
-  "Show org-link in minibuffer."
-  (interactive)
-  (let ((object (org-element-context)))
-    (when (eq (car object) 'message)
-      (message "%s" (org-element-property :raw-link object)))))
-
-(use-package org-pomodoro
-  :ensure nil
-  :quelpa
-  (org-pomodoro :repo "pkulev/org-pomodoro"
-		:fetcher github :branch "feature/customize-mode-line"
-		:upgrade t)
-  :bind
-  (:map mode-specific-map ("o p" . org-pomodoro))
-  :custom
-  (org-pomodoro-format " 🍅 %s"))
-
-(use-package jira-markup-mode
-  :ensure t
-  :defer t)
-
-(use-package calendar
-  :ensure nil
-  :commands (calendar)
-  :config (setq calendar-week-start-day 1))
+  (confluence-url my/private-confluence-url)
+  (confluence-default-space-alist (my/private-confluence-default-space)))
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)

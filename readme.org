@@ -23,27 +23,27 @@
    All further configuration will be performed using it's DSL.
 
    #+begin_src elisp
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package)
-      (require 'use-package)
-      (setq use-package-always-ensure t))
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package)
+       (require 'use-package)
+       (setq use-package-always-ensure t))
    #+end_src
 
 *** Environment variables
     Set some rare used environment variables to control further configuration.
     #+begin_src elisp
-      (when (getenv "FAST") (setq use-package-always-ensure t))
+      (when (getenv "FAST") (setq use-package-always-ensure nil))
       (when (getenv "STATS") (setq use-package-compute-statistics t))
     #+end_src
 
 *** =use-package= dependencies
     #+begin_src elisp
       (use-package bind-key
-	:ensure t)
+        :ensure t)
 
       (use-package delight
-	:ensure t)
+        :ensure t)
      #+end_src
 
 ** System package management
@@ -61,11 +61,11 @@
      =quelpa-use-package= is integration package.
      #+begin_src elisp
        (use-package quelpa
-	 :ensure t
-	 :custom (quelpa-update-melpa-p nil))
+         :ensure t
+         :custom (quelpa-update-melpa-p nil))
 
        (use-package quelpa-use-package
-	 :ensure t)
+         :ensure t)
      #+end_src
 
 ** Improvements for =package.el=
@@ -89,6 +89,16 @@
 ** Additional packages
    #+begin_src elisp
      (use-package anaphora
+       :ensure t)
+   #+end_src
+
+   #+begin_src elisp
+     (use-package f
+       :ensure t)
+   #+end_src
+
+   #+begin_src elisp
+     (use-package s
        :ensure t)
    #+end_src
 
@@ -127,7 +137,7 @@
       :after files
       :preface
       (defun load-custom-file ()
-	(load custom-file 'noerror))
+        (load custom-file 'noerror))
       (provide 'cus-edit)
       :hook (after-init . #'load-custom-file)
       :config
@@ -140,7 +150,7 @@
        :ensure nil
        :preface
        (defun my/private-el-load ()
-	 (load "~/private.el" 'noerror))
+         (load "~/private.el" 'noerror))
        (provide 'my/private-el)
        :init
        (my/private-el-load))
@@ -176,9 +186,9 @@
    I quite often jump into C code from describe-* buffers.
     #+begin_src elisp
       (use-package find-func
-	:ensure nil
-	:custom
-	(find-function-C-source-directory (expand-file-name "~/proj/emacs") "Emacs sources."))
+        :ensure nil
+        :custom
+        (find-function-C-source-directory (expand-file-name "~/proj/emacs") "Emacs sources."))
     #+end_src
 
 ** Autorevert
@@ -217,42 +227,42 @@
     Doesn't work properly yet.
     #+begin_src elisp
       (use-package fira-code-symbol
-	:ensure nil
-	:delight
-	:hook
-	(lisp-mode-hook . fira-code-symbol)
-	(geiser-mode-hook . fira-code-symbol)
-	(python-mode-hook . fira-code-symbol)
-	(tuareg-mode-hook . fira-code-symbol)
-	:quelpa
-	(fira-code-symbol :repo "pkulev/fira-code-symbol"
-			  :fetcher github :upgrade t))
+        :ensure nil
+        :delight
+        :hook
+        (lisp-mode-hook . fira-code-symbol)
+        (geiser-mode-hook . fira-code-symbol)
+        (python-mode-hook . fira-code-symbol)
+        (tuareg-mode-hook . fira-code-symbol)
+        :quelpa
+        (fira-code-symbol :repo "pkulev/fira-code-symbol"
+                          :fetcher github :upgrade t))
     #+end_src
 
 *** COMMENT Hack font
     #+begin_src elisp
       (use-package faces
-	:ensure nil
-	:config
-	(set-face-attribute 'default
-			    nil
-			    :family "Hack"
-			    :weight 'regular
-			    :width 'semi-condensed
-			    :height 120)
+        :ensure nil
+        :config
+        (set-face-attribute 'default
+                            nil
+                            :family "Hack"
+                            :weight 'regular
+                            :width 'semi-condensed
+                            :height 120)
     #+end_src
 
 *** Fira Code font
     #+begin_src elisp
       (use-package faces
-	:ensure nil
-	:config
-	(set-face-attribute 'default
-			    nil
-			    :family "FiraCode"
-			    :weight 'semi-light
-			    :width 'semi-condensed
-			    :height 130))
+        :ensure nil
+        :config
+        (set-face-attribute 'default
+                            nil
+                            :family "FiraCode"
+                            :weight 'semi-light
+                            :width 'semi-condensed
+                            :height 130))
     #+end_src
 
 *** Current line higlighting
@@ -269,35 +279,35 @@
 *** Fringe settings
     #+begin_src elisp
       (use-package fringe
-	:ensure nil
-	:custom
-	(fringe-mode '(8 . 0)))
+        :ensure nil
+        :custom
+        (fringe-mode '(8 . 0)))
     #+end_src
 
 *** =reverse-im=
     #+begin_src elisp
       (use-package reverse-im
-	:ensure t
-	:config
-	(reverse-im-activate "russian-computer"))
+        :ensure t
+        :config
+        (reverse-im-activate "russian-computer"))
     #+end_src
 
 ** Theme
 *** COMMENT Cool theme
     #+begin_src elisp
       (use-package color-theme-sanityinc-tomorrow
-	:disabled
-	:ensure t
-	:init (load-theme 'sanityinc-tomorrow-eighties 'noconfirm))
+        :disabled
+        :ensure t
+        :init (load-theme 'sanityinc-tomorrow-eighties 'noconfirm))
     #+end_src
 
 *** Very cool theme
     #+begin_src elisp
       (use-package zerodark-theme
-	:ensure t
-	:config
-	(load-theme 'zerodark 'noconfirm)
-	(zerodark-setup-modeline-format))
+        :ensure t
+        :config
+        (load-theme 'zerodark 'noconfirm)
+        (zerodark-setup-modeline-format))
      #+end_src
 
 ** Icons
@@ -307,8 +317,8 @@
        :defer t
        :config
        (setq all-the-icons-mode-icon-alist
-	     `(,@all-the-icons-mode-icon-alist
-	       (package-menu-mode all-the-icons-octicon "package" :v-adjust 0.0))))
+             `(,@all-the-icons-mode-icon-alist
+               (package-menu-mode all-the-icons-octicon "package" :v-adjust 0.0))))
    #+end_src
 
    #+begin_src elisp
@@ -412,8 +422,8 @@
      (use-package avy
        :ensure t
        :bind (("C-c j" . avy-goto-word-or-subword-1)
-	      ("C-:" . avy-goto-char)
-	      ("C-'" . avy-goto-char-2)))
+              ("C-:" . avy-goto-char)
+              ("C-'" . avy-goto-char-2)))
    #+end_src
 
 * Editing
@@ -422,9 +432,9 @@
      (use-package multiple-cursors
        :ensure t
        :bind (("C-S-c C-S-c" . mc/edit-lines)
-	      ("C->" . mc/mark-next-like-this)
-	      ("C-<" . mc/mark-previous-like-this)
-	      ("C-c C-<" . mc/mark-all-like-this)))
+              ("C->" . mc/mark-next-like-this)
+              ("C-<" . mc/mark-previous-like-this)
+              ("C-c C-<" . mc/mark-all-like-this)))
    #+end_src
 
 ** Copy & Paste things
@@ -432,35 +442,35 @@
 *** Copy as format
     #+begin_src elisp
       (use-package copy-as-format
-	:ensure t
-	:bind
-	(:prefix-map
-	 copy-as-format-prefix-map
-	 :prefix "C-x c"
-	 ("f" . copy-as-format)
-	 ("a" . copy-as-format-asciidoc)
-	 ("b" . copy-as-format-bitbucket)
-	 ("d" . copy-as-format-disqus)
-	 ("g" . copy-as-format-github)
-	 ("l" . copy-as-format-gitlab)
-	 ("c" . copy-as-format-hipchat)
-	 ("h" . copy-as-format-html)
-	 ("j" . copy-as-format-jira)
-	 ("m" . copy-as-format-markdown)
-	 ("w" . copy-as-format-mediawiki)
-	 ("o" . copy-as-format-org-mode)
-	 ("p" . copy-as-format-pod)
-	 ("r" . copy-as-format-rst)
-	 ("s" . copy-as-format-slack)))
+        :ensure t
+        :bind
+        (:prefix-map
+         copy-as-format-prefix-map
+         :prefix "C-x c"
+         ("f" . copy-as-format)
+         ("a" . copy-as-format-asciidoc)
+         ("b" . copy-as-format-bitbucket)
+         ("d" . copy-as-format-disqus)
+         ("g" . copy-as-format-github)
+         ("l" . copy-as-format-gitlab)
+         ("c" . copy-as-format-hipchat)
+         ("h" . copy-as-format-html)
+         ("j" . copy-as-format-jira)
+         ("m" . copy-as-format-markdown)
+         ("w" . copy-as-format-mediawiki)
+         ("o" . copy-as-format-org-mode)
+         ("p" . copy-as-format-pod)
+         ("r" . copy-as-format-rst)
+         ("s" . copy-as-format-slack)))
      #+end_src
 
 *** Links
     #+begin_src elisp
       (use-package link-hint
-	:ensure t
-	:bind
-	(("C-x M-l o" . link-hint-open-link)
-	 ("C-c M-l c" . link-hint-copy-link)))
+        :ensure t
+        :bind
+        (("C-x M-l o" . link-hint-open-link)
+         ("C-c M-l c" . link-hint-copy-link)))
     #+end_src
 
 * Shell tools
@@ -481,9 +491,9 @@
 ** Syncing PATH
    #+begin_src elisp
        (use-package exec-path-from-shell
-	 :ensure t
-	 :config
-	 (exec-path-from-shell-initialize))
+         :ensure t
+         :config
+         (exec-path-from-shell-initialize))
    #+end_src
 
 ** Autosaves
@@ -493,9 +503,9 @@
        :ensure nil
        :custom
        (backup-directory-alist
-	`((".*" . ,(concat user-emacs-directory "autosaves/"))))
+        `((".*" . ,(concat user-emacs-directory "autosaves/"))))
        (auto-save-file-name-transforms
-	`((".*" ,(concat user-emacs-directory "autosaves/") t))))
+        `((".*" ,(concat user-emacs-directory "autosaves/") t))))
    #+end_src
 
 ** Quick emacs configuration file access
@@ -504,19 +514,19 @@
        :ensure nil
        :preface
        (defun my-config-open ()
-	 (interactive)
-	 (find-file (concat user-emacs-directory "init.el")))
+         (interactive)
+         (find-file (concat user-emacs-directory "init.el")))
 
        (defun my-config-eval ()
-	   (interactive)
-	 (load-file (concat user-emacs-directory "init.el")))
+         (interactive)
+         (load-file (concat user-emacs-directory "init.el")))
 
        (provide 'my-config-mode)
 
        :bind
        (:map mode-specific-map
-	     ("e o" . #'my-config-open)
-	     ("e e" . #'my-config-eval)))
+             ("e o" . #'my-config-open)
+             ("e e" . #'my-config-eval)))
    #+end_src
 * Autocomplete
 ** Company
@@ -526,8 +536,8 @@
        :delight
        :bind
        (:map company-active-map
-	     ("C-n" . company-select-next-or-abort)
-	     ("C-p" . company-select-previous-or-abort))
+             ("C-n" . company-select-next-or-abort)
+             ("C-p" . company-select-previous-or-abort))
        :hook
        (after-init . global-company-mode))
    #+end_src
@@ -555,8 +565,8 @@
        :delight
        :defer nil
        :bind (([remap menu-bar-open] . counsel-tmm)
-	      ([remap insert-char] . counsel-unicode-char)
-	      ([remap isearch-forward] . counsel-grep-or-swiper))
+              ([remap insert-char] . counsel-unicode-char)
+              ([remap isearch-forward] . counsel-grep-or-swiper))
        :config
        (counsel-mode))
    #+end_src
@@ -620,22 +630,22 @@
        (ivy-rich-mode))
    #+end_src
 
-* COMMENT Bookmarks
+* Bookmarks
   #+begin_src elisp
     (use-package bookmark
       :ensure nil
       :config
       (setq bookmark-save-flag t)
       (awhen (file-present? (bookmarks-file))
-	(bookmark-load it t))
+        (bookmark-load it t))
       (setq bookmark-default-file (bookmarks-file)))
 
     ;; TODO:
     (use-package bm
       :ensure t
       :bind (("<C-f2>" . bm-toggle)
-	     ("<f2>"   . bm-next)
-	     ("<S-f2>" . bm-previous)))
+             ("<f2>"   . bm-next)
+             ("<S-f2>" . bm-previous)))
   #+end_src
 
 * Email & Messengers
@@ -644,7 +654,7 @@
       :ensure nil
       :quelpa
       (telega :repo "zevlg/telega.el"
-	      :fetcher github :upgrade t)
+              :fetcher github :upgrade t)
       :load-path "~/proj/telega.el"
       :commands (telega)
       :defer t
@@ -662,15 +672,15 @@
        (defun +org/agenda-skip-all-siblings-but-first ()
          "Skip all but the first non-done entry."
          (let (should-skip-entry)
-           (unless (+org/current-is-todo))
-          (setq should-skip-entry t
-           (save-excursion
-             (while (and (not should-skip-entry) (org-goto-sibling t))
-               (when (+org/current-is-todo)
-                 (setq should-skip-entry t))
-               (when should-skip-entry))
-             (or (outline-next-heading
-                  (goto-char (point-max))))))))
+           (unless (+org/current-is-todo)
+             (setq should-skip-entry t
+                   (save-excursion
+                     (while (and (not should-skip-entry) (org-goto-sibling t))
+                       (when (+org/current-is-todo)
+                         (setq should-skip-entry t))
+                       (when should-skip-entry))
+                     (or (outline-next-heading
+                          (goto-char (point-max)))))))))
 
        (defun +org/current-is-todo ()
          (string= "TODO" (org-get-todo-state)))
@@ -749,10 +759,10 @@
        (add-to-list 'org-structure-template-alist '("se" . "src elisp")))
 
      (use-package org-tempo
-       :ensure t)
+       :ensure nil)
 
      (use-package org-protocol
-       :ensure t)
+       :ensure nil)
 
      (use-package org-bullets
        :ensure t
@@ -806,8 +816,8 @@
        :ensure nil
        :quelpa
        (org-pomodoro :repo "pkulev/org-pomodoro"
-		     :fetcher github :branch "feature/customize-mode-line"
-		     :upgrade t)
+                     :fetcher github :branch "feature/customize-mode-line"
+                     :upgrade t)
        :bind
        (:map mode-specific-map ("o p" . org-pomodoro))
        :custom
@@ -828,10 +838,10 @@
        :config (setq calendar-week-start-day 1))
    #+end_src
 
-** COMMENT Corporative services
+** Corporative services
    #+begin_src elisp
      (use-package org-jira
-       :disabled
+       :if (boundp 'my/private-jira-url)
        :ensure t
        :defer t
        :custom
@@ -840,7 +850,7 @@
      ;; TODO:
      ;; https://sourceforge.net/p/confluence-el/wiki/Home/
      (use-package confluence
-       :disabled
+       :if (boundp 'my/private-confluence-url)
        :ensure t
        :defer t
        :custom
