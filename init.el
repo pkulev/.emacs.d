@@ -407,21 +407,6 @@
   :config
   (ivy-rich-mode))
 
-(use-package bookmark
-  :ensure nil
-  :config
-  (setq bookmark-save-flag t)
-  (awhen (file-present? (bookmarks-file))
-    (bookmark-load it t))
-  (setq bookmark-default-file (bookmarks-file)))
-
-;; TODO:
-(use-package bm
-  :ensure t
-  :bind (("<C-f2>" . bm-toggle)
-         ("<f2>"   . bm-next)
-         ("<S-f2>" . bm-previous)))
-
 (use-package telega
   :ensure nil
   :quelpa

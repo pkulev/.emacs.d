@@ -630,7 +630,7 @@
        (ivy-rich-mode))
    #+end_src
 
-* Bookmarks
+* COMMENT Bookmarks
   #+begin_src elisp
     (use-package bookmark
       :ensure nil
