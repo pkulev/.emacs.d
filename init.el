@@ -118,7 +118,9 @@
   (initial-scratch-message nil "Disable initial scratch message.")
 
   (indicate-empty-lines t "Visually indicate empty lines.")
-  (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe."))
+  (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
+  (indent-tabs-mode nil "Tabs are evil.")
+  (tab-width 4 "Sane default for me."))
 
 (use-package find-func
   :ensure nil
