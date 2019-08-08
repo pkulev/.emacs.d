@@ -54,6 +54,12 @@
 (use-package s
   :ensure t)
 
+(use-package tos
+  :ensure nil
+  :quelpa
+  (tos :repo "pkulev/tos.el"
+       :fetcher github :upgrade t))
+
 (use-package helpful
   :ensure t
   :bind

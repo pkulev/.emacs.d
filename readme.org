@@ -102,6 +102,15 @@
        :ensure t)
    #+end_src
 
+*** Determine if current buffer indented with tabs or spaces
+    #+begin_src elisp
+      (use-package tos
+	:ensure nil
+	:quelpa
+	(tos :repo "pkulev/tos.el"
+	     :fetcher github :upgrade t))
+    #+end_src
+
 * Help & manuals
 ** Better help
    #+begin_src elisp
