@@ -438,6 +438,13 @@
    #+end_src
 
 * Editing
+** Delete selection
+   #+begin_src elisp
+     (use-package delsel
+       :ensure nil
+       :config
+       (delete-selection-mode t))
+   #+end_src
 ** Multiple cursors
    #+begin_src elisp
      (use-package multiple-cursors

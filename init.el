@@ -259,6 +259,11 @@
          ("C-:" . avy-goto-char)
          ("C-'" . avy-goto-char-2)))
 
+(use-package delsel
+  :ensure nil
+  :config
+  (delete-selection-mode t))
+
 (use-package multiple-cursors
   :ensure t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
