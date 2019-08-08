@@ -119,6 +119,7 @@
 
   (indicate-empty-lines t "Visually indicate empty lines.")
   (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
+  (show-trailing-whitespace t "I want to see trailing spaces.")
   (indent-tabs-mode nil "Tabs are evil.")
   (tab-width 4 "Sane default for me."))
 
@@ -147,6 +148,13 @@
   (column-number-mode t "Show column number in modeline.")
   (size-indication-mode t "Show file size in modeline.")
   (global-visual-line-mode t "Enable visual-line-mode."))
+
+(use-package paren
+  :ensure nil
+  :custom
+  (show-paren-delay 0)
+  :config
+  (show-paren-mode t))
 
 (use-package faces
   :ensure nil
