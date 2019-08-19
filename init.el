@@ -456,6 +456,10 @@
 (use-package ispell
   :ensure nil)
 
+(use-package smart-comment
+  :ensure t
+  :bind ("M-;" . smart-comment))
+
 ;; TODO: c2 projectile integration
 (use-package projectile
   :ensure t

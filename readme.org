@@ -698,6 +698,11 @@
        :ensure nil)
    #+end_src
 
+   #+begin_src elisp
+     (use-package smart-comment
+       :ensure t
+       :bind ("M-;" . smart-comment))
+   #+end_src
 ** Projectile
    #+begin_src elisp
      ;; TODO: c2 projectile integration
