@@ -527,6 +527,53 @@
   :config
   (slime-setup '(slime-company)))
 
+(use-package python
+  :ensure nil
+  :delight python-mode)
+
+(use-package sphinx-doc
+  :ensure t
+  :delight
+  :hook python-mode)
+
+(use-package js
+  :ensure nil
+  :config
+  :hook (js-mode . infer-indentation-style-js))
+
+(use-package mhtml-mode
+  :ensure nil
+  :defer t
+  :custom
+  (sgml-basic-offset 4))
+
+(use-package nim-mode
+  :ensure t
+  :hook
+  ((nim-mode . nimsuggest-mode)
+   (nimsuggest-mode . flycheck-mode)))
+
+(use-package flycheck-nim
+  :ensure t
+  :after nim-mode)
+
+(use-package tuareg
+  :ensure t
+  :defer t
+  :custom
+  (tuareg-match-patterns-aligned t))
+;; (tuareg-prettify-symbols-full t)
+;; TODO:
+;; (add-hook 'tuareg-mode-hook
+;;           (lambda()
+;;             (when (functionp 'prettify-symbols-mode)
+;;               (prettify-symbols-mode))))
+
+;; (face-spec-set
+;;  'tuareg-font-lock-constructor-face
+;;  '((((class color) (background light)) (:foreground "SaddleBrown"))
+;;    (((class color) (background dark)) (:foreground "burlywood1")))))
+
 (use-package telega
   :ensure nil
   :quelpa

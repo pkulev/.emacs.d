@@ -777,6 +777,114 @@
          :config
          (slime-setup '(slime-company)))
      #+end_src
+** Python
+   #+begin_src elisp
+     (use-package python
+       :ensure nil
+       :delight python-mode)
+   #+end_src
+
+   #+begin_src elisp
+     (use-package sphinx-doc
+       :ensure t
+       :delight
+       :hook python-mode)
+   #+end_src
+*** COMMENT LSP
+    #+begin_src elisp
+      (use-package lsp-mode
+        :disabled
+        :ensure t
+        :hook (lsp-mode . company-mode)
+        :custom
+        (lsp-inhibit-message t)
+        (lsp-before-save-edits t)
+        (lsp-eldoc-render-all nil)
+        (lsp-highlight-symbol-at-point nil))
+
+      (use-package lsp-ui
+        :disabled
+        :ensure t
+        :custom
+        (lsp-ui-sideline-enable t)
+        (lsp-ui-sideline-show-symbol t)
+        (lsp-ui-sideline-show-hover t)
+        (lsp-ui-sideline-show-code-actions t)
+        (lsp-ui-sideline-ignore-duplicate t)
+        (lsp-ui-sideline-update-mode 'point)
+        :hook (lsp-mode . company-mode))
+
+      (use-package company-lsp
+        :disabled
+        :ensure t
+        :after lsp-ui
+        :custom
+        (company-lsp-cache-candidates 'auto)
+        (company-lsp-enable-snippets t)
+        (company-lsp-cache-candidates t)
+        :config
+        (push 'company-lsp company-backends))
+
+      (use-package lsp-python-ms
+        :disabled
+        :ensure t
+        :quelpa
+        (lsp-python-ms :repo "andrew-christianson/lsp-python-ms"
+                       :fetcher github :upgrade t)
+        :hook (python-mode . lsp)
+        :custom
+        (lsp-python-ms-dir (expand-file-name "~/proj/python-language-server/output/bin/Release/"))
+        (lsp-python-ms-executable "Microsoft.Python.LanguageServer"))
+    #+end_src
+** Web
+*** JS
+     #+begin_src elisp
+       (use-package js
+         :ensure nil
+         :config
+         :hook (js-mode . infer-indentation-style-js))
+     #+end_src
+
+*** HTML
+    #+begin_src elisp
+      (use-package mhtml-mode
+        :ensure nil
+        :defer t
+        :custom
+        (sgml-basic-offset 4))
+    #+end_src
+** Nim
+   #+begin_src elisp
+     (use-package nim-mode
+       :ensure t
+       :hook
+       ((nim-mode . nimsuggest-mode)
+        (nimsuggest-mode . flycheck-mode)))
+
+     (use-package flycheck-nim
+       :ensure t
+       :after nim-mode)
+   #+end_src
+
+** Ocaml
+   #+begin_src elisp
+     (use-package tuareg
+       :ensure t
+       :defer t
+       :custom
+       (tuareg-match-patterns-aligned t))
+     ;; (tuareg-prettify-symbols-full t)
+     ;; TODO:
+     ;; (add-hook 'tuareg-mode-hook
+     ;;           (lambda()
+     ;;             (when (functionp 'prettify-symbols-mode)
+     ;;               (prettify-symbols-mode))))
+
+     ;; (face-spec-set
+     ;;  'tuareg-font-lock-constructor-face
+     ;;  '((((class color) (background light)) (:foreground "SaddleBrown"))
+     ;;    (((class color) (background dark)) (:foreground "burlywood1")))))
+   #+end_src
 * COMMENT Bookmarks
   #+begin_src elisp
     (use-package bookmark
