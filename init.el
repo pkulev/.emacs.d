@@ -436,6 +436,19 @@
   :config
   (ivy-rich-mode))
 
+(use-package tramp
+  :ensure nil
+  :custom
+  (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
+
+;; TODO
+(use-package counsel-tramp
+  :after counsel tramp
+  :hook ((counsel-tramp-pre-counsel . (lambda () (projectile-mode 0)))
+         (consel-tramp-quit . (lambda () (projectile-mode 1))))
+  :bind
+  (:map mode-specific-map ("s s" . #'counsel-tramp)))
+
 (use-package compile
   :ensure nil
   :bind ([f5] . recompile))

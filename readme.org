@@ -669,6 +669,22 @@
        (ivy-rich-mode))
    #+end_src
 
+* Containers and remote servers
+** Tramp
+   #+begin_src elisp
+     (use-package tramp
+       :ensure nil
+       :custom
+       (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
+
+     ;; TODO
+     (use-package counsel-tramp
+       :after counsel tramp
+       :hook ((counsel-tramp-pre-counsel . (lambda () (projectile-mode 0)))
+              (consel-tramp-quit . (lambda () (projectile-mode 1))))
+       :bind
+       (:map mode-specific-map ("s s" . #'counsel-tramp)))
+   #+end_src
 * Programming modes
 ** Common
    #+begin_src elisp
