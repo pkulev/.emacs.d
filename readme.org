@@ -798,6 +798,15 @@
          :config
          (slime-setup '(slime-company)))
      #+end_src
+*** Scheme
+    #+begin_src elisp
+      (use-package geiser
+        :bind
+        ("C-c i" . geiser-insert-lambda)
+        :custom
+        (geiser-guile-binary "guile2.2")
+        (geiser-default-implementation 'guile))
+    #+end_src
 ** Python
    #+begin_src elisp
      (use-package python

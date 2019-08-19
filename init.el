@@ -544,6 +544,13 @@
   :config
   (slime-setup '(slime-company)))
 
+(use-package geiser
+  :bind
+  ("C-c i" . geiser-insert-lambda)
+  :custom
+  (geiser-guile-binary "guile2.2")
+  (geiser-default-implementation 'guile))
+
 (use-package python
   :ensure nil
   :delight python-mode)
