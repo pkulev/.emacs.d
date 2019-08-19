@@ -428,6 +428,97 @@
   :config
   (ivy-rich-mode))
 
+(use-package compile
+  :ensure nil
+  :bind ([f5] . recompile))
+
+(use-package ispell
+  :ensure nil)
+
+;; TODO: c2 projectile integration
+(use-package projectile
+  :ensure t
+  :defer nil
+  :bind
+  (:map mode-specific-map ("p" . projectile-command-map))
+  :delight '(:eval (concat " [" (projectile-project-name) "]"))
+  :custom
+  (projectile-completion-system 'ivy)
+  :config
+  (eval-when-compile
+    (require 'projectile))
+
+  (projectile-register-project-type
+   'python-c2 '("gear")
+   :compile "c2-koji"
+   :test "make docker-check 2>&1 < /dev/null"
+   :run "make docker"
+   :test-suffix "test_"
+   :test-dir "tests")
+
+  (add-to-list 'projectile-after-switch-project-hook
+               #'(lambda ()
+                   (message "Done.")))
+
+  (projectile-mode))
+
+(use-package parinfer
+  :ensure t
+  :delight '(:eval (concat " p:" (symbol-name (parinfer-current-mode))))
+  :hook ((emacs-lisp-mode . parinfer-mode)
+         (common-lisp-mode . parinfer-mode)))
+
+(use-package elisp-mode
+  :ensure nil
+  :delight "elisp")
+
+(use-package lisp-mode
+  :disabled
+  :ensure nil
+  :hook ((lisp-mode . (lambda () (setq flycheck-enabled-checkers '(sblint)))))
+  :config
+  (flycheck-define-checker sblint
+    "A Common Lisp checker using `sblint'."
+    ;; :command ("sblint" source)
+    :command ("echo ok" source)
+    :error-patterns
+    ((error line-start (file-name) ":" line ": error: " (message) line-end))
+    :modes lisp-mode)
+  (add-to-list 'flycheck-checkers 'sblint))
+
+(use-package slime
+  :disabled
+  :ensure t
+  :commands (slime)
+  :requires slime-autoloads
+  :custom
+  (inferior-lisp-program (sbcl-bin))
+  (slime-contribs '(slime-fancy slime-asdf slime-indentation)))
+
+(use-package sly-asdf
+  :ensure t
+  :defer t)
+
+(use-package sly-quicklisp
+  :ensure t
+  :defer t)
+
+(use-package sly
+  :ensure t
+  :defer t
+  :after (sly-asdf sly-quicklisp)
+  :custom
+  (inferior-lisp-program (sbcl-bin)))
+;;  (sly-contribs '(sly-asdf sly-quicklisp)))
+
+;; TODO:
+(use-package slime-company
+  :disabled
+  :ensure t
+  :after slime
+  :config
+  (slime-setup '(slime-company)))
+
 (use-package telega
   :ensure nil
   :quelpa
