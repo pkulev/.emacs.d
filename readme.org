@@ -314,6 +314,16 @@
         (reverse-im-activate "russian-computer"))
     #+end_src
 
+** Line length indication
+   #+begin_src elisp
+     (use-package fill-column-indicator
+       :ensure t
+       :custom
+       (fci-rule-width 1)
+       (fci-rule-color "cadetBlue4")
+       (fci-rule-column 80)
+       :hook (prog-mode . fci-mode))
+   #+end_src
 ** Theme
 *** COMMENT Cool theme
     #+begin_src elisp

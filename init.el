@@ -183,6 +183,14 @@
   :config
   (reverse-im-activate "russian-computer"))
 
+(use-package fill-column-indicator
+  :ensure t
+  :custom
+  (fci-rule-width 1)
+  (fci-rule-color "cadetBlue4")
+  (fci-rule-column 80)
+  :hook (prog-mode . fci-mode))
+
 (use-package zerodark-theme
   :ensure t
   :config
