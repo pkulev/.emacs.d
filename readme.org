@@ -909,6 +909,33 @@
        :delight
        :hook python-mode)
    #+end_src
+*** ELPY
+    #+begin_src elisp
+      ;; TODO: install python modules
+      (use-package elpy
+        :ensure t
+        :delight
+        (python-mode)
+        (elpy-mode " py+")
+        :commands (elpy-enable)
+        :hook ((python-mode . (lambda ()
+                                (company-mode 1)
+                                (company-quickhelp-mode)
+                                (elpy-mode)
+                                (pyvenv-tracking-mode)
+                                (setq flycheck-enabled-checkers '(python-pylint))
+                                (infer-indentation-style-python)))
+               (elpy-mode . flycheck-mode))
+        :custom
+        (elpy-syntax-check-command "flake8-2")
+        (elpy-modules '(elpy-module-sane-defaults
+                        elpy-module-company
+                        elpy-module-eldoc
+                        elpy-module-pyvenv  ; TODO
+                        elpy-module-yasnippet))
+        :config
+        (elpy-enable))
+    #+end_src
 *** COMMENT LSP
     #+begin_src elisp
       (use-package lsp-mode
