@@ -460,6 +460,14 @@
   :ensure t
   :bind ("M-;" . smart-comment))
 
+(use-package fixmee
+  :ensure t
+  :delight
+  (button-lock-mode)
+  (fixmee-mode)
+  :hook (prog-mode . global-fixmee-mode)
+  :init (require 'button-lock))
+
 ;; TODO: c2 projectile integration
 (use-package projectile
   :ensure t
@@ -597,6 +605,13 @@
 ;;  'tuareg-font-lock-constructor-face
 ;;  '((((class color) (background light)) (:foreground "SaddleBrown"))
 ;;    (((class color) (background dark)) (:foreground "burlywood1")))))
+
+(use-package racer
+  :hook ((rust-mode . racer-mode)
+         (racer-mode . eldoc-mode))
+  :custom
+  (rust-rustfmt-bin "~/.cargo/bin/rustfmt")
+  (rust-cargo-bin "~/.cargo/bin/cargo"))
 
 (use-package telega
   :ensure nil
