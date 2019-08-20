@@ -306,7 +306,7 @@
                             :height 130))
     #+end_src
 
-*** Current line higlighting
+*** Current line highlighting
 
     #+begin_src elisp
     (use-package hl-line
