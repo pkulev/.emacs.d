@@ -703,6 +703,30 @@
   (rust-rustfmt-bin "~/.cargo/bin/rustfmt")
   (rust-cargo-bin "~/.cargo/bin/cargo"))
 
+(use-package magit
+  :ensure t
+  :delight
+  :custom
+  (magit-bury-buffer-function #'quit-window)
+  :bind
+  (:map mode-specific-map
+        :prefix-map magit-prefix-map
+        :prefix "m"
+        ("b" . magit-blame-addition)
+        ("B" . magit-branch-create)
+        ("c" . magit-checkout)
+        ("C" . magit-commit-create)
+        ("f" . magit-find-file)))
+
+(use-package forge
+  :if (boundp 'my/private-forges)
+  :ensure t
+  :delight
+  :after magit
+  :config
+  (add-to-list 'forge-alist
+               (append 'my/private-forges forge-github-repository)))
+
 (use-package telega
   :ensure nil
   :quelpa

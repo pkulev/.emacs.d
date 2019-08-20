@@ -1041,6 +1041,36 @@
        (rust-cargo-bin "~/.cargo/bin/cargo"))
 
    #+end_src
+* Git things
+** Magit
+   #+begin_src elisp
+     (use-package magit
+       :ensure t
+       :delight
+       :custom
+       (magit-bury-buffer-function #'quit-window)
+       :bind
+       (:map mode-specific-map
+             :prefix-map magit-prefix-map
+             :prefix "m"
+             ("b" . magit-blame-addition)
+             ("B" . magit-branch-create)
+             ("c" . magit-checkout)
+             ("C" . magit-commit-create)
+             ("f" . magit-find-file)))
+   #+end_src
+
+** Git forges
+   #+begin_src elisp
+     (use-package forge
+       :if (boundp 'my/private-forges)
+       :ensure t
+       :delight
+       :after magit
+       :config
+       (add-to-list 'forge-alist
+                    (append 'my/private-forges forge-github-repository)))
+   #+end_src
 * COMMENT Bookmarks
   #+begin_src elisp
     (use-package bookmark
