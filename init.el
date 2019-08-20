@@ -190,6 +190,16 @@
   (set-face-background 'hl-line "#3e4446")
   (set-face-foreground 'highlight nil))
 
+(use-package diff-hl
+  :ensure t
+  :defer t
+  :after magit
+  :hook
+  (prog-mode . diff-hl-mode)
+  (org-mode . diff-hl-mode)
+  (dired-mode . diff-hl-dired-mode)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
+
 (use-package fringe
   :ensure nil
   :custom

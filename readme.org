@@ -317,6 +317,19 @@
       (set-face-foreground 'highlight nil))
     #+end_src
 
+*** Diff highlighting
+    #+begin_src elisp
+      (use-package diff-hl
+        :ensure t
+        :defer t
+        :after magit
+        :hook
+        (prog-mode . diff-hl-mode)
+        (org-mode . diff-hl-mode)
+        (dired-mode . diff-hl-dired-mode)
+        (magit-post-refresh . diff-hl-magit-post-refresh))
+    #+end_src
+
 *** Fringe settings
     #+begin_src elisp
       (use-package fringe
