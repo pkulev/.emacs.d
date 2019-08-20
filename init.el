@@ -26,7 +26,11 @@
 (use-package system-packages
   :ensure t
   :custom
-  (system-packages-noconfirm t))
+  (system-packages-noconfirm t)
+  (system-packages-use-sudo t))
+
+(use-package use-package-ensure-system-package
+  :ensure t)
 
 (use-package quelpa
   :ensure t
@@ -344,6 +348,7 @@
 
 (use-package shell
   :ensure nil
+  :ensure-system-package zsh
   :custom
   (explicit-shell-file-name "/bin/zsh" "Default inferior shell."))
 

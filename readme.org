@@ -53,7 +53,13 @@
      (use-package system-packages
        :ensure t
        :custom
-       (system-packages-noconfirm t))
+       (system-packages-noconfirm t)
+       (system-packages-use-sudo t))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package use-package-ensure-system-package
+       :ensure t)
    #+end_src
 
 ** Installation from sources
@@ -548,6 +554,7 @@
   #+begin_src elisp
     (use-package shell
       :ensure nil
+      :ensure-system-package zsh
       :custom
       (explicit-shell-file-name "/bin/zsh" "Default inferior shell."))
   #+end_src
