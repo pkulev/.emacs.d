@@ -60,6 +60,23 @@
   (tos :repo "pkulev/tos.el"
        :fetcher github :upgrade t))
 
+(use-package infer-indentation-style
+  :ensure nil
+  :after tos
+  :preface
+  (defun infer-indentation-style-js ()
+    "Sets proper values depending on buffer indentation mode."
+    (when (tos-buffer-tabs?)
+        (setq indent-tabs-mode t)))
+
+  (defun infer-indentation-style-python ()
+    "Sets proper values depending on buffer indentation mode."
+    (if (tos-buffer-tabs?)
+        (setq indent-tabs-mode t
+              python-indent-offset 4
+              tab-width 4)))
+  (provide 'infer-indentation-style))
+
 (use-package helpful
   :ensure t
   :bind
