@@ -771,6 +771,27 @@
        :hook (prog-mode . global-fixmee-mode)
        :init (require 'button-lock))
    #+end_src
+
+*** .env projectile integration
+     #+begin_src elisp
+      (use-package dotenv
+        :ensure nil
+        :after projectile
+        :quelpa
+        (dotenv :repo "pkulev/dotenv.el"
+                :fetcher github :upgrade t)
+        ;; TODO
+        ;; :custom
+        ;; (dotenv-transformations)
+        :config
+        (defun dotenv-projectile-hook ()
+          "Projectile hook."
+          (let ((path (dotenv-path (projectile-project-root))))
+            (when (s-present? path)
+              (dotenv-update-env (dotenv-load path)))))
+
+        (add-to-list 'projectile-after-switch-project-hook #'dotenv-projectile-hook))
+     #+end_src
 ** Projectile
    #+begin_src elisp
      ;; TODO: c2 projectile integration
