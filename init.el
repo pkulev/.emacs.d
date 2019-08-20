@@ -476,6 +476,26 @@
   :bind
   (:map mode-specific-map ("s s" . #'counsel-tramp)))
 
+(use-package docker
+  :ensure t
+  :bind
+  (:map mode-specific-map
+        ("d" . docker)))
+
+(use-package dockerfile-mode
+  :ensure t
+  :defer t
+  :mode "Dockerfile\\'")
+
+(use-package docker-compose-mode
+  :ensure t
+  :defer t)
+
+(use-package flycheck
+  :ensure t
+  :delight
+  :init (global-flycheck-mode))
+
 (use-package compile
   :ensure nil
   :bind ([f5] . recompile))

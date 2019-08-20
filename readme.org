@@ -717,8 +717,34 @@
        :bind
        (:map mode-specific-map ("s s" . #'counsel-tramp)))
    #+end_src
+** Docker
+   #+begin_src elisp
+     (use-package docker
+       :ensure t
+       :bind
+       (:map mode-specific-map
+             ("d" . docker)))
+
+     (use-package dockerfile-mode
+       :ensure t
+       :defer t
+       :mode "Dockerfile\\'")
+
+     (use-package docker-compose-mode
+       :ensure t
+       :defer t)
+   #+end_src
 * Programming modes
 ** Common
+*** Syntax checking and linting
+    #+begin_src elisp
+      (use-package flycheck
+        :ensure t
+        :delight
+        :init (global-flycheck-mode))
+    #+end_src
+
+
    #+begin_src elisp
      (use-package compile
        :ensure nil
