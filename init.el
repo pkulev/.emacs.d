@@ -223,10 +223,17 @@
   :hook (prog-mode . fci-mode))
 
 (use-package zerodark-theme
+  :if window-system
   :ensure t
   :config
   (load-theme 'zerodark 'noconfirm)
   (zerodark-setup-modeline-format))
+
+(use-package gruvbox-theme
+  :if (not window-system)
+  :ensure t
+  :config
+  (load-theme 'gruvbox-dark-hard 'noconfirm))
 
 (use-package all-the-icons
   :ensure t
