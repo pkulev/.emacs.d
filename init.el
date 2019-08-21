@@ -541,6 +541,7 @@
 ;; TODO: c2 projectile integration
 (use-package projectile
   :ensure t
+  :ensure-system-package (ag . the_silver_searcher)
   :defer nil
   :bind
   (:map mode-specific-map ("p" . projectile-command-map))
@@ -623,10 +624,12 @@
   (slime-setup '(slime-company)))
 
 (use-package geiser
+  :ensure t
+  :ensure-system-package guile
   :bind
   ("C-c i" . geiser-insert-lambda)
   :custom
-  (geiser-guile-binary "guile2.2")
+  ;; (geiser-guile-binary "guile2.2")
   (geiser-default-implementation 'guile))
 
 (use-package python
