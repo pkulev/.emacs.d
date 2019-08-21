@@ -586,6 +586,7 @@
 (use-package lisp-mode
   :disabled
   :ensure nil
+  :after flycheck
   :hook ((lisp-mode . (lambda () (setq flycheck-enabled-checkers '(sblint)))))
   :config
   (flycheck-define-checker sblint
