@@ -126,6 +126,9 @@
   (put 'narrow-to-page 'disabled nil)
   (put 'narrow-to-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
+  :hook
+  ;; I want to see trailing spaces
+  (prog-mode . (lambda () (setq show-trailing-whitespace t)))
   :custom
   (use-dialog-box nil "Dialogs via minibuffer only.")
   (tool-bar-mode nil "Disable toolbar.")
@@ -140,7 +143,6 @@
 
   (indicate-empty-lines t "Visually indicate empty lines.")
   (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
-  (show-trailing-whitespace t "I want to see trailing spaces.")
   (indent-tabs-mode nil "Tabs are evil.")
   (tab-width 4 "Sane default for me."))
 
