@@ -360,7 +360,7 @@
   :ensure nil
   :ensure-system-package zsh
   :custom
-  (explicit-shell-file-name "/bin/zsh" "Default inferior shell."))
+  (explicit-shell-file-name (executable-find "zsh") "Default inferior shell."))
 
 (use-package shell-pop
   :ensure t

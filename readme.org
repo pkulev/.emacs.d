@@ -569,7 +569,7 @@
       :ensure nil
       :ensure-system-package zsh
       :custom
-      (explicit-shell-file-name "/bin/zsh" "Default inferior shell."))
+      (explicit-shell-file-name (executable-find "zsh") "Default inferior shell."))
   #+end_src
 
   #+begin_src elisp
