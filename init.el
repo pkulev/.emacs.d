@@ -381,6 +381,7 @@
 
 (use-package my-config-mode
   :ensure nil
+  :after counsel
   :preface
   (defun my-config-open ()
     (interactive)
@@ -390,12 +391,18 @@
     (interactive)
     (load-file (concat user-emacs-directory "init.el")))
 
+  (defun my-config-open-and-search ()
+    (interactive)
+    (my-config-open)
+    (counsel-grep-or-swiper))
+
   (provide 'my-config-mode)
 
   :bind
   (:map mode-specific-map
         ("e o" . #'my-config-open)
-        ("e e" . #'my-config-eval)))
+        ("e e" . #'my-config-eval)
+        ("e s" . #'my-config-open-and-search)))
 
 (use-package company
   :ensure t
