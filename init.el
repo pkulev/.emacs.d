@@ -84,12 +84,13 @@
 (use-package helpful
   :ensure t
   :bind
-  ("C-h f" . #'helpful-callable)
-  ("C-h v" . #'helpful-variable)
-  ("C-h k" . #'helpful-key)
-  ("C-h F" . #'helpful-at-point)
-  ("C-h F" . #'helpful-function)
-  ("C-h C" . #'helpful-command))
+  (:map help-mode-map
+        ("f" . #'helpful-callable)
+        ("v" . #'helpful-variable)
+        ("k" . #'helpful-key)
+        ("F" . #'helpful-at-point)
+        ("F" . #'helpful-function)
+        ("C" . #'helpful-command)))
 
 (use-package free-keys
   :ensure t)
