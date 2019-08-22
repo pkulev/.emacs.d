@@ -175,8 +175,8 @@
         (load custom-file 'noerror))
       (provide 'cus-edit)
       :hook (after-init . #'load-custom-file)
-      :config
-      (setq custom-file "~/.emacs.d/custom-file.el"))
+      :custom
+      (custom-file "~/.emacs.d/custom-file.el"))
    #+end_src
 
    Host-specific private source of data
@@ -478,8 +478,8 @@
     (use-package dired
       :ensure nil
       :bind ([remap list-directory] . dired)
-      :config
-      (setq dired-recursive-deletes 'top))
+      :custom
+      (dired-recursive-deletes 'top))
 
     (use-package dired-x
       :ensure nil)
@@ -495,9 +495,9 @@
      (use-package imenu
        :ensure nil
        :bind ("C-c C-j" . imenu)
-       :config
-       (setq imenu-auto-rescan t)
-       (setq imenu-use-popup-menu nil))
+       :custom
+       (imenu-auto-rescan t)
+       (imenu-use-popup-menu nil))
    #+end_src
 
 ** Avy
@@ -1100,10 +1100,11 @@
     (use-package bookmark
       :ensure nil
       :config
-      (setq bookmark-save-flag t)
       (awhen (file-present? (bookmarks-file))
         (bookmark-load it t))
-      (setq bookmark-default-file (bookmarks-file)))
+      :custom
+      (bookmark-save-flag t)
+      (bookmark-default-file (bookmarks-file)))
 
     ;; TODO:
     (use-package bm
@@ -1300,7 +1301,8 @@
      (use-package calendar
        :ensure nil
        :commands (calendar)
-       :config (setq calendar-week-start-day 1))
+       :custom
+       (calendar-week-start-day 1))
    #+end_src
 
 ** Corporative services

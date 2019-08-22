@@ -109,8 +109,8 @@
     (load custom-file 'noerror))
   (provide 'cus-edit)
   :hook (after-init . #'load-custom-file)
-  :config
-  (setq custom-file "~/.emacs.d/custom-file.el"))
+  :custom
+  (custom-file "~/.emacs.d/custom-file.el"))
 
 (use-package my/private-el
   :ensure nil
@@ -293,8 +293,8 @@
 (use-package dired
   :ensure nil
   :bind ([remap list-directory] . dired)
-  :config
-  (setq dired-recursive-deletes 'top))
+  :custom
+  (dired-recursive-deletes 'top))
 
 (use-package dired-x
   :ensure nil)
@@ -306,9 +306,9 @@
 (use-package imenu
   :ensure nil
   :bind ("C-c C-j" . imenu)
-  :config
-  (setq imenu-auto-rescan t)
-  (setq imenu-use-popup-menu nil))
+  :custom
+  (imenu-auto-rescan t)
+  (imenu-use-popup-menu nil))
 
 (use-package avy
   :ensure t
@@ -910,7 +910,8 @@
 (use-package calendar
   :ensure nil
   :commands (calendar)
-  :config (setq calendar-week-start-day 1))
+  :custom
+  (calendar-week-start-day 1))
 
 (use-package org-jira
   :if (boundp 'my/private-jira-url)
