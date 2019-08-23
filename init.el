@@ -103,12 +103,6 @@
 
 (use-package cus-edit
   :ensure nil
-  :after files
-  :preface
-  (defun load-custom-file ()
-    (load custom-file 'noerror))
-  (provide 'cus-edit)
-  :hook (after-init . #'load-custom-file)
   :custom
   (custom-file "~/.emacs.d/custom-file.el"))
 
