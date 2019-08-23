@@ -481,6 +481,7 @@
 
 (use-package tramp
   :ensure nil
+  :defer t
   :custom
   (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
 
