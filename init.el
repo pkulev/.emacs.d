@@ -110,7 +110,7 @@
   :ensure nil
   :preface
   (defun my/private-el-load ()
-    (load "~/private.el" 'noerror))
+    (load "~/.emacs.d/private.el" 'noerror))
   (provide 'my/private-el)
   :init
   (my/private-el-load))
