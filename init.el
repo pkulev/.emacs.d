@@ -531,15 +531,22 @@
   :quelpa
   (dotenv :repo "pkulev/dotenv.el"
           :fetcher github :upgrade t)
-  ;; TODO
-  ;; :custom
-  ;; (dotenv-transformations)
   :config
+  (defun dotenv-absolutify-path (path)
+    "Make all pathes in PATH absolute using project root."
+    (when (s-present? path)
+      (let ((root (projectile-project-root)))
+        (s-join ":" (mapcar (lambda (it) (f-join root it)) (s-split ":" path))))))
+
   (defun dotenv-projectile-hook ()
     "Projectile hook."
     (let ((path (dotenv-path (projectile-project-root))))
       (when (s-present? path)
-        (dotenv-update-env (dotenv-load path)))))
+        (dotenv-update-env (dotenv-load path))
+        (let ((pythonpath (dotenv-absolutify-path (dotenv-get "PYTHONPATH" path))))
+          (when pythonpath
+            (setq python-shell-extra-pythonpaths (s-split ":" pythonpath))
+            (setenv "PYTHONPATH" pythonpath))))))
 
   (add-to-list 'projectile-after-switch-project-hook #'dotenv-projectile-hook))
 
