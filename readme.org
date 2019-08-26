@@ -369,23 +369,12 @@
     #+end_src
 
 *** Very cool theme
-    But not very suitable for terminals.
-     #+begin_src elisp
-       (use-package zerodark-theme
-         :if window-system
-         :ensure t
-         :config
-         (load-theme 'zerodark 'noconfirm)
-         (zerodark-setup-modeline-format))
-     #+end_src
-
-    This theme looks good in terminal.
     #+begin_src elisp
-      (use-package gruvbox-theme
-        :if (not window-system)
+      (use-package zerodark-theme
         :ensure t
         :config
-        (load-theme 'gruvbox-dark-hard 'noconfirm))
+        (load-theme 'zerodark 'noconfirm)
+        (zerodark-setup-modeline-format))
     #+end_src
 ** Icons
    #+begin_src elisp
