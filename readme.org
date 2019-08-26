@@ -950,10 +950,12 @@
                                 (elpy-mode)
                                 (pyvenv-tracking-mode)
                                 (setq flycheck-enabled-checkers '(python-pylint))
+                                (setq flycheck-python-pylint-executable "python3")
                                 (infer-indentation-style-python)))
                (elpy-mode . flycheck-mode))
         :custom
-        (elpy-syntax-check-command "flake8-2")
+        (elpy-syntax-check-command "flake8")
+        (elpy-rpc-python-command "python3")
         (elpy-modules '(elpy-module-sane-defaults
                         elpy-module-company
                         elpy-module-eldoc
