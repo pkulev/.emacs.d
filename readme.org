@@ -6,17 +6,17 @@
 
 ** Repositories
    Set emacs package repositories.
-  #+begin_src elisp
-    (require 'package)
-    (setq package-enable-at-startup nil)
+   #+begin_src elisp
+     (require 'package)
+     (setq package-enable-at-startup nil)
 
-    (setq package-archives
-          (append (eval (car (get 'package-archives 'standard-value)))
-                  '(("org" . "http://orgmode.org/elpa/")
-                    ("melpa" . "http://melpa.org/packages/")
-                    ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
-    (package-initialize)
-  #+end_src
+     (setq package-archives
+           (append (eval (car (get 'package-archives 'standard-value)))
+                   '(("org" . "http://orgmode.org/elpa/")
+                     ("melpa" . "http://melpa.org/packages/")
+                     ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
+     (package-initialize)
+   #+end_src
 
 ** =use-package=
    Bootstrap =use-package= using built-in package.el.
@@ -90,51 +90,53 @@
    #+begin_src elisp
      (use-package try
        :ensure t)
-    #+end_src
+   #+end_src
 
 ** Additional packages
-   #+begin_src elisp
-     (use-package anaphora
-       :ensure t)
-   #+end_src
+   Packages that will be used further in this config.
+*** Anaphoric macroses
+    #+begin_src elisp
+      (use-package anaphora
+        :ensure t)
+    #+end_src
 
-   #+begin_src elisp
-     (use-package f
-       :ensure t)
-   #+end_src
+    #+begin_src elisp
+      (use-package f
+        :ensure t)
+    #+end_src
 
-   #+begin_src elisp
-     (use-package s
-       :ensure t)
-   #+end_src
+    #+begin_src elisp
+      (use-package s
+        :ensure t)
+    #+end_src
 
 *** Determine if current buffer indented with tabs or spaces
-     #+begin_src elisp
-       (use-package tos
-         :ensure nil
-         :quelpa
-         (tos :repo "pkulev/tos.el"
-              :fetcher github :upgrade t))
-     #+end_src
+    #+begin_src elisp
+      (use-package tos
+        :ensure nil
+        :quelpa
+        (tos :repo "pkulev/tos.el"
+             :fetcher github :upgrade t))
+    #+end_src
 
-     #+begin_src elisp
-       (use-package infer-indentation-style
-         :ensure nil
-         :after tos
-         :preface
-         (defun infer-indentation-style-js ()
-           "Sets proper values depending on buffer indentation mode."
-           (when (tos-buffer-tabs?)
-               (setq indent-tabs-mode t)))
+    #+begin_src elisp
+      (use-package infer-indentation-style
+        :ensure nil
+        :after tos
+        :preface
+        (defun infer-indentation-style-js ()
+          "Sets proper values depending on buffer indentation mode."
+          (when (tos-buffer-tabs?)
+              (setq indent-tabs-mode t)))
 
-         (defun infer-indentation-style-python ()
-           "Sets proper values depending on buffer indentation mode."
-           (if (tos-buffer-tabs?)
-               (setq indent-tabs-mode t
-                     python-indent-offset 4
-                     tab-width 4)))
-         (provide 'infer-indentation-style))
-     #+end_src
+        (defun infer-indentation-style-python ()
+          "Sets proper values depending on buffer indentation mode."
+          (if (tos-buffer-tabs?)
+              (setq indent-tabs-mode t
+                    python-indent-offset 4
+                    tab-width 4)))
+        (provide 'infer-indentation-style))
+    #+end_src
 
 * Help & manuals
 ** Better help
@@ -155,7 +157,7 @@
    #+begin_src elisp
      (use-package free-keys
        :ensure t)
-    #+end_src
+   #+end_src
 ** Which key
    #+begin_src elisp
      (use-package which-key
@@ -171,66 +173,66 @@
       :ensure nil
       :custom
       (custom-file "~/.emacs.d/custom-file.el"))
-   #+end_src
+  #+end_src
 
-   Host-specific private source of data
-   #+begin_src elisp
-     (use-package my/private-el
-       :ensure nil
-       :preface
-       (defun my/private-el-load ()
-         (load "~/.emacs.d/private.el" 'noerror))
-       (provide 'my/private-el)
-       :init
-       (my/private-el-load))
-   #+end_src
+  Host-specific private source of data
+  #+begin_src elisp
+    (use-package my/private-el
+      :ensure nil
+      :preface
+      (defun my/private-el-load ()
+        (load "~/.emacs.d/private.el" 'noerror))
+      (provide 'my/private-el)
+      :init
+      (my/private-el-load))
+  #+end_src
 
 * GUI Components / Appearance
 
 ** Emacs variables that defined in C source code
-  #+begin_src elisp
-    (use-package emacs
-      :ensure nil
-      :init
-      (put 'narrow-to-page 'disabled nil)
-      (put 'narrow-to-region 'disabled nil)
-      (put 'downcase-region 'disabled nil)
-      :hook
-      ;; I want to see trailing spaces
-      (prog-mode . (lambda () (setq show-trailing-whitespace t)))
-      :custom
-      (use-dialog-box nil "Dialogs via minibuffer only.")
-      (tool-bar-mode nil "Disable toolbar.")
-      (menu-bar-mode nil "Disable menubar.")
-      (scroll-bar-mode nil "Disable scrollbar.")
-      (blink-cursor-mode nil "Disable cursor blinking.")
-      (scroll-step 1 "Scroll line by line.")
-      (scroll-margin 4 "Top and bottom scrolling margin.")
-      (scroll-conservatively 101 "If >100 then never recenter point.")
-      (inhibit-splash-screen t "Don't show the splash screen.")
-      (initial-scratch-message nil "Disable initial scratch message.")
+   #+begin_src elisp
+     (use-package emacs
+       :ensure nil
+       :init
+       (put 'narrow-to-page 'disabled nil)
+       (put 'narrow-to-region 'disabled nil)
+       (put 'downcase-region 'disabled nil)
+       :hook
+       ;; I want to see trailing spaces
+       (prog-mode . (lambda () (setq show-trailing-whitespace t)))
+       :custom
+       (use-dialog-box nil "Dialogs via minibuffer only.")
+       (tool-bar-mode nil "Disable toolbar.")
+       (menu-bar-mode nil "Disable menubar.")
+       (scroll-bar-mode nil "Disable scrollbar.")
+       (blink-cursor-mode nil "Disable cursor blinking.")
+       (scroll-step 1 "Scroll line by line.")
+       (scroll-margin 4 "Top and bottom scrolling margin.")
+       (scroll-conservatively 101 "If >100 then never recenter point.")
+       (inhibit-splash-screen t "Don't show the splash screen.")
+       (initial-scratch-message nil "Disable initial scratch message.")
 
-      (indicate-empty-lines t "Visually indicate empty lines.")
-      (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
-      (indent-tabs-mode nil "Tabs are evil.")
-      (tab-width 4 "Sane default for me."))
-  #+end_src
+       (indicate-empty-lines t "Visually indicate empty lines.")
+       (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
+       (indent-tabs-mode nil "Tabs are evil.")
+       (tab-width 4 "Sane default for me."))
+   #+end_src
 
 ** Emacs C source code
    I quite often jump into C code from describe-* buffers.
-    #+begin_src elisp
-      (use-package find-func
-        :ensure nil
-        :custom
-        (find-function-C-source-directory (expand-file-name "~/proj/emacs") "Emacs sources."))
-    #+end_src
+   #+begin_src elisp
+     (use-package find-func
+       :ensure nil
+       :custom
+       (find-function-C-source-directory (expand-file-name "~/proj/emacs") "Emacs sources."))
+   #+end_src
 
 ** Autorevert
-    #+begin_src elisp
-    (use-package autorevert
-      :ensure nil
-      :delight auto-revert-mode)
-    #+end_src
+   #+begin_src elisp
+     (use-package autorevert
+       :ensure nil
+       :delight auto-revert-mode)
+   #+end_src
 
 ** Frame
    Disable suspending (C-z), it's annoing and doesn't work properly with WSL.
@@ -410,18 +412,18 @@
        :ensure nil
        :custom
        (display-time-mode nil "Don't display time at modeline."))
-  #+end_src
+   #+end_src
 
-  #+begin_src elisp
+   #+begin_src elisp
      (use-package nyan-mode
        :ensure t
        :custom
        (nyan-bar-length 16)
        :config
        (nyan-mode))
-  #+end_src
+   #+end_src
 
-  #+begin_src elisp
+   #+begin_src elisp
      (use-package highlight-indent-guides
        :ensure t
        :defer t
@@ -535,7 +537,7 @@
          ("p" . copy-as-format-pod)
          ("r" . copy-as-format-rst)
          ("s" . copy-as-format-slack)))
-     #+end_src
+    #+end_src
 
 *** Links
     #+begin_src elisp
@@ -756,32 +758,32 @@
     #+end_src
 
 
-   #+begin_src elisp
-     (use-package compile
-       :ensure nil
-       :bind ([f5] . recompile))
-   #+end_src
+    #+begin_src elisp
+      (use-package compile
+        :ensure nil
+        :bind ([f5] . recompile))
+    #+end_src
 
-   #+begin_src elisp
-     (use-package ispell
-       :ensure nil)
-   #+end_src
+    #+begin_src elisp
+      (use-package ispell
+        :ensure nil)
+    #+end_src
 
-   #+begin_src elisp
-     (use-package smart-comment
-       :ensure t
-       :bind ("M-;" . smart-comment))
-   #+end_src
+    #+begin_src elisp
+      (use-package smart-comment
+        :ensure t
+        :bind ("M-;" . smart-comment))
+    #+end_src
 
-   #+begin_src elisp
-     (use-package fixmee
-       :ensure t
-       :delight
-       (button-lock-mode)
-       (fixmee-mode)
-       :hook (prog-mode . global-fixmee-mode)
-       :init (require 'button-lock))
-   #+end_src
+    #+begin_src elisp
+      (use-package fixmee
+        :ensure t
+        :delight
+        (button-lock-mode)
+        (fixmee-mode)
+        :hook (prog-mode . global-fixmee-mode)
+        :init (require 'button-lock))
+    #+end_src
 
 *** .env projectile integration
     #+begin_src elisp
@@ -851,62 +853,62 @@
    #+end_src
 
 *** Emacs Lisp
-     #+begin_src elisp
-       (use-package elisp-mode
-         :ensure nil
-         :delight "elisp")
-     #+end_src
+    #+begin_src elisp
+      (use-package elisp-mode
+        :ensure nil
+        :delight "elisp")
+    #+end_src
 
 *** Common Lisp
-     #+begin_src elisp
-       (use-package lisp-mode
-         :disabled
-         :ensure nil
-         :after flycheck
-         :hook ((lisp-mode . (lambda () (setq flycheck-enabled-checkers '(sblint)))))
-         :config
-         (flycheck-define-checker sblint
-           "A Common Lisp checker using `sblint'."
-           ;; :command ("sblint" source)
-           :command ("echo ok" source)
-           :error-patterns
-           ((error line-start (file-name) ":" line ": error: " (message) line-end))
-           :modes lisp-mode)
-         (add-to-list 'flycheck-checkers 'sblint))
+    #+begin_src elisp
+      (use-package lisp-mode
+        :disabled
+        :ensure nil
+        :after flycheck
+        :hook ((lisp-mode . (lambda () (setq flycheck-enabled-checkers '(sblint)))))
+        :config
+        (flycheck-define-checker sblint
+          "A Common Lisp checker using `sblint'."
+          ;; :command ("sblint" source)
+          :command ("echo ok" source)
+          :error-patterns
+          ((error line-start (file-name) ":" line ": error: " (message) line-end))
+          :modes lisp-mode)
+        (add-to-list 'flycheck-checkers 'sblint))
 
-       (use-package slime
-         :disabled
-         :ensure t
-         :commands (slime)
-         :requires slime-autoloads
-         :custom
-         (inferior-lisp-program (sbcl-bin))
-         (slime-contribs '(slime-fancy slime-asdf slime-indentation)))
+      (use-package slime
+        :disabled
+        :ensure t
+        :commands (slime)
+        :requires slime-autoloads
+        :custom
+        (inferior-lisp-program (sbcl-bin))
+        (slime-contribs '(slime-fancy slime-asdf slime-indentation)))
 
-       (use-package sly-asdf
-         :ensure t
-         :defer t)
+      (use-package sly-asdf
+        :ensure t
+        :defer t)
 
-       (use-package sly-quicklisp
-         :ensure t
-         :defer t)
+      (use-package sly-quicklisp
+        :ensure t
+        :defer t)
 
-       (use-package sly
-         :ensure t
-         :defer t
-         :after (sly-asdf sly-quicklisp)
-         :custom
-         (inferior-lisp-program (sbcl-bin)))
-       ;;  (sly-contribs '(sly-asdf sly-quicklisp)))
+      (use-package sly
+        :ensure t
+        :defer t
+        :after (sly-asdf sly-quicklisp)
+        :custom
+        (inferior-lisp-program (sbcl-bin)))
+      ;;  (sly-contribs '(sly-asdf sly-quicklisp)))
 
-       ;; TODO:
-       (use-package slime-company
-         :disabled
-         :ensure t
-         :after slime
-         :config
-         (slime-setup '(slime-company)))
-     #+end_src
+      ;; TODO:
+      (use-package slime-company
+        :disabled
+        :ensure t
+        :after slime
+        :config
+        (slime-setup '(slime-company)))
+    #+end_src
 *** Scheme
     #+begin_src elisp
       (use-package geiser
@@ -1008,12 +1010,12 @@
     #+end_src
 ** Web
 *** JS
-     #+begin_src elisp
-       (use-package js
-         :ensure nil
-         :config
-         :hook (js-mode . infer-indentation-style-js))
-     #+end_src
+    #+begin_src elisp
+      (use-package js
+        :ensure nil
+        :config
+        :hook (js-mode . infer-indentation-style-js))
+    #+end_src
 
 *** HTML
     #+begin_src elisp
