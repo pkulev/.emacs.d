@@ -221,6 +221,7 @@
 
 (use-package zerodark-theme
   :ensure t
+  :after flycheck  ; TODO: make PR for fixing this
   :config
   (load-theme 'zerodark 'noconfirm)
   (zerodark-setup-modeline-format))
