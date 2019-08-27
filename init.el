@@ -750,6 +750,21 @@
   (add-to-list 'forge-alist
                (append 'my/private-forges forge-github-repository)))
 
+(use-package bookmark
+  :ensure nil
+  :config
+  (when (f-exists? bookmark-default-file)
+    (bookmark-load bookmark-default-file t))
+  :custom
+  (bookmark-save-flag t)
+  (bookmark-default-file (f-join user-emacs-directory "bookmarks")))
+
+(use-package bm
+  :ensure t
+  :bind (("<C-f2>" . bm-toggle)
+         ("<f2>"   . bm-next)
+         ("<S-f2>" . bm-previous)))
+
 (use-package telega
   :ensure nil
   :quelpa

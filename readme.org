@@ -1097,18 +1097,17 @@
        (add-to-list 'forge-alist
                     (append 'my/private-forges forge-github-repository)))
    #+end_src
-* COMMENT Bookmarks
+* Bookmarks
   #+begin_src elisp
     (use-package bookmark
       :ensure nil
       :config
-      (awhen (file-present? (bookmarks-file))
-        (bookmark-load it t))
+      (when (f-exists? bookmark-default-file)
+        (bookmark-load bookmark-default-file t))
       :custom
       (bookmark-save-flag t)
-      (bookmark-default-file (bookmarks-file)))
+      (bookmark-default-file (f-join user-emacs-directory "bookmarks")))
 
-    ;; TODO:
     (use-package bm
       :ensure t
       :bind (("<C-f2>" . bm-toggle)
