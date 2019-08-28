@@ -1,6 +1,101 @@
 #+TITLE: Emacs configuration
 #+PROPERTY: header-args:elisp :tangle "init.el"
 
+* About
+  This is my emacs configuration, built with powers of =use-package= and =org-mode=.
+  =use-package= allows declarative description of packages and it's settings, =org-mode=
+  allows to represent this configuration as document and generate config from it.
+
+** Usage
+   Just clone repository to =~/.emacs.d= and run emacs.
+   #+begin_src bash
+     $ git clone git@github.com:pkulev/.emacs.d.git
+     $ emacs
+   #+end_src
+
+** Where it works
+   Here the list of distributions and environments i've tested my configuration deployment.
+   - Fedora 28,29,30 :: works
+   - Centos 7 :: works
+   - Ubuntu 16 (WSL) :: works, bun still have some issues with installing system packages
+     (different names)
+   - Termux :: doesn't work yet
+   - Gentoo :: will test soon
+
+** Table of Contents                                                    :TOC:
+- [[#about][About]]
+  - [[#usage][Usage]]
+  - [[#where-it-works][Where it works]]
+- [[#package-management][Package management]]
+  - [[#repositories][Repositories]]
+  - [[#use-package][=use-package=]]
+  - [[#system-package-management][System package management]]
+  - [[#installation-from-sources][Installation from sources]]
+  - [[#improvements-for-packageel][Improvements for =package.el=]]
+  - [[#temporarily-package-installation][Temporarily package installation]]
+  - [[#additional-packages][Additional packages]]
+- [[#help--manuals][Help & manuals]]
+  - [[#better-help][Better help]]
+  - [[#free-keys][Free keys]]
+  - [[#which-key][Which key]]
+- [[#customize][Customize]]
+- [[#gui-components--appearance][GUI Components / Appearance]]
+  - [[#emacs-variables-that-defined-in-c-source-code][Emacs variables that defined in C source code]]
+  - [[#emacs-c-source-code][Emacs C source code]]
+  - [[#autorevert][Autorevert]]
+  - [[#frame][Frame]]
+  - [[#simple][Simple]]
+  - [[#highlight-matching-parens][Highlight matching parens]]
+  - [[#fonts--faces][Fonts & faces]]
+  - [[#line-length-indication][Line length indication]]
+  - [[#theme][Theme]]
+  - [[#icons][Icons]]
+  - [[#whistles][Whistles]]
+- [[#buffer-management][Buffer management]]
+  - [[#ibuffer][ibuffer]]
+  - [[#ace-window][ace-window]]
+- [[#dired][Dired]]
+- [[#navigation][Navigation]]
+  - [[#imenu-jumps][Imenu jumps]]
+  - [[#avy][Avy]]
+- [[#editing][Editing]]
+  - [[#delete-selection][Delete selection]]
+  - [[#multiple-cursors][Multiple cursors]]
+  - [[#copy--paste-things][Copy & Paste things]]
+- [[#shell-tools][Shell tools]]
+- [[#path][Path]]
+  - [[#syncing-path][Syncing PATH]]
+  - [[#autosaves][Autosaves]]
+  - [[#quick-emacs-configuration-file-access][Quick emacs configuration file access]]
+- [[#autocomplete][Autocomplete]]
+  - [[#company][Company]]
+  - [[#counsel][Counsel]]
+  - [[#swiper][Swiper]]
+  - [[#ivy][Ivy]]
+- [[#containers-and-remote-servers][Containers and remote servers]]
+  - [[#tramp][Tramp]]
+  - [[#docker][Docker]]
+- [[#programming-modes][Programming modes]]
+  - [[#common][Common]]
+  - [[#projectile][Projectile]]
+  - [[#lisp][Lisp]]
+  - [[#python][Python]]
+  - [[#web][Web]]
+  - [[#nim][Nim]]
+  - [[#ocaml][Ocaml]]
+  - [[#rust][Rust]]
+- [[#git-things][Git things]]
+  - [[#magit][Magit]]
+  - [[#git-forges][Git forges]]
+- [[#bookmarks][Bookmarks]]
+- [[#email--messengers][Email & Messengers]]
+- [[#productivity--task-management][Productivity & task management]]
+  - [[#org-mode][Org mode]]
+  - [[#productivity][Productivity]]
+  - [[#calendar][Calendar]]
+  - [[#corporative-services][Corporative services]]
+- [[#local-variables][Local variables]]
+
 * Package management
   Initial bootstrapping and things related to package management.
 
