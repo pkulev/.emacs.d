@@ -585,6 +585,14 @@
   :hook ((emacs-lisp-mode . parinfer-mode)
          (common-lisp-mode . parinfer-mode)))
 
+(use-package macrostep
+  :ensure t
+  :bind
+  (:map emacs-lisp-mode-map
+        ("C-x m e" . #'macrostep-expand)
+        ("C-x m c" . #'macrostep-collapse)
+        ("C-x m m" . #'macrostep-mode)))
+
 (use-package elisp-mode
   :ensure nil
   :delight "elisp")
