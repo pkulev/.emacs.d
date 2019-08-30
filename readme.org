@@ -1249,6 +1249,7 @@
 * Email & Messengers
   #+begin_src elisp
     (use-package telega
+      :if (> emacs-major-version 25)
       :ensure nil
       :quelpa
       (telega :repo "zevlg/telega.el"

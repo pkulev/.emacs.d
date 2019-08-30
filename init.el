@@ -775,6 +775,7 @@
          ("<S-f2>" . bm-previous)))
 
 (use-package telega
+  :if (> emacs-major-version 25)
   :ensure nil
   :quelpa
   (telega :repo "zevlg/telega.el"
