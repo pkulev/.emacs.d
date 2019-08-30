@@ -898,6 +898,11 @@
   :hook
   (org-mode . org-bullets-mode))
 
+(use-package toc-org
+  :ensure t
+  :hook
+  (org-mode-hook . toc-org-mode))
+
 (use-package ob-mongo
   :ensure t)
 
