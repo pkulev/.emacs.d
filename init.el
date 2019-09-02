@@ -562,21 +562,6 @@
   :custom
   (projectile-completion-system 'ivy)
   :config
-  (eval-when-compile
-    (require 'projectile))
-
-  (projectile-register-project-type
-   'python-c2 '("gear")
-   :compile "c2-koji"
-   :test "make docker-check 2>&1 < /dev/null"
-   :run "make docker"
-   :test-suffix "test_"
-   :test-dir "tests")
-
-  (add-to-list 'projectile-after-switch-project-hook
-               #'(lambda ()
-                   (message "Done.")))
-
   (projectile-mode))
 
 (use-package parinfer
