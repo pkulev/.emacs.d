@@ -416,6 +416,9 @@
   :config
   (add-to-list 'company-backends 'company-shell))
 
+(use-package ag
+  :ensure t)
+
 (use-package counsel
   :ensure t
   :delight
@@ -428,7 +431,7 @@
 
 (use-package counsel-projectile
   :ensure t
-  :after counsel projectile
+  :after ag counsel projectile
   :bind
   ("C-c p s" . counsel-projectile-ag)
   :config

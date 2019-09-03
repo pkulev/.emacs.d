@@ -768,6 +768,12 @@
    #+end_src
 
 ** Counsel
+   The silver searcher (ag) is the faster alternative for =grep=.
+   #+begin_src elisp
+     (use-package ag
+       :ensure t)
+   #+end_src
+
    #+begin_src elisp
      (use-package counsel
        :ensure t
@@ -783,7 +789,7 @@
    #+begin_src elisp
      (use-package counsel-projectile
        :ensure t
-       :after counsel projectile
+       :after ag counsel projectile
        :bind
        ("C-c p s" . counsel-projectile-ag)
        :config
