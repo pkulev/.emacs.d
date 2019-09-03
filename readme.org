@@ -125,6 +125,12 @@
 
 ** Repositories
    Set emacs package repositories.
+
+   Temporary hack for GNU repository.
+   #+begin_src elisp
+     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+   #+end_src
+
    #+begin_src elisp
      (require 'package)
      (setq package-enable-at-startup nil)
