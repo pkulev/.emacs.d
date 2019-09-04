@@ -377,6 +377,10 @@
     (interactive)
     (find-file (concat user-emacs-directory "init.el")))
 
+  (defun my-config-open-readme ()
+    (interactive)
+    (find-file (concat user-emacs-directory "readme.org")))
+
   (defun my-config-eval ()
     (interactive)
     (load-file (concat user-emacs-directory "init.el")))
@@ -391,6 +395,7 @@
   :bind
   (:map mode-specific-map
         ("e o" . #'my-config-open)
+        ("e r" . #'my-config-open-readme)
         ("e e" . #'my-config-eval)
         ("e s" . #'my-config-open-and-search)))
 
