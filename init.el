@@ -369,7 +369,7 @@
   (auto-save-file-name-transforms
    `((".*" ,(concat user-emacs-directory "autosaves/") t))))
 
-(use-package my-config-mode
+(use-package my-config
   :ensure nil
   :after counsel
   :preface
@@ -386,7 +386,7 @@
     (my-config-open)
     (counsel-grep-or-swiper))
 
-  (provide 'my-config-mode)
+  (provide 'my-config)
 
   :bind
   (:map mode-specific-map

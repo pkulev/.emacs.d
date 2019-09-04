@@ -712,7 +712,7 @@
 
 ** Quick emacs configuration file access
    #+begin_src elisp
-     (use-package my-config-mode
+     (use-package my-config
        :ensure nil
        :after counsel
        :preface
@@ -729,7 +729,7 @@
          (my-config-open)
          (counsel-grep-or-swiper))
 
-       (provide 'my-config-mode)
+       (provide 'my-config)
 
        :bind
        (:map mode-specific-map
