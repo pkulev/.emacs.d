@@ -343,8 +343,10 @@
 (use-package link-hint
   :ensure t
   :bind
-  (("C-x M-l o" . link-hint-open-link)
-   ("C-c M-l c" . link-hint-copy-link)))
+  (:map ctl-x-map
+        ("M-l c" . link-hint-copy-link)
+        ("M-l o" . link-hint-open-link)
+        ("M-l p" . link-hint-open-link-at-point)))
 
 (use-package shell
   :ensure nil
