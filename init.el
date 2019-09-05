@@ -443,7 +443,8 @@
   :defer nil
   :bind (([remap menu-bar-open] . counsel-tmm)
          ([remap insert-char] . counsel-unicode-char)
-         ([remap isearch-forward] . counsel-grep-or-swiper))
+         ([remap isearch-forward] . counsel-grep-or-swiper)
+         ([remap isearch-backward] . counsel-grep-or-swiper))
   :config
   (counsel-mode))
 
@@ -486,7 +487,8 @@
   :custom-face
   (ivy-current-match ((t (:inherit 'hl-line))))
   :bind
-  (:map mode-specific-map ("C-r" . ivy-resume))
+  (:map ivy-minibuffer-map
+        ("C-r" . ivy-previous-line-or-history))
   :config
   (ivy-mode t))
 
