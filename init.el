@@ -284,14 +284,25 @@
   :ensure nil
   :bind ([remap list-directory] . dired)
   :custom
-  (dired-recursive-deletes 'top))
+  (dired-recursive-deletes 'top "Confirm deletion for all top non-empty directories.")
+  (dired-dwim-target t "Try to guess target for actions."))
 
 (use-package dired-x
   :ensure nil)
 
-;; TODO
 (use-package dired-subtree
-  :ensure t)
+  :ensure t
+  :after dired
+  :bind
+  (:map dired-mode-map
+        ([?\t] . dired-subtree-toggle)))
+
+(use-package image-dired
+  :ensure nil)
+
+(use-package image-dired+
+  :ensure t
+  :after image-dired)
 
 (use-package imenu
   :ensure nil

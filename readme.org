@@ -585,19 +585,40 @@
    #+end_src
 
 * Dired
+  Dired is very powerful file manager with tons of extensions.
+
   #+begin_src elisp
     (use-package dired
       :ensure nil
       :bind ([remap list-directory] . dired)
       :custom
-      (dired-recursive-deletes 'top))
+      (dired-recursive-deletes 'top "Confirm deletion for all top non-empty directories.")
+      (dired-dwim-target t "Try to guess target for actions."))
+  #+end_src
 
+  Extra dired things.
+  #+begin_src elisp
     (use-package dired-x
       :ensure nil)
+  #+end_src
 
-    ;; TODO
+  #+begin_src elisp
     (use-package dired-subtree
-      :ensure t)
+      :ensure t
+      :after dired
+      :bind
+      (:map dired-mode-map
+            ([?\t] . dired-subtree-toggle)))
+  #+end_src
+
+  Image preview support for dired.
+  #+begin_src elisp
+    (use-package image-dired
+      :ensure nil)
+
+    (use-package image-dired+
+      :ensure t
+      :after image-dired)
   #+end_src
 
 * Navigation
