@@ -527,6 +527,12 @@
   :ensure t
   :defer t)
 
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-reload-all)
+  (yas-minor-mode))
+
 (use-package flycheck
   :ensure t
   :delight

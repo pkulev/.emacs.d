@@ -89,6 +89,7 @@
   - [[#docker][Docker]]
 - [[#programming-modes][Programming modes]]
   - [[#common][Common]]
+    - [[#snippets][Snippets]]
     - [[#syntax-checking-and-linting][Syntax checking and linting]]
     - [[#env-projectile-integration][.env projectile integration]]
   - [[#projectile][Projectile]]
@@ -912,6 +913,15 @@
    #+end_src
 * Programming modes
 ** Common
+*** Snippets
+    #+begin_src elisp
+      (use-package yasnippet
+        :ensure t
+        :config
+        (yas-reload-all)
+        (yas-minor-mode))
+    #+end_src
+
 *** Syntax checking and linting
     #+begin_src elisp
       (use-package flycheck
