@@ -75,6 +75,9 @@
     - [[#copy-as-format][Copy as format]]
     - [[#links][Links]]
 - [[#shell-tools][Shell tools]]
+  - [[#eshell-appearance][Eshell appearance]]
+  - [[#eshell-completion-and-suggestion][Eshell completion and suggestion]]
+  - [[#quickly-open-eshell-or-something-else-in-project][Quickly open eshell (or something else) in project]]
 - [[#path][Path]]
   - [[#syncing-path][Syncing PATH]]
   - [[#autosaves][Autosaves]]
@@ -708,10 +711,55 @@
       (explicit-shell-file-name (executable-find "zsh") "Default inferior shell."))
   #+end_src
 
+** Eshell appearance
+  Show command execution status at fringe.
   #+begin_src elisp
-    (use-package shell-pop
+    (use-package eshell-fringe-status
       :ensure t
-      :bind (("C-`" . shell-pop)))
+      :hook
+      (eshell-mode . eshell-fringe-status-mode))
+  #+end_src
+
+  Prompt customization.
+  #+begin_src elisp
+    (use-package eshell-prompt-extras
+      :ensure t
+      :custom
+      (eshell-prompt-function #'epe-theme-lambda))
+  #+end_src
+
+** Eshell completion and suggestion
+   #+begin_src elisp
+     (use-package esh-autosuggest
+       :ensure t
+       :hook
+       (eshell-mode . esh-autosuggest-mode))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package esh-help
+       :ensure t
+       :defer t
+       :config
+       (setup-esh-help-eldoc))
+   #+end_src
+
+   Eshell =z= port.
+   #+begin_src elisp
+     (use-package eshell-z
+       :ensure t
+       :after eshell)
+   #+end_src
+
+** Quickly open eshell (or something else) in project
+  #+begin_src elisp
+    (use-package eshell-toggle
+      :ensure t
+      :bind
+      ("M-`" . eshell-toggle)
+      :custom
+      (eshell-toggle-use-projectile-root t)
+      (eshell-toggle-run-command "ls"))
   #+end_src
 
 * Path
@@ -929,7 +977,6 @@
         :delight
         :init (global-flycheck-mode))
     #+end_src
-
 
     #+begin_src elisp
       (use-package compile

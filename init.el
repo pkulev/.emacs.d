@@ -365,9 +365,38 @@
   :custom
   (explicit-shell-file-name (executable-find "zsh") "Default inferior shell."))
 
-(use-package shell-pop
+(use-package eshell-fringe-status
   :ensure t
-  :bind (("C-`" . shell-pop)))
+  :hook
+  (eshell-mode . eshell-fringe-status-mode))
+
+(use-package eshell-prompt-extras
+  :ensure t
+  :custom
+  (eshell-prompt-function #'epe-theme-lambda))
+
+(use-package esh-autosuggest
+  :ensure t
+  :hook
+  (eshell-mode . esh-autosuggest-mode))
+
+(use-package esh-help
+  :ensure t
+  :defer t
+  :config
+  (setup-esh-help-eldoc))
+
+(use-package eshell-z
+  :ensure t
+  :after eshell)
+
+(use-package eshell-toggle
+  :ensure t
+  :bind
+  ("M-`" . eshell-toggle)
+  :custom
+  (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-run-command "ls"))
 
 (use-package exec-path-from-shell
   :ensure t
