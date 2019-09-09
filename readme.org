@@ -14,13 +14,19 @@
    #+end_src
 
 ** Where it works
-   Here the list of distributions and environments i've tested my configuration deployment.
-   - Fedora 28,29,30 :: works
-   - Centos 7 :: works
-   - Ubuntu 16 (WSL) :: works, bun still have some issues with installing system packages
-     (different names)
-   - Termux :: doesn't work yet
-   - Gentoo :: will test soon
+   Here the matrix of distributions and environments i've tested my configuration deployment.
+
+   |---------------+------------------------------------+----------------------------|
+   | Emacs/Dist    | Emacs 26.2                         | Remacs 26.2                |
+   |---------------+------------------------------------+----------------------------|
+   | Fedora 29     | works                              | works (but expect freezes) |
+   | Fedora 30     | works                              | works (but expect freezes) |
+   | Centos 7      | works                              | not tested                 |
+   | Gentoo        | works, but need to fix system deps | not tested                 |
+   | Ubuntu 16 WSL | works, but need to fix system deps | not tested                 |
+   | Gentoo        |                                    | not tested                 |
+   | Termux        | doesn't work                       | not supported?             |
+   |---------------+------------------------------------+----------------------------|
 
 ** Table of Contents                                                    :TOC@3:
 - [[#about][About]]
