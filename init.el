@@ -624,6 +624,12 @@
   :config
   (projectile-mode))
 
+(use-package sloc
+  :ensure nil
+  :quelpa
+  (sloc :repo "leoliu/sloc.el"
+        :fetcher github :upgrade t))
+
 (use-package parinfer
   :ensure t
   :delight '(:eval (concat " p:" (symbol-name (parinfer-current-mode))))

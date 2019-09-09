@@ -1032,21 +1032,32 @@
 
         (add-to-list 'projectile-after-switch-project-hook #'dotenv-projectile-hook))
     #+end_src
-** Projectile
-   #+begin_src elisp
-     ;; TODO: c2 projectile integration
-     (use-package projectile
-       :ensure t
-       :ensure-system-package (ag . the_silver_searcher)
-       :defer nil
-       :bind
-       (:map mode-specific-map ("p" . projectile-command-map))
-       :delight '(:eval (concat " [" (projectile-project-name) "]"))
-       :custom
-       (projectile-completion-system 'ivy)
-       :config
-       (projectile-mode))
-   #+end_src
+
+*** Projectile
+    #+begin_src elisp
+      ;; TODO: c2 projectile integration
+      (use-package projectile
+        :ensure t
+        :ensure-system-package (ag . the_silver_searcher)
+        :defer nil
+        :bind
+        (:map mode-specific-map ("p" . projectile-command-map))
+        :delight '(:eval (concat " [" (projectile-project-name) "]"))
+        :custom
+        (projectile-completion-system 'ivy)
+        :config
+        (projectile-mode))
+    #+end_src
+
+*** Metrics
+    SLOC counting.
+    #+begin_src elisp
+      (use-package sloc
+        :ensure nil
+        :quelpa
+        (sloc :repo "leoliu/sloc.el"
+              :fetcher github :upgrade t))
+    #+end_src
 
 ** Lisp
    #+begin_src elisp
