@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t -*-
+;; This file was tangled (automatically generated) from `readme.org'
+
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (require 'package)

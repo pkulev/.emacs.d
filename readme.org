@@ -133,6 +133,11 @@
 * Package management
   Initial bootstrapping and things related to package management.
 
+  #+begin_src elisp
+    ;; -*- lexical-binding: t -*-
+    ;; This file was tangled (automatically generated) from `readme.org'
+  #+end_src
+
 ** Repositories
    Set emacs package repositories.
 
