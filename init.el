@@ -228,8 +228,8 @@
   :ensure t
   :after flycheck  ; TODO: make PR for fixing this
   :config
-  (load-theme 'zerodark 'noconfirm)
-  (zerodark-setup-modeline-format))
+  (load-theme 'zerodark 'noconfirm))
+  ;;(zerodark-setup-modeline-format))
 
 (use-package all-the-icons
   :ensure t
@@ -259,10 +259,12 @@
 
 (use-package nyan-mode
   :ensure t
+  :after zerodark-mode
   :custom
   (nyan-bar-length 16)
   :config
-  (nyan-mode))
+  (nyan-mode)
+  (zerodark-modeline-setup-format))
 
 (use-package highlight-indent-guides
   :ensure t
