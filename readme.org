@@ -994,6 +994,9 @@
       (use-package flycheck
         :ensure t
         :delight
+        :custom
+        (flycheck-clang-language-standard "c++17")
+        (flycheck-cppcheck-standards '("c++17"))
         :init (global-flycheck-mode))
     #+end_src
 
@@ -1077,6 +1080,17 @@
         (sloc :repo "leoliu/sloc.el"
               :fetcher github :upgrade t))
     #+end_src
+
+** C/C++
+   #+begin_src elisp
+     (use-package cc-vars
+       :ensure nil
+       :hook
+       (c-mode-hook . (lambda () (c-set-style "k&r")))
+       (c++-mode-hook . (lambda () (c-set-style "k&r")))
+       :custom
+       (c-basic-offset 4))
+   #+end_src
 
 ** Lisp
    #+begin_src elisp

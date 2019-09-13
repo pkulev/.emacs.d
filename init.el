@@ -576,6 +576,9 @@
 (use-package flycheck
   :ensure t
   :delight
+  :custom
+  (flycheck-clang-language-standard "c++17")
+  (flycheck-cppcheck-standards '("c++17"))
   :init (global-flycheck-mode))
 
 (use-package compile
@@ -640,6 +643,14 @@
   :quelpa
   (sloc :repo "leoliu/sloc.el"
         :fetcher github :upgrade t))
+
+(use-package cc-vars
+  :ensure nil
+  :hook
+  (c-mode-hook . (lambda () (c-set-style "k&r")))
+  (c++-mode-hook . (lambda () (c-set-style "k&r")))
+  :custom
+  (c-basic-offset 4))
 
 (use-package parinfer
   :ensure t
