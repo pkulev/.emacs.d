@@ -250,6 +250,8 @@
   :custom
   (all-the-icons-ivy-buffer-commands '() "Don't use for buffers.")
   :config
+  (unless (file-exists-p "~/.local/share/fonts/all-the-icons.ttf")
+    (all-the-icons-install-fonts t))
   (all-the-icons-ivy-setup))
 
 (use-package time
