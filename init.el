@@ -734,15 +734,16 @@
     (company-quickhelp-mode)
     (elpy-mode)
     (pyvenv-tracking-mode)
-    (setq flycheck-enabled-checkers '(python-pylint python-flake8)
-          flycheck-python-pylint-executable (expand-file-name "~/.local/bin/python3")
-          flycheck-python-flake8-executable (expand-file-name "~/.local/bin/flake8"))
+
+    (setq flycheck-enabled-checkers '(python-pylint)
+          flycheck-python-pylint-executable "pylint")
+
     (infer-indentation-style-python))
 
   :hook ((python-mode . elpy/my-python-mode-hook)
          (elpy-mode . flycheck-mode))
   :custom
-  (elpy-syntax-check-command "flake8")
+  (elpy-syntax-check-command "pylint")
   (elpy-rpc-python-command "python3")
   (elpy-modules '(elpy-module-sane-defaults
                   elpy-module-company
