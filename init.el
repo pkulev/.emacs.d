@@ -724,7 +724,7 @@
   :bind
   ("C-c i" . geiser-insert-lambda)
   :custom
-  ;; (geiser-guile-binary "guile2.2")
+  (geiser-guile-binary "guile2.2")
   (geiser-default-implementation 'guile))
 
 (use-package python
