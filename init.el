@@ -32,7 +32,11 @@
   :ensure t
   :custom
   (system-packages-noconfirm t)
-  (system-packages-use-sudo t))
+  (system-packages-use-sudo t)
+  :config
+  ;; Overwrite guix even if it installed
+  (when (string-match-p "redhat" system-configuration)
+    (setq system-packages-package-manager 'dnf)))
 
 (use-package use-package-ensure-system-package
   :ensure t)
@@ -724,6 +728,7 @@
 ;; TODO: install python modules
 (use-package elpy
   :ensure t
+  :ensure-system-package (pylint . python3-pylint)
   :delight
   (python-mode)
   (elpy-mode " py+")
