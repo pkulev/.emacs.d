@@ -80,6 +80,7 @@
   - [[#copy--paste-things][Copy & Paste things]]
     - [[#copy-as-format][Copy as format]]
     - [[#links][Links]]
+- [[#password-management][Password management]]
 - [[#shell-tools][Shell tools]]
   - [[#eshell-appearance][Eshell appearance]]
   - [[#eshell-completion-and-suggestion][Eshell completion and suggestion]]
@@ -194,8 +195,10 @@
        :ensure t
        :custom
        (system-packages-noconfirm t)
-       (system-packages-use-sudo t)
        :config
+       ;; Termux has no `sudo'
+       (when (executable-find "sudo")
+         (setq system-packages-use-sudo t))
        ;; Overwrite guix even if it installed
        (when (string-match-p "redhat" system-configuration)
          (setq system-packages-package-manager 'dnf)))
@@ -721,6 +724,12 @@
               ("M-l p" . link-hint-open-link-at-point)))
     #+end_src
 
+* Password management
+  Emacs interface for excellent [[https://www.passwordstore.org/][pass]] utility.
+  #+begin_src elisp
+    (use-package password-store
+      :ensure t)
+  #+end_src
 * Shell tools
   #+begin_src elisp
     (use-package shell

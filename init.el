@@ -32,8 +32,10 @@
   :ensure t
   :custom
   (system-packages-noconfirm t)
-  (system-packages-use-sudo t)
   :config
+  ;; Termux has no `sudo'
+  (when (executable-find "sudo")
+    (setq system-packages-use-sudo t))
   ;; Overwrite guix even if it installed
   (when (string-match-p "redhat" system-configuration)
     (setq system-packages-package-manager 'dnf)))
@@ -369,6 +371,9 @@
         ("M-l c" . link-hint-copy-link)
         ("M-l o" . link-hint-open-link)
         ("M-l p" . link-hint-open-link-at-point)))
+
+(use-package password-store
+  :ensure t)
 
 (use-package shell
   :ensure nil
