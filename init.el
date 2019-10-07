@@ -238,6 +238,7 @@
   ;;(zerodark-setup-modeline-format))
 
 (use-package all-the-icons
+  :if window-system
   :ensure t
   :defer t
   :config
@@ -246,11 +247,13 @@
           (package-menu-mode all-the-icons-octicon "package" :v-adjust 0.0))))
 
 (use-package all-the-icons-dired
+  :if window-system
   :ensure t
   :hook
   (dired-mode . all-the-icons-dired-mode))
 
 (use-package all-the-icons-ivy
+  :if window-system
   :ensure t
   :after ivy
   :custom
