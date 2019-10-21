@@ -48,6 +48,7 @@
   - [[#better-help][Better help]]
   - [[#free-keys][Free keys]]
   - [[#which-key][Which key]]
+  - [[#google-translate][Google translate]]
 - [[#customize][Customize]]
 - [[#gui-components--appearance][GUI Components / Appearance]]
   - [[#emacs-variables-that-defined-in-c-source-code][Emacs variables that defined in C source code]]
@@ -314,6 +315,21 @@
        (which-key-mode))
    #+end_src
 
+** Google translate
+   Translate in emacs! For example you can translate docstrings of messages from =telega.el=.
+   #+begin_src elisp
+     (use-package google-translate
+       :ensure t
+       :bind
+       (:map mode-specific-map
+             ("t p" . google-translate-at-point)
+             ("t P" . google-translate-at-point-reverse)
+             ("t t" . google-translate-query-translate)
+             ("t T" . google-translate-query-translate-reverse))
+       :custom
+       (google-translate-default-source-language "en")
+       (google-translate-default-target-language "ru"))
+   #+end_src
 * Customize
   #+begin_src elisp
     (use-package cus-edit

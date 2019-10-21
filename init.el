@@ -112,6 +112,18 @@
   :config
   (which-key-mode))
 
+(use-package google-translate
+  :ensure t
+  :bind
+  (:map mode-specific-map
+        ("t p" . google-translate-at-point)
+        ("t P" . google-translate-at-point-reverse)
+        ("t t" . google-translate-query-translate)
+        ("t T" . google-translate-query-translate-reverse))
+  :custom
+  (google-translate-default-source-language "en")
+  (google-translate-default-target-language "ru"))
+
 (use-package cus-edit
   :ensure nil
   :custom
