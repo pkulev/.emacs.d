@@ -403,7 +403,8 @@
      (use-package frame
        :ensure nil
        :bind
-       ("C-z" . nil))
+       ("C-z" . nil)
+       ("C-c C-z" . nil))
    #+end_src
 
 ** Simple

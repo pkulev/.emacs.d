@@ -176,7 +176,8 @@
 (use-package frame
   :ensure nil
   :bind
-  ("C-z" . nil))
+  ("C-z" . nil)
+  ("C-c C-z" . nil))
 
 (use-package simple
   :ensure nil
