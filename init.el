@@ -711,7 +711,7 @@
   :commands (slime)
   :requires slime-autoloads
   :custom
-  (inferior-lisp-program (sbcl-bin))
+  (inferior-lisp-program (executable-find "sbcl"))
   (slime-contribs '(slime-fancy slime-asdf slime-indentation)))
 
 (use-package sly-asdf
@@ -727,7 +727,7 @@
   :defer t
   :after (sly-asdf sly-quicklisp)
   :custom
-  (inferior-lisp-program (sbcl-bin)))
+  (inferior-lisp-program (executable-find "sbcl")))
 ;;  (sly-contribs '(sly-asdf sly-quicklisp)))
 
 ;; TODO:
