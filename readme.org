@@ -989,6 +989,14 @@
        :bind
        (:map mode-specific-map ("s s" . #'counsel-tramp)))
    #+end_src
+*** Save local files as root
+    #+begin_src elisp
+      (use-package sudo-edit
+        :ensure t
+        :bind
+        (:map ctl-x-map
+              ("M-s" . #'sudo-edit)))
+    #+end_src
 ** Docker
    #+begin_src elisp
      (use-package docker

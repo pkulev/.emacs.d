@@ -572,6 +572,12 @@
   :bind
   (:map mode-specific-map ("s s" . #'counsel-tramp)))
 
+(use-package sudo-edit
+  :ensure t
+  :bind
+  (:map ctl-x-map
+        ("M-s" . #'sudo-edit)))
+
 (use-package docker
   :ensure t
   :bind
