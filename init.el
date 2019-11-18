@@ -473,6 +473,9 @@
         ("e e" . #'my-config-eval)
         ("e s" . #'my-config-open-and-search)))
 
+(use-package smex
+  :ensure t)
+
 (use-package company
   :ensure t
   :delight

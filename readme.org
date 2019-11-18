@@ -91,12 +91,14 @@
   - [[#autosaves][Autosaves]]
   - [[#quick-emacs-configuration-file-access][Quick emacs configuration file access]]
 - [[#autocomplete][Autocomplete]]
+  - [[#smex][Smex]]
   - [[#company][Company]]
   - [[#counsel][Counsel]]
   - [[#swiper][Swiper]]
   - [[#ivy][Ivy]]
 - [[#containers-and-remote-servers][Containers and remote servers]]
   - [[#tramp][Tramp]]
+    - [[#save-local-files-as-root][Save local files as root]]
   - [[#docker][Docker]]
 - [[#programming-modes][Programming modes]]
   - [[#common][Common]]
@@ -864,6 +866,11 @@
              ("e s" . #'my-config-open-and-search)))
    #+end_src
 * Autocomplete
+** Smex
+   #+begin_src elisp
+     (use-package smex
+       :ensure t)
+   #+end_src
 ** Company
    #+begin_src elisp
      (use-package company
