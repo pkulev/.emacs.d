@@ -473,7 +473,7 @@
         ("e e" . #'my-config-eval)
         ("e s" . #'my-config-open-and-search)))
 
-(use-package smex
+(use-package prescient
   :ensure t)
 
 (use-package company
@@ -561,6 +561,12 @@
   :after ivy
   :config
   (ivy-rich-mode))
+
+(use-package ivy-prescient
+  :ensure t
+  :after ivy prescient
+  :config
+  (ivy-prescient-mode))
 
 (use-package tramp
   :ensure nil

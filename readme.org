@@ -91,7 +91,7 @@
   - [[#autosaves][Autosaves]]
   - [[#quick-emacs-configuration-file-access][Quick emacs configuration file access]]
 - [[#autocomplete][Autocomplete]]
-  - [[#smex][Smex]]
+  - [[#prescient][Prescient]]
   - [[#company][Company]]
   - [[#counsel][Counsel]]
   - [[#swiper][Swiper]]
@@ -866,11 +866,12 @@
              ("e s" . #'my-config-open-and-search)))
    #+end_src
 * Autocomplete
-** Smex
+** Prescient
    #+begin_src elisp
-     (use-package smex
+     (use-package prescient
        :ensure t)
    #+end_src
+
 ** Company
    #+begin_src elisp
      (use-package company
@@ -978,6 +979,14 @@
        :after ivy
        :config
        (ivy-rich-mode))
+   #+end_src
+
+   #+begin_src elisp
+     (use-package ivy-prescient
+       :ensure t
+       :after ivy prescient
+       :config
+       (ivy-prescient-mode))
    #+end_src
 
 * Containers and remote servers
