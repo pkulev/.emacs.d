@@ -685,6 +685,9 @@
   (sloc :repo "leoliu/sloc.el"
         :fetcher github :upgrade t))
 
+(use-package po-mode
+  :ensure t)
+
 (use-package cc-vars
   :ensure nil
   :hook

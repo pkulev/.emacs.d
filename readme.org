@@ -107,6 +107,7 @@
     - [[#syntax-checking-and-linting][Syntax checking and linting]]
     - [[#env-projectile-integration][.env projectile integration]]
   - [[#projectile][Projectile]]
+  - [[#translations][Translations]]
   - [[#lisp][Lisp]]
     - [[#emacs-lisp][Emacs Lisp]]
     - [[#common-lisp][Common Lisp]]
@@ -1142,6 +1143,12 @@
         (sloc :repo "leoliu/sloc.el"
               :fetcher github :upgrade t))
     #+end_src
+
+** Translations
+   #+begin_src elisp
+     (use-package po-mode
+       :ensure t)
+   #+end_src
 
 ** C/C++
    #+begin_src elisp
