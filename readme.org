@@ -73,6 +73,7 @@
   - [[#ace-window][ace-window]]
 - [[#dired][Dired]]
 - [[#navigation][Navigation]]
+  - [[#window-navigation][Window navigation]]
   - [[#imenu-jumps][Imenu jumps]]
   - [[#avy][Avy]]
 - [[#editing][Editing]]
@@ -670,6 +671,13 @@
   #+end_src
 
 * Navigation
+** Window navigation
+   #+begin_src elisp
+     (use-package window
+       :ensure nil
+       :bind ("M-o" . other-window))
+   #+end_src
+
 ** Imenu jumps
    #+begin_src elisp
      (use-package imenu

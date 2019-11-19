@@ -333,6 +333,10 @@
   :ensure t
   :after image-dired)
 
+(use-package window
+  :ensure nil
+  :bind ("M-o" . other-window))
+
 (use-package imenu
   :ensure nil
   :bind ("C-c C-j" . imenu)
