@@ -339,7 +339,8 @@
 
 (use-package imenu
   :ensure nil
-  :bind ("C-c C-j" . imenu)
+  :bind (("C-c C-j" . imenu)
+         ("M-i" . imenu))
   :custom
   (imenu-auto-rescan t)
   (imenu-use-popup-menu nil))
