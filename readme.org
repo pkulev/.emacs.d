@@ -74,6 +74,7 @@
 - [[#dired][Dired]]
 - [[#navigation][Navigation]]
   - [[#window-navigation][Window navigation]]
+  - [[#paragraph-movement][Paragraph movement]]
   - [[#imenu-jumps][Imenu jumps]]
   - [[#avy][Avy]]
 - [[#editing][Editing]]
@@ -679,6 +680,14 @@
        :bind ("M-o" . other-window))
    #+end_src
 
+** Paragraph movement
+   #+begin_src elisp
+     (use-package paragraphs
+       :ensure nil
+       :preface (provide 'paragraphs)
+       :bind (("M-n" . #'forward-paragraph)
+              ("M-p" . #'backward-paragraph)))
+   #+end_src
 ** Imenu jumps
    #+begin_src elisp
      (use-package imenu

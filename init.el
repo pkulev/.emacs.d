@@ -337,6 +337,12 @@
   :ensure nil
   :bind ("M-o" . other-window))
 
+(use-package paragraphs
+  :ensure nil
+  :preface (provide 'paragraphs)
+  :bind (("M-n" . #'forward-paragraph)
+         ("M-p" . #'backward-paragraph)))
+
 (use-package imenu
   :ensure nil
   :bind (("C-c C-j" . imenu)
