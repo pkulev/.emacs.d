@@ -141,6 +141,8 @@
   :init
   (my/private-el-load))
 
+(defun display-startup-echo-area-message ())
+
 (use-package emacs
   :ensure nil
   :init

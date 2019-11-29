@@ -52,6 +52,7 @@
   - [[#google-translate][Google translate]]
 - [[#customize][Customize]]
 - [[#gui-components--appearance][GUI Components / Appearance]]
+  - [[#dont-show-intrusive-startup-message][Don't show intrusive startup message]]
   - [[#emacs-variables-that-defined-in-c-source-code][Emacs variables that defined in C source code]]
   - [[#emacs-c-source-code][Emacs C source code]]
   - [[#autorevert][Autorevert]]
@@ -364,6 +365,10 @@
   #+end_src
 
 * GUI Components / Appearance
+** Don't show intrusive startup message
+   #+begin_src elisp
+     (defun display-startup-echo-area-message ())
+   #+end_src
 
 ** Emacs variables that defined in C source code
    #+begin_src elisp
