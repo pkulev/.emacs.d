@@ -1,5 +1,5 @@
-#+TITLE: Emacs configuration
-#+PROPERTY: header-args:elisp :tangle "init.el"
+#+title: Emacs configuration
+#+property: header-args:elisp :tangle "init.el"
 
 * About
   This is my emacs configuration, built with powers of =use-package= and =org-mode=.
