@@ -431,6 +431,8 @@
        :ensure nil
        :delight
        (visual-line-mode)
+       :bind
+       ("C-k" . #'kill-whole-line)
        :config
        (defalias 'yes-or-no-p 'y-or-n-p)
        :custom
