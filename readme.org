@@ -1612,7 +1612,7 @@
       (use-package toc-org
         :ensure t
         :hook
-        (org-mode-hook . toc-org-mode))
+        (org-mode . toc-org-mode))
     #+end_src
 
 *** Org babel

@@ -1039,7 +1039,7 @@
 (use-package toc-org
   :ensure t
   :hook
-  (org-mode-hook . toc-org-mode))
+  (org-mode . toc-org-mode))
 
 (use-package ob-mongo
   :ensure t)
