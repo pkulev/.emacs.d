@@ -796,7 +796,7 @@
 ;; TODO: install python modules
 (use-package elpy
   :ensure t
-  :ensure-system-package (pylint . python3-pylint)
+  :ensure-system-package (pylint-3 . python3-pylint)
   :delight
   (python-mode)
   (elpy-mode " py+")
