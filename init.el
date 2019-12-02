@@ -456,10 +456,12 @@
 (use-package files
   :ensure nil
   :custom
+  (require-final-newline t)
+  (delete-old-versions t)
   (backup-directory-alist
-   `((".*" . ,(concat user-emacs-directory "autosaves/"))))
+   `((".*" . ,(expand-file-name (concat user-emacs-directory "autosaves/")))))
   (auto-save-file-name-transforms
-   `((".*" ,(concat user-emacs-directory "autosaves/") t))))
+   `((".*" ,(expand-file-name (concat user-emacs-directory "autosaves/")) t))))
 
 (use-package my-config
   :ensure nil
