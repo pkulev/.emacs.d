@@ -115,6 +115,10 @@
   :config
   (which-key-mode))
 
+(use-package info-colors
+  :ensure t
+  :hook (Info-selection . info-colors-fontify-node))
+
 (use-package google-translate
   :ensure t
   :bind

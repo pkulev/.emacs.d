@@ -49,6 +49,7 @@
   - [[#better-help][Better help]]
   - [[#free-keys][Free keys]]
   - [[#which-key][Which key]]
+  - [[#colorize-info-nodes][Colorize info nodes]]
   - [[#google-translate][Google translate]]
 - [[#customize][Customize]]
 - [[#gui-components--appearance][GUI Components / Appearance]]
@@ -330,7 +331,12 @@
        :config
        (which-key-mode))
    #+end_src
-
+** Colorize info nodes
+   #+begin_src elisp
+     (use-package info-colors
+       :ensure t
+       :hook (Info-selection . info-colors-fontify-node))
+   #+end_src
 ** Google translate
    Translate in emacs! For example you can translate docstrings of messages from =telega.el=.
    #+begin_src elisp
