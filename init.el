@@ -877,6 +877,9 @@
   (rust-rustfmt-bin "~/.cargo/bin/rustfmt")
   (rust-cargo-bin "~/.cargo/bin/cargo"))
 
+(use-package terraform-mode
+  :ensure t)
+
 (use-package magit
   :ensure t
   :delight

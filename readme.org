@@ -125,6 +125,7 @@
   - [[#nim][Nim]]
   - [[#ocaml][Ocaml]]
   - [[#rust][Rust]]
+  - [[#terraform][Terraform]]
 - [[#git-things][Git things]]
   - [[#magit][Magit]]
   - [[#git-forges][Git forges]]
@@ -1435,7 +1436,11 @@
        :custom
        (rust-rustfmt-bin "~/.cargo/bin/rustfmt")
        (rust-cargo-bin "~/.cargo/bin/cargo"))
-
+   #+end_src
+** Terraform
+   #+begin_src elisp
+     (use-package terraform-mode
+       :ensure t)
    #+end_src
 * Git things
 ** Magit
