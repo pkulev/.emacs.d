@@ -16,17 +16,16 @@
 ** Where it works
    Here the matrix of distributions and environments i've tested my configuration deployment.
 
-   |---------------+------------------------------------+----------------------------|
-   | Emacs/Dist    | Emacs 26.2                         | Remacs 26.2                |
-   |---------------+------------------------------------+----------------------------|
-   | Fedora 29     | works                              | works (but expect freezes) |
-   | Fedora 30     | works                              | works (but expect freezes) |
-   | Centos 7      | works                              | not tested                 |
-   | Gentoo        | works, but need to fix system deps | not tested                 |
-   | Ubuntu 16 WSL | works, but need to fix system deps | not tested                 |
-   | Gentoo        |                                    | not tested                 |
-   | Termux        | doesn't work                       | not supported?             |
-   |---------------+------------------------------------+----------------------------|
+   |---------------+------------+----------------------------+------------|
+   | Emacs/Dist    | Emacs 26.2 | Remacs 26.2                | Emacs 27.0 |
+   |---------------+------------+----------------------------+------------|
+   | Fedora 29     | works      | works (but expect freezes) | not tested |
+   | Fedora 30     | works      | works (but expect freezes) | not tested |
+   | Centos 7      | works      | not tested                 | not tested |
+   | Gentoo        | works      | not tested                 | works      |
+   | Ubuntu 16 WSL | works      | not tested                 | not tested |
+   | Termux        | works      | not supported              | not tested |
+   |---------------+------------+----------------------------+------------|
 
 ** Table of Contents                                                    :TOC@3:
 - [[#about][About]]
