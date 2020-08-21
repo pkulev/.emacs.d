@@ -95,6 +95,12 @@
               tab-width 4)))
   (provide 'infer-indentation-style))
 
+(use-package esup
+  :ensure t
+  :custom
+  ;; FIXME: this prevents errors
+  (esup-depth 0))
+
 (use-package helpful
   :ensure t
   :bind

@@ -44,6 +44,7 @@
   - [[#additional-packages][Additional packages]]
     - [[#anaphoric-macroses][Anaphoric macroses]]
     - [[#determine-if-current-buffer-indented-with-tabs-or-spaces][Determine if current buffer indented with tabs or spaces]]
+    - [[#configuration-profiler][Configuration profiler]]
 - [[#help--manuals][Help & manuals]]
   - [[#better-help][Better help]]
   - [[#free-keys][Free keys]]
@@ -304,6 +305,14 @@
         (provide 'infer-indentation-style))
     #+end_src
 
+*** Configuration profiler
+    #+begin_src elisp
+      (use-package esup
+        :ensure t
+        :custom
+        ;; FIXME: this prevents errors
+        (esup-depth 0))
+    #+end_src
 * Help & manuals
 ** Better help
    #+begin_src elisp
