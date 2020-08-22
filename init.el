@@ -165,7 +165,8 @@
   :custom
   (use-dialog-box nil "Dialogs via minibuffer only.")
   (tool-bar-mode nil "Disable toolbar.")
-  (menu-bar-mode nil "Disable menubar.")
+  ;; FIXME: This makes emacs hanging
+  ;; (menu-bar-mode nil "Disable menubar.")
   (scroll-bar-mode nil "Disable scrollbar.")
   (blink-cursor-mode nil "Disable cursor blinking.")
   (scroll-step 1 "Scroll line by line.")
@@ -177,7 +178,9 @@
   (indicate-empty-lines t "Visually indicate empty lines.")
   (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
   (indent-tabs-mode nil "Tabs are evil.")
-  (tab-width 4 "Sane default for me."))
+  (tab-width 4 "Sane default for me.")
+  :config
+  (menu-bar-mode -1))
 
 (use-package find-func
   :ensure nil
@@ -602,6 +605,7 @@
   :ensure nil
   :defer t
   :custom
+  (tramp-terminal-type "tramp" "This allows to distinguish TRAMP from others.")
   (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
 
 ;; TODO
@@ -808,7 +812,7 @@
 ;; TODO: install python modules
 (use-package elpy
   :ensure t
-  :ensure-system-package (pylint-3 . python3-pylint)
+  ;; :ensure-system-package (pylint-3 . python3-pylint)
   :delight
   (python-mode)
   (elpy-mode " py+")
