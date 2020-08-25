@@ -35,7 +35,6 @@
   - [[#repositories][Repositories]]
   - [[#use-package][=use-package=]]
     - [[#environment-variables][Environment variables]]
-    - [[#custom-variables-for-some-additional-control][Custom variables for some additional control]]
     - [[#use-package-dependencies][=use-package= dependencies]]
   - [[#system-package-management][System package management]]
   - [[#installation-from-sources][Installation from sources]]
@@ -142,7 +141,6 @@
     - [[#wakatime][Wakatime]]
   - [[#calendar][Calendar]]
   - [[#corporative-services][Corporative services]]
-- [[#after-config-read-hook][After config read hook]]
 - [[#local-variables][Local variables]]
 
 * Package management
@@ -190,12 +188,6 @@
     #+begin_src elisp
       (when (getenv "FAST") (setq use-package-always-ensure nil))
       (when (getenv "STATS") (setq use-package-compute-statistics t))
-    #+end_src
-
-*** Custom variables for some additional control
-    #+begin_src elisp
-      (defvar my/after-config-read-hook (list)
-        "Functions to call in the end of config.")
     #+end_src
 
 *** =use-package= dependencies
@@ -1730,18 +1722,6 @@
        (confluence-default-space-alist (my/private-confluence-default-space)))
    #+end_src
 
-* After config read hook
-  This hook can be useful for overriding something.
-  For example you can change theme (bad solution however, because emacs will blink too much
-  while eating through =init.el=). Place this into =private.el=:
-  #+begin_src elisp :tangle no
-    (load-theme 'wombat 'noconfirm)
-  #+end_src
-
-  Run all the hooks!
-  #+begin_src elisp
-    (run-hooks 'my/after-config-read-hook)
-  #+end_src
 * Local variables
   Tangle config on save hook.
   #+begin_src elisp :tangle no

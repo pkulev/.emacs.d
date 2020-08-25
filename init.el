@@ -22,9 +22,6 @@
 (when (getenv "FAST") (setq use-package-always-ensure nil))
 (when (getenv "STATS") (setq use-package-compute-statistics t))
 
-(defvar my/after-config-read-hook (list)
-  "Functions to call in the end of config.")
-
 (use-package bind-key
   :ensure t)
 
@@ -1125,8 +1122,6 @@
   :custom
   (confluence-url my/private-confluence-url)
   (confluence-default-space-alist (my/private-confluence-default-space)))
-
-(run-hooks 'my/after-config-read-hook)
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
