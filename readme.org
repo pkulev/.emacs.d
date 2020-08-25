@@ -7,9 +7,10 @@
   allows to represent this configuration as document and generate config from it.
 
 ** Usage
-   Just clone repository to =~/.emacs.d= and run emacs.
+   Just clone repository to =~/.config/emacs= (XDG-compatible new directory) =~/.emacs.d= (old directory) and run emacs.
    #+begin_src bash
-     $ git clone git@github.com:pkulev/.emacs.d.git
+     $ git clone git@github.com:pkulev/.emacs.d.git ~/.config/emacs  # or
+     $ git clone git@github.com:pkulev/.emacs.d.git ~/.emacs.d
      $ emacs
    #+end_src
 
@@ -245,7 +246,7 @@
    #+end_src
 
 ** Temporarily package installation
-   =try= installs package into temp directory without polluting /.emacs.d/.
+   =try= installs package into temp directory without polluting /.config/emacs/ and /.emacs.d/.
    #+begin_src elisp
      (use-package try
        :ensure t)
@@ -359,7 +360,7 @@
     (use-package cus-edit
       :ensure nil
       :custom
-      (custom-file "~/.emacs.d/custom-file.el"))
+      (custom-file (concat user-emacs-directory "custom-file.el")))
   #+end_src
 
   Host-specific private source of data
@@ -368,7 +369,7 @@
       :ensure nil
       :preface
       (defun my/private-el-load ()
-        (load "~/.emacs.d/private.el" 'noerror))
+        (load (concat user-emacs-directory "private.el") 'noerror))
       (provide 'my/private-el)
       :init
       (my/private-el-load))

@@ -137,13 +137,13 @@
 (use-package cus-edit
   :ensure nil
   :custom
-  (custom-file "~/.emacs.d/custom-file.el"))
+  (custom-file (concat user-emacs-directory "custom-file.el")))
 
 (use-package my/private-el
   :ensure nil
   :preface
   (defun my/private-el-load ()
-    (load "~/.emacs.d/private.el" 'noerror))
+    (load (concat user-emacs-directory "private.el") 'noerror))
   (provide 'my/private-el)
   :init
   (my/private-el-load))
