@@ -19,9 +19,6 @@
   (require 'use-package)
   (setq use-package-always-ensure t))
 
-(when (getenv "FAST") (setq use-package-always-ensure nil))
-(when (getenv "STATS") (setq use-package-compute-statistics t))
-
 (use-package bind-key
   :ensure t)
 

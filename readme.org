@@ -35,7 +35,6 @@
 - [[#package-management][Package management]]
   - [[#repositories][Repositories]]
   - [[#use-package][=use-package=]]
-    - [[#environment-variables][Environment variables]]
     - [[#use-package-dependencies][=use-package= dependencies]]
   - [[#system-package-management][System package management]]
   - [[#installation-from-sources][Installation from sources]]
@@ -183,13 +182,6 @@
        (require 'use-package)
        (setq use-package-always-ensure t))
    #+end_src
-
-*** Environment variables
-    Set some rare used environment variables to control further configuration.
-    #+begin_src elisp
-      (when (getenv "FAST") (setq use-package-always-ensure nil))
-      (when (getenv "STATS") (setq use-package-compute-statistics t))
-    #+end_src
 
 *** =use-package= dependencies
     #+begin_src elisp
