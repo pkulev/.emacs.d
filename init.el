@@ -310,6 +310,18 @@
   :custom
   (highlight-indent-guides-method 'character))
 
+(use-package lisp-extra-font-lock
+  :ensure t
+  :custom
+  (lisp-extra-font-lock-modes '(emacs-lisp-mode lisp-mode))
+  :config
+  (lisp-extra-font-lock-global-mode 1))
+
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1))
+
 (use-package ibuffer
   :ensure nil
   :defer t
