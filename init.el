@@ -733,6 +733,9 @@
   :ensure nil
   :delight "elisp")
 
+(use-package cider
+  :ensure t)
+
 (use-package lisp-mode
   :disabled
   :ensure nil

@@ -115,6 +115,7 @@
   - [[#cc][C/C++]]
   - [[#lisp][Lisp]]
     - [[#emacs-lisp][Emacs Lisp]]
+    - [[#clojure][Clojure]]
     - [[#common-lisp][Common Lisp]]
     - [[#scheme][Scheme]]
   - [[#python][Python]]
@@ -1216,6 +1217,12 @@
       (use-package elisp-mode
         :ensure nil
         :delight "elisp")
+    #+end_src
+
+*** Clojure
+    #+begin_src elisp
+      (use-package cider
+        :ensure t)
     #+end_src
 
 *** Common Lisp
