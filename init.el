@@ -349,6 +349,14 @@
   (:map dired-mode-map
         ([?\t] . dired-subtree-toggle)))
 
+(use-package dired-hide-dotfiles
+  :ensure t
+  :bind
+  (:map dired-mode-map
+        ("." . dired-hide-dotfiles-mode))
+  :hook
+  (dired-mode . dired-hide-dotfiles-mode))
+
 (use-package image-dired
   :ensure nil)
 

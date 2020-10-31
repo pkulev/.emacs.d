@@ -697,6 +697,17 @@
             ([?\t] . dired-subtree-toggle)))
   #+end_src
 
+  Hide dotfiles.
+  #+begin_src elisp
+    (use-package dired-hide-dotfiles
+      :ensure t
+      :bind
+      (:map dired-mode-map
+            ("." . dired-hide-dotfiles-mode))
+      :hook
+      (dired-mode . dired-hide-dotfiles-mode))
+  #+end_src
+
   Image preview support for dired.
   #+begin_src elisp
     (use-package image-dired
