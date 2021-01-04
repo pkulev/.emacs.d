@@ -880,10 +880,12 @@
 * Path
 ** Syncing PATH
    #+begin_src elisp
-       (use-package exec-path-from-shell
-         :ensure t
-         :config
-         (exec-path-from-shell-initialize))
+     (use-package exec-path-from-shell
+       :ensure t
+       :custom
+       (exec-path-from-shell-check-startup-files nil)
+       :config
+       (exec-path-from-shell-initialize))
    #+end_src
 
 ** Autosaves
