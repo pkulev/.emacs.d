@@ -741,7 +741,8 @@
   :ensure t
   :delight '(:eval (concat " p:" (symbol-name (parinfer-current-mode))))
   :hook ((emacs-lisp-mode . parinfer-mode)
-         (common-lisp-mode . parinfer-mode)))
+         (common-lisp-mode . parinfer-mode)
+         (clojure-mode . parinfer-mode)))
 
 (use-package macrostep
   :ensure t
