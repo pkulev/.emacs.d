@@ -806,11 +806,10 @@
 
 (use-package geiser
   :ensure t
-  :ensure-system-package guile
+  :if (executable-find "guile")
   :bind
   ("C-c i" . geiser-insert-lambda)
   :custom
-  (geiser-guile-binary "guile2.2")
   (geiser-default-implementation 'guile))
 
 (use-package python
