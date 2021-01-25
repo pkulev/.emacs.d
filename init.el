@@ -31,7 +31,7 @@
   (system-packages-noconfirm t)
   :config
   ;; Termux has no `sudo'
-  (when (executable-find "sudo")
+  (when (string-match-p "termux" (getenv "PATH"))
     (setq system-packages-use-sudo t))
   ;; Overwrite guix even if it installed
   (when (string-match-p "redhat" system-configuration)
