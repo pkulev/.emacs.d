@@ -824,6 +824,9 @@
   :delight
   :hook python-mode)
 
+(use-package poetry
+  :ensure t)
+
 ;; TODO: install python modules
 (use-package elpy
   :ensure t

@@ -119,6 +119,7 @@
     - [[#common-lisp][Common Lisp]]
     - [[#scheme][Scheme]]
   - [[#python][Python]]
+    - [[#poetry][Poetry]]
     - [[#elpy][ELPY]]
   - [[#web][Web]]
     - [[#js][JS]]
@@ -1328,6 +1329,15 @@
        :delight
        :hook python-mode)
    #+end_src
+*** Poetry
+    [[https:github.com/sdispater/poetry][Poetry]] is the superior tool for python project management from start to publishing.
+    This mode adds magit-like transient interactive popups for calling poetry coomands.
+
+    #+begin_src elisp
+      (use-package poetry
+        :ensure t)
+    #+end_src
+
 *** ELPY
     #+begin_src elisp
       ;; TODO: install python modules
