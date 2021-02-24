@@ -113,6 +113,7 @@
     - [[#metrics][Metrics]]
   - [[#translations][Translations]]
   - [[#cc][C/C++]]
+  - [[#glsl][GLSL]]
   - [[#lisp][Lisp]]
     - [[#emacs-lisp][Emacs Lisp]]
     - [[#clojure][Clojure]]
@@ -1220,6 +1221,22 @@
        (c++-mode-hook . (lambda () (c-set-style "k&r")))
        :custom
        (c-basic-offset 4))
+   #+end_src
+
+** GLSL
+   OpenGL Shader Language
+
+   #+begin_src elisp
+     (use-package glsl-mode
+       :ensure t)
+   #+end_src
+
+   #+begin_src elisp
+     (use-package company-glsl
+       :ensure t
+       :if (executable-find "glslangValidator")
+       :config
+       (add-to-list 'company-backends 'company-glsl))
    #+end_src
 
 ** Lisp

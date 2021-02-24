@@ -737,6 +737,15 @@
   :custom
   (c-basic-offset 4))
 
+(use-package glsl-mode
+  :ensure t)
+
+(use-package company-glsl
+  :ensure t
+  :if (executable-find "glslangValidator")
+  :config
+  (add-to-list 'company-backends 'company-glsl))
+
 (use-package parinfer
   :ensure t
   :delight '(:eval (concat " p:" (symbol-name (parinfer-current-mode))))
