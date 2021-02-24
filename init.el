@@ -1082,6 +1082,9 @@
   :hook
   (org-mode . org-bullets-mode))
 
+(use-package org-trello
+  :ensure t)
+
 (use-package toc-org
   :ensure t
   :hook

@@ -136,6 +136,7 @@
 - [[#email--messengers][Email & Messengers]]
 - [[#productivity--task-management][Productivity & task management]]
   - [[#org-mode][Org mode]]
+    - [[#org-trello-sync][Org-Trello sync]]
     - [[#generate-table-of-contents][Generate Table of Contents]]
     - [[#org-babel][Org babel]]
     - [[#yankpad][Yankpad]]
@@ -1678,6 +1679,12 @@
        :hook
        (org-mode . org-bullets-mode))
    #+end_src
+
+*** Org-Trello sync
+    #+begin_src elisp
+      (use-package org-trello
+        :ensure t)
+    #+end_src
 
 *** Generate Table of Contents
     #+begin_src elisp
