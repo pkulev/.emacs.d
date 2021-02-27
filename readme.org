@@ -119,6 +119,7 @@
     - [[#clojure][Clojure]]
     - [[#common-lisp][Common Lisp]]
     - [[#scheme][Scheme]]
+    - [[#hy][Hy]]
   - [[#python][Python]]
     - [[#poetry][Poetry]]
     - [[#elpy][ELPY]]
@@ -1324,6 +1325,7 @@
         :config
         (slime-setup '(slime-company)))
     #+end_src
+
 *** Scheme
     #+begin_src elisp
       (use-package geiser
@@ -1334,6 +1336,14 @@
         :custom
         (geiser-default-implementation 'guile))
     #+end_src
+
+*** Hy
+    Hy is lisp language built on top of Python Virtual Machine.
+    #+begin_src elisp
+      (use-package hy-mode
+        :ensure t)
+    #+end_src
+
 ** Python
    #+begin_src elisp
      (use-package python

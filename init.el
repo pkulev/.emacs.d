@@ -824,6 +824,9 @@
   :custom
   (geiser-default-implementation 'guile))
 
+(use-package hy-mode
+  :ensure t)
+
 (use-package python
   :ensure nil
   :delight python-mode)
