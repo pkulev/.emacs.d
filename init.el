@@ -857,6 +857,8 @@
     (setq flycheck-enabled-checkers '(python-pylint)
           flycheck-python-pylint-executable "pylint")
 
+    (setq python-indent-def-block-scale 1)
+
     (infer-indentation-style-python))
 
   :hook ((python-mode . elpy/my-python-mode-hook)
