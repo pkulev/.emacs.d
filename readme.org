@@ -140,6 +140,7 @@
     - [[#org-trello-sync][Org-Trello sync]]
     - [[#generate-table-of-contents][Generate Table of Contents]]
     - [[#org-babel][Org babel]]
+    - [[#org-export][Org export]]
     - [[#yankpad][Yankpad]]
     - [[#utils][Utils]]
   - [[#productivity][Productivity]]
@@ -1712,6 +1713,16 @@
         :ensure t)
 
       (use-package ob-async
+        :ensure t)
+    #+end_src
+
+*** Org export
+    Org export packages usually have =ox-= prefix (*o*rg e*x*port).
+
+    *ox-jira* is great package that exports org buffer to JIRA format, that can be pasted
+    into JIRA or Confluence page.
+    #+begin_src elisp
+      (use-package ox-jira
         :ensure t)
     #+end_src
 

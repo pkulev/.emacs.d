@@ -1101,6 +1101,9 @@
 (use-package ob-async
   :ensure t)
 
+(use-package ox-jira
+  :ensure t)
+
 (use-package yankpad
   :ensure t
   :defer org
