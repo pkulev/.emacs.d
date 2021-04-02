@@ -878,7 +878,7 @@
 (use-package sphinx-doc
   :ensure t
   :delight
-  :hook python-mode)
+  :hook (python-mode . sphinx-doc-mode))
 
 (use-package poetry
   :ensure t)

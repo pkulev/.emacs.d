@@ -1411,7 +1411,7 @@
      (use-package sphinx-doc
        :ensure t
        :delight
-       :hook python-mode)
+       :hook (python-mode . sphinx-doc-mode))
    #+end_src
 *** Poetry
     [[https:github.com/sdispater/poetry][Poetry]] is the superior tool for python project management from start to publishing.
