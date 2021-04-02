@@ -1778,7 +1778,8 @@
     into JIRA or Confluence page.
     #+begin_src elisp
       (use-package ox-jira
-        :ensure t)
+        :ensure t
+        :hook (org-mode . (lambda () (require 'ox-jira))))
     #+end_src
 
 *** Yankpad

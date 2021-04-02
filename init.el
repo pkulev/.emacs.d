@@ -1146,7 +1146,8 @@
   :ensure t)
 
 (use-package ox-jira
-  :ensure t)
+  :ensure t
+  :hook (org-mode . (lambda () (require 'ox-jira))))
 
 (use-package yankpad
   :ensure t
