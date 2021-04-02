@@ -4,29 +4,46 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (require 'package)
-(setq package-enable-at-startup nil)
 
 (setq package-archives
       (append (eval (car (get 'package-archives 'standard-value)))
               '(("org" . "http://orgmode.org/elpa/")
                 ("melpa" . "http://melpa.org/packages/")
                 ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
-(package-initialize)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'use-package)
-  (require 'use-package)
-  (setq use-package-always-ensure t))
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+
+(put 'use-package 'lisp-indent-function 1)
+
+(use-package use-package-core
+  :custom
+  (use-package-always-defer t)
+  (use-package-compute-statistics t)
+  (use-package-enable-imenu-support t))
 
 (use-package bind-key
-  :ensure t)
+  :ensure t
+  :demand t)
 
 (use-package delight
-  :ensure t)
+  :ensure t
+  :demand t)
+
+(use-package gcmh
+  :ensure t
+  :delight
+  :init
+  (gcmh-mode 1))
 
 (use-package system-packages
   :ensure t
+  :demand t
   :custom
   (system-packages-noconfirm t)
   :config
@@ -38,36 +55,50 @@
     (setq system-packages-package-manager 'dnf)))
 
 (use-package use-package-ensure-system-package
-  :ensure t)
+  :ensure t
+  :demand t)
 
 (use-package quelpa
   :ensure t
+  :demand t
   :custom (quelpa-update-melpa-p nil))
 
 (use-package quelpa-use-package
-  :ensure t)
+  :ensure t
+  :demand t)
+
+(use-package fnhh
+  :quelpa
+  (fnhh :repo "a13/fnhh" :fetcher github)
+  :config
+  (fnhh-mode 1))
 
 (use-package paradox
   :ensure t
+  :demand t
   :custom
   (paradox-execute-asynchronously t)
   :config
   (paradox-enable))
 
 (use-package try
-  :ensure t)
+  :ensure t
+  :commands (try))
 
 (use-package anaphora
   :ensure t)
 
 (use-package f
-  :ensure t)
+  :ensure t
+  :demand t)
 
 (use-package s
-  :ensure t)
+  :ensure t
+  :demand t)
 
 (use-package tos
   :ensure nil
+  :demand t
   :quelpa
   (tos :repo "pkulev/tos.el"
        :fetcher github :upgrade t))
@@ -111,6 +142,7 @@
 
 (use-package which-key
   :ensure t
+  :defer 2
   :delight
   :config
   (which-key-mode))
@@ -243,6 +275,7 @@
 
 (use-package reverse-im
   :ensure t
+  :defer 1
   :config
   (reverse-im-activate "russian-computer"))
 
@@ -256,7 +289,8 @@
 
 (use-package zerodark-theme
   :ensure t
-  :after flycheck  ; TODO: make PR for fixing this
+  :demand t
+  ;;:after flycheck  ; TODO: make PR for fixing this
   :config
   (load-theme 'zerodark 'noconfirm))
   ;;(zerodark-setup-modeline-format))
@@ -264,7 +298,6 @@
 (use-package all-the-icons
   :if window-system
   :ensure t
-  :defer t
   :config
   (setq all-the-icons-mode-icon-alist
         `(,@all-the-icons-mode-icon-alist
@@ -318,7 +351,10 @@
   (lisp-extra-font-lock-global-mode 1))
 
 (use-package beacon
+  ;; TODO: fix animation
+  :disabled
   :ensure t
+  :defer 5
   :config
   (beacon-mode 1))
 
@@ -488,6 +524,14 @@
    `((".*" . ,(expand-file-name (concat user-emacs-directory "autosaves/")))))
   (auto-save-file-name-transforms
    `((".*" ,(expand-file-name (concat user-emacs-directory "autosaves/")) t))))
+
+(use-package recentf
+  :defer 0.1
+  :custom
+  (recentf-auto-cleanup 30)
+  :config
+  (recentf-mode)
+  (run-with-idle-timer 10 t 'recentf-save-list))
 
 (use-package my-config
   :ensure nil
@@ -1154,7 +1198,6 @@
 (use-package org-jira
   :if (boundp 'my/private-jira-url)
   :ensure t
-  :defer t
   :custom
   (jiralib-url my/private-jira-url))
 

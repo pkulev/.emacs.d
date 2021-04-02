@@ -36,8 +36,10 @@
   - [[#repositories][Repositories]]
   - [[#use-package][=use-package=]]
     - [[#use-package-dependencies][=use-package= dependencies]]
+    - [[#garbage-collector-magic-hack][Garbage collector magic hack]]
   - [[#system-package-management][System package management]]
   - [[#installation-from-sources][Installation from sources]]
+  - [[#file-name-handler-hack][File Name Handler Hack]]
   - [[#improvements-for-packageel][Improvements for =package.el=]]
   - [[#temporarily-package-installation][Temporarily package installation]]
   - [[#additional-packages][Additional packages]]
@@ -167,14 +169,12 @@
 
    #+begin_src elisp
      (require 'package)
-     (setq package-enable-at-startup nil)
 
      (setq package-archives
            (append (eval (car (get 'package-archives 'standard-value)))
                    '(("org" . "http://orgmode.org/elpa/")
                      ("melpa" . "http://melpa.org/packages/")
                      ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
-     (package-initialize)
    #+end_src
 
 ** =use-package=
@@ -184,19 +184,41 @@
    #+begin_src elisp
      (unless (package-installed-p 'use-package)
        (package-refresh-contents)
-       (package-install 'use-package)
-       (require 'use-package)
-       (setq use-package-always-ensure t))
+       (package-install 'use-package))
+
+     (eval-when-compile
+       (require 'use-package))
+
+
+     (put 'use-package 'lisp-indent-function 1)
+
+     (use-package use-package-core
+       :custom
+       (use-package-always-defer t)
+       (use-package-compute-statistics t)
+       (use-package-enable-imenu-support t))
    #+end_src
 
 *** =use-package= dependencies
     #+begin_src elisp
       (use-package bind-key
-        :ensure t)
+        :ensure t
+        :demand t)
 
       (use-package delight
-        :ensure t)
+        :ensure t
+        :demand t)
      #+end_src
+
+*** Garbage collector magic hack
+
+    #+begin_src elisp
+      (use-package gcmh
+        :ensure t
+        :delight
+        :init
+        (gcmh-mode 1))
+    #+end_src
 
 ** System package management
    =system-packages= allows to install packages via system package manager in
@@ -204,6 +226,7 @@
    #+begin_src elisp
      (use-package system-packages
        :ensure t
+       :demand t
        :custom
        (system-packages-noconfirm t)
        :config
@@ -217,7 +240,8 @@
 
    #+begin_src elisp
      (use-package use-package-ensure-system-package
-       :ensure t)
+       :ensure t
+       :demand t)
    #+end_src
 
 ** Installation from sources
@@ -226,10 +250,22 @@
      #+begin_src elisp
        (use-package quelpa
          :ensure t
+         :demand t
          :custom (quelpa-update-melpa-p nil))
 
        (use-package quelpa-use-package
-         :ensure t)
+         :ensure t
+         :demand t)
+     #+end_src
+
+** File Name Handler Hack
+   Smart hack to slightly speed up emacs startup termporarily setting =file-name-handler-alist= to nil.
+     #+begin_src elisp
+       (use-package fnhh
+         :quelpa
+         (fnhh :repo "a13/fnhh" :fetcher github)
+         :config
+         (fnhh-mode 1))
      #+end_src
 
 ** Improvements for =package.el=
@@ -237,6 +273,7 @@
    #+begin_src elisp
      (use-package paradox
        :ensure t
+       :demand t
        :custom
        (paradox-execute-asynchronously t)
        :config
@@ -247,7 +284,8 @@
    =try= installs package into temp directory without polluting /.config/emacs/ and /.emacs.d/.
    #+begin_src elisp
      (use-package try
-       :ensure t)
+       :ensure t
+       :commands (try))
    #+end_src
 
 ** Additional packages
@@ -260,18 +298,21 @@
 
     #+begin_src elisp
       (use-package f
-        :ensure t)
+        :ensure t
+        :demand t)
     #+end_src
 
     #+begin_src elisp
       (use-package s
-        :ensure t)
+        :ensure t
+        :demand t)
     #+end_src
 
 *** Determine if current buffer indented with tabs or spaces
     #+begin_src elisp
       (use-package tos
         :ensure nil
+        :demand t
         :quelpa
         (tos :repo "pkulev/tos.el"
              :fetcher github :upgrade t))
@@ -328,6 +369,7 @@
    #+begin_src elisp
      (use-package which-key
        :ensure t
+       :defer 2
        :delight
        :config
        (which-key-mode))
@@ -540,6 +582,7 @@
     #+begin_src elisp
       (use-package reverse-im
         :ensure t
+        :defer 1
         :config
         (reverse-im-activate "russian-computer"))
     #+end_src
@@ -567,7 +610,8 @@
     #+begin_src elisp
       (use-package zerodark-theme
         :ensure t
-        :after flycheck  ; TODO: make PR for fixing this
+        :demand t
+        ;;:after flycheck  ; TODO: make PR for fixing this
         :config
         (load-theme 'zerodark 'noconfirm))
         ;;(zerodark-setup-modeline-format))
@@ -577,7 +621,6 @@
      (use-package all-the-icons
        :if window-system
        :ensure t
-       :defer t
        :config
        (setq all-the-icons-mode-icon-alist
              `(,@all-the-icons-mode-icon-alist
@@ -646,7 +689,10 @@
 
    #+begin_src elisp
      (use-package beacon
+       ;; TODO: fix animation
+       :disabled
        :ensure t
+       :defer 5
        :config
        (beacon-mode 1))
    #+end_src
@@ -905,7 +951,16 @@
         `((".*" . ,(expand-file-name (concat user-emacs-directory "autosaves/")))))
        (auto-save-file-name-transforms
         `((".*" ,(expand-file-name (concat user-emacs-directory "autosaves/")) t))))
+   #+end_src
 
+   #+begin_src elisp
+     (use-package recentf
+       :defer 0.1
+       :custom
+       (recentf-auto-cleanup 30)
+       :config
+       (recentf-mode)
+       (run-with-idle-timer 10 t 'recentf-save-list))
    #+end_src
 
 ** Quick emacs configuration file access
@@ -1793,7 +1848,6 @@
      (use-package org-jira
        :if (boundp 'my/private-jira-url)
        :ensure t
-       :defer t
        :custom
        (jiralib-url my/private-jira-url))
 
