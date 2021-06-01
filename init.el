@@ -128,14 +128,15 @@
 
 (use-package helpful
   :ensure t
+  :demand t
   :bind
   (:map help-mode-map
-        ("f" . #'helpful-callable)
-        ("v" . #'helpful-variable)
-        ("k" . #'helpful-key)
-        ("F" . #'helpful-at-point)
-        ("F" . #'helpful-function)
-        ("C" . #'helpful-command)))
+        ("f" . helpful-callable)
+        ("v" . helpful-variable)
+        ("k" . helpful-key)
+        ("F" . helpful-at-point)
+        ("F" . helpful-function)
+        ("C" . helpful-command)))
 
 (use-package free-keys
   :ensure t)
@@ -482,6 +483,7 @@
 
 (use-package eshell-prompt-extras
   :ensure t
+  :after (eshell esh-opt)
   :custom
   (eshell-prompt-function #'epe-theme-lambda))
 
@@ -564,7 +566,8 @@
         ("e s" . #'my-config-open-and-search)))
 
 (use-package prescient
-  :ensure t)
+  :ensure t
+  :defer 0.5)
 
 (use-package company
   :ensure t
@@ -733,23 +736,22 @@
   (dotenv :repo "pkulev/dotenv.el"
           :fetcher github :upgrade t)
   :config
-  (defun dotenv-absolutify-path (path)
+  (defun dotenv-absolutify-pythonpath (k v)
     "Make all pathes in PATH absolute using project root."
-    (when (s-present? path)
-      (let ((root (projectile-project-root)))
-        (s-join ":" (mapcar (lambda (it) (f-join root it)) (s-split ":" path))))))
+    (list k (dotenv-absolutify-path-var-in-project v)))
 
   (defun dotenv-projectile-hook ()
     "Projectile hook."
-    (let ((path (dotenv-path (projectile-project-root))))
-      (when (s-present? path)
-        (dotenv-update-env (dotenv-load path))
-        (let ((pythonpath (dotenv-absolutify-path (dotenv-get "PYTHONPATH" path))))
-          (when pythonpath
-            (setq python-shell-extra-pythonpaths (s-split ":" pythonpath))
-            (setenv "PYTHONPATH" pythonpath))))))
+    (dotenv-update-project-env (projectile-project-root)))
+  ;;   (let ((path (dotenv-path (projectile-project-root))))
+  ;;     (when (s-present? path)
+  ;;       (dotenv-update-env (dotenv-load path))
+  ;;       (let ((pythonpath (dotenv-absolutify-path (dotenv-get "PYTHONPATH" path))))
+  ;;         (when pythonpath
+  ;;           (setq python-shell-extra-pythonpaths (s-split ":" pythonpath))
+  ;;           (setenv "PYTHONPATH" pythonpath))))))
 
-  (add-to-list 'projectile-after-switch-project-hook #'dotenv-projectile-hook))
+  (add-to-list 'dotenv-transform-alist #' dotenv-absolutify-pythonpath))
 
 ;; TODO: c2 projectile integration
 (use-package projectile
@@ -886,7 +888,7 @@
 ;; TODO: install python modules
 (use-package elpy
   :ensure t
-  :ensure-system-package (pylint-3 . python3-pylint)
+  ;; :ensure-system-package (pylint-3 . python3-pylint)
   :delight
   (python-mode)
   (elpy-mode " py+")
