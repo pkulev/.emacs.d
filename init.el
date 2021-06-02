@@ -241,15 +241,23 @@
   :config
   (show-paren-mode t))
 
+;; TODO: fix somehow different family across OSes
 (use-package faces
   :ensure nil
   :config
-  (set-face-attribute 'default
-                      nil
-                      :family "FiraCode"
-                      :weight 'semi-light
-                      :width 'semi-condensed
-                      :height 130))
+  (if (eq system-type 'darwin)
+      (set-face-attribute 'default
+                          nil
+                          :family "Fira Code"
+                          :weight 'semi-light
+                          :width 'semi-condensed
+                          :height 130)
+    (set-face-attribute 'default
+                        nil
+                        :family "FiraCode"
+                        :weight 'semi-light
+                        :width 'semi-condensed
+                        :height 130)))
 
 (use-package hl-line
   :ensure nil
@@ -471,7 +479,6 @@
 
 (use-package shell
   :ensure nil
-  :ensure-system-package zsh
   :custom
   (explicit-shell-file-name (executable-find "zsh") "Default inferior shell."))
 
@@ -754,7 +761,6 @@
 ;; TODO: c2 projectile integration
 (use-package projectile
   :ensure t
-  :ensure-system-package (ag . the_silver_searcher)
   :defer nil
   :bind
   (:map mode-specific-map ("p" . projectile-command-map))
@@ -790,7 +796,10 @@
   :config
   (add-to-list 'company-backends 'company-glsl))
 
+;; TODO: parinfer was removed from MELPA and archived
+;; make parinfer-rust-mode work under M1 or use something else like lispy
 (use-package parinfer
+  :disabled
   :ensure t
   :delight '(:eval (concat " p:" (symbol-name (parinfer-current-mode))))
   :hook ((emacs-lisp-mode . parinfer-mode)
@@ -886,7 +895,6 @@
 ;; TODO: install python modules
 (use-package elpy
   :ensure t
-  :ensure-system-package (pylint-3 . python3-pylint)
   :delight
   (python-mode)
   (elpy-mode " py+")
