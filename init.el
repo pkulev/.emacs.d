@@ -669,6 +669,7 @@
   :ensure nil
   :defer t
   :custom
+  (tramp-terminal-type "tramp" "This allows to distinguish TRAMP from others.")
   (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
 
 ;; TODO
