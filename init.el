@@ -489,6 +489,9 @@
 
 (use-package eshell-prompt-extras
   :ensure t
+  ;; FIXME: `command (eshell eshell-toggle)` doesn't work
+  :demand t
+  :after (eshell esh-opt)
   :custom
   (eshell-prompt-function #'epe-theme-lambda))
 

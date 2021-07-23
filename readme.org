@@ -885,6 +885,10 @@
   #+end_src
 
 ** Eshell appearance
+   Eshell is great tool for everyday tasks.
+
+   *TODO*: add short tutorial here
+
   Show command execution status at fringe.
   #+begin_src elisp
     (use-package eshell-fringe-status
@@ -897,6 +901,9 @@
   #+begin_src elisp
     (use-package eshell-prompt-extras
       :ensure t
+      ;; FIXME: `command (eshell eshell-toggle)` doesn't work
+      :demand t
+      :after (eshell esh-opt)
       :custom
       (eshell-prompt-function #'epe-theme-lambda))
   #+end_src
