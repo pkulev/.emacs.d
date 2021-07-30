@@ -520,6 +520,7 @@
 
 (use-package exec-path-from-shell
   :ensure t
+  :defer 1
   :custom
   (exec-path-from-shell-check-startup-files nil)
   :config
