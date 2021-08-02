@@ -895,41 +895,53 @@
   :hook (python-mode . sphinx-doc-mode))
 
 (use-package poetry
-  :ensure t)
+  :ensure t
+  :config
+  (poetry-tracking-mode))
 
-;; TODO: install python modules
-(use-package elpy
+(use-package pyvenv
+  :ensure t
+  :hook (python-mode . pyvenv-mode))
+
+(use-package lsp-mode
   :ensure t
   :delight
-  (python-mode)
-  (elpy-mode " py+")
-  :commands (elpy-enable)
   :preface
-  (defun elpy/my-python-mode-hook ()
-    (company-mode 1)
-    (company-quickhelp-mode)
-    (elpy-mode)
-    (pyvenv-tracking-mode)
+  ;; TODO: make configurable
+  (defun pyvenv-autoload ()
+    "Automatically activate pyvenv when .venv directory exists."
+    (f-traverse-upwards
+     (lambda (path)
+       (let ((venv-path (f-expand ".venv" path)))
+         (if (f-exists? venv-path)
+             (progn
+               (pyvenv-activate venv-path)
+               t))))))
+  :hook ((python-mode . lsp)
+         (python-mode . pyvenv-autoload)))
 
-    (setq flycheck-enabled-checkers '(python-pylint)
-          flycheck-python-pylint-executable "pylint")
+(use-package lsp-ui
+  :ensure t
+  :commands (lsp)
+  ;; :custom
+  ;; (lsp-ui-sideline-enable t)
+  ;; (lsp-ui-sideline-show-symbol t)
+  ;; (lsp-ui-sideline-show-hover t)
+  ;; (lsp-ui-sideline-show-code-actions t)
+  ;; (lsp-ui-sideline-ignore-duplicate t)
+  ;; (lsp-ui-sideline-update-mode 'point)
+  :hook (lsp-mode . company-mode))
 
-    (setq python-indent-def-block-scale 1)
-
-    (infer-indentation-style-python))
-
-  :hook ((python-mode . elpy/my-python-mode-hook)
-         (elpy-mode . flycheck-mode))
+(use-package company-lsp
+  :disabled
+  :ensure t
+  :after lsp-ui
   :custom
-  (elpy-syntax-check-command "pylint")
-  (elpy-rpc-python-command "python3")
-  (elpy-modules '(elpy-module-sane-defaults
-                  elpy-module-company
-                  elpy-module-eldoc
-                  elpy-module-pyvenv  ; TODO
-                  elpy-module-yasnippet))
+  (company-lsp-cache-candidates 'auto)
+  (company-lsp-enable-snippets t)
+  (company-lsp-cache-candidates t)
   :config
-  (elpy-enable))
+  (push 'company-lsp company-backends))
 
 (use-package js
   :ensure nil

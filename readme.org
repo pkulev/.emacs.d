@@ -124,7 +124,8 @@
     - [[#hy][Hy]]
   - [[#python][Python]]
     - [[#poetry][Poetry]]
-    - [[#elpy][ELPY]]
+    - [[#pyvenv][pyvenv]]
+    - [[#lsp][LSP]]
   - [[#web][Web]]
     - [[#js][JS]]
     - [[#html][HTML]]
@@ -1419,6 +1420,23 @@
     #+end_src
 
 ** Python
+   Python is my primary language for now.
+   I used =elpy= for many years but now it's dying. Mainteners cannot mantain, new jedi broke elpy
+   RPC server and so on. =elpy= has several cool features tho, but =lsp= as unified protocol for IDEs
+   is the best approach we have now (compared to homebrew ones every language and every IDE creates
+   for it's own need).
+
+   So, for =lsp= to work with python we need:
+   - [[https://github.com/python-lsp/python-lsp-server][Python LSP Server]]
+     I prefer to install it as =pip install python-lsp-server[rope]= for simplicity.
+     Other modules are not so useful for me.
+   - Third parties I use:
+     - [[https://github.com/paradoxxxzero/pyls-isort][isort plugin]] :: =pip install pyls-isort=
+     - [[https://github.com/python-lsp/python-lsp-black][black plugin]] :: =pip install python-lsp-black=
+
+   Configuration (=M-x customize-group RET pylsp RET=):
+   - =lsp-pylsp-plugins-pydocstyle-enabled= set to =nil=
+
    #+begin_src elisp
      (use-package python
        :ensure nil
@@ -1437,13 +1455,21 @@
 
     #+begin_src elisp
       (use-package poetry
-        :ensure t)
+        :ensure t
+        :config
+        (poetry-tracking-mode))
     #+end_src
-
-*** ELPY
+*** pyvenv
+    #+begin_src elisp
+      (use-package pyvenv
+        :ensure t
+        :hook (python-mode . pyvenv-mode))
+    #+end_src
+*** COMMENT ELPY
     #+begin_src elisp
       ;; TODO: install python modules
       (use-package elpy
+        :disabled
         :ensure t
         :delight
         (python-mode)
@@ -1476,30 +1502,37 @@
         :config
         (elpy-enable))
     #+end_src
-*** COMMENT LSP
+*** LSP
     #+begin_src elisp
       (use-package lsp-mode
-        :disabled
         :ensure t
-        :hook (lsp-mode . company-mode)
-        :custom
-        (lsp-inhibit-message t)
-        (lsp-before-save-edits t)
-        (lsp-eldoc-render-all nil)
-        (lsp-highlight-symbol-at-point nil))
-
+        :delight
+        :preface
+        ;; TODO: make configurable
+        (defun pyvenv-autoload ()
+          "Automatically activate pyvenv when .venv directory exists."
+          (f-traverse-upwards
+           (lambda (path)
+             (let ((venv-path (f-expand ".venv" path)))
+               (if (f-exists? venv-path)
+                   (progn
+                     (pyvenv-activate venv-path)
+                     t))))))
+        :hook ((python-mode . lsp)
+               (python-mode . pyvenv-autoload)))
+      
       (use-package lsp-ui
-        :disabled
         :ensure t
-        :custom
-        (lsp-ui-sideline-enable t)
-        (lsp-ui-sideline-show-symbol t)
-        (lsp-ui-sideline-show-hover t)
-        (lsp-ui-sideline-show-code-actions t)
-        (lsp-ui-sideline-ignore-duplicate t)
-        (lsp-ui-sideline-update-mode 'point)
+        :commands (lsp)
+        ;; :custom
+        ;; (lsp-ui-sideline-enable t)
+        ;; (lsp-ui-sideline-show-symbol t)
+        ;; (lsp-ui-sideline-show-hover t)
+        ;; (lsp-ui-sideline-show-code-actions t)
+        ;; (lsp-ui-sideline-ignore-duplicate t)
+        ;; (lsp-ui-sideline-update-mode 'point)
         :hook (lsp-mode . company-mode))
-
+      
       (use-package company-lsp
         :disabled
         :ensure t
@@ -1510,17 +1543,6 @@
         (company-lsp-cache-candidates t)
         :config
         (push 'company-lsp company-backends))
-
-      (use-package lsp-python-ms
-        :disabled
-        :ensure t
-        :quelpa
-        (lsp-python-ms :repo "andrew-christianson/lsp-python-ms"
-                       :fetcher github :upgrade t)
-        :hook (python-mode . lsp)
-        :custom
-        (lsp-python-ms-dir (expand-file-name "~/proj/python-language-server/output/bin/Release/"))
-        (lsp-python-ms-executable "Microsoft.Python.LanguageServer"))
     #+end_src
 ** Web
 *** JS
