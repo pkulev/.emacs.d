@@ -128,14 +128,18 @@
 
 (use-package helpful
   :ensure t
+  :demand t
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
   :bind
   (:map help-mode-map
-        ("f" . #'helpful-callable)
-        ("v" . #'helpful-variable)
-        ("k" . #'helpful-key)
-        ("F" . #'helpful-at-point)
-        ("F" . #'helpful-function)
-        ("C" . #'helpful-command)))
+        ("f" . helpful-callable)
+        ("v" . helpful-variable)
+        ("k" . helpful-key)
+        ("F" . helpful-at-point)
+        ("F" . helpful-function)
+        ("C" . helpful-command)))
 
 (use-package free-keys
   :ensure t)
