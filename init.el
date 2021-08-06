@@ -560,6 +560,10 @@
     (interactive)
     (find-file (concat user-emacs-directory "readme.org")))
 
+  (defun my-config-open-private ()
+    (interactive)
+    (find-file (concat user-emacs-directory "private.el")))
+
   (defun my-config-eval ()
     (interactive)
     (load-file (concat user-emacs-directory "init.el")))
@@ -575,6 +579,7 @@
   (:map mode-specific-map
         ("e o" . #'my-config-open)
         ("e r" . #'my-config-open-readme)
+        ("e p" . #'my-config-open-private)
         ("e e" . #'my-config-eval)
         ("e s" . #'my-config-open-and-search)))
 
