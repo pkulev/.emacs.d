@@ -229,6 +229,7 @@
   :ensure nil
   :delight
   (visual-line-mode)
+  :hook ((before-save . delete-trailing-whitespace))
   :bind
   ("C-k" . #'kill-whole-line)
   :config
