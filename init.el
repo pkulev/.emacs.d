@@ -895,14 +895,15 @@
 
 (use-package pyvenv
   :ensure t
-  :hook (python-mode . pyvenv-mode))
+  :hook ((python-mode . pyvenv-mode)
+         (python-mode . pyvenv-tracking-mode)))
 
 (use-package lsp-mode
   :ensure t
   :delight
   :preface
   ;; TODO: make configurable
-  (defun pyvenv-autoload ()
+  (defun pkulev/pyvenv-autoload ()
     "Automatically activate pyvenv when .venv directory exists."
     (f-traverse-upwards
      (lambda (path)
@@ -911,31 +912,20 @@
              (progn
                (pyvenv-activate venv-path)
                t))))))
+  (defun pkulev/python-setup-indentation ()
+    (setq python-indent-def-block-scale 1)
+    (infer-indentation-style-python))
   :hook ((python-mode . lsp)
-         (python-mode . pyvenv-autoload)))
+         (python-mode . pkulev/pyvenv-autoload)
+         (python-mode . pkulev/python-setup-indentation)))
 
 (use-package lsp-ui
   :ensure t
   :commands (lsp)
-  ;; :custom
-  ;; (lsp-ui-sideline-enable t)
-  ;; (lsp-ui-sideline-show-symbol t)
-  ;; (lsp-ui-sideline-show-hover t)
-  ;; (lsp-ui-sideline-show-code-actions t)
-  ;; (lsp-ui-sideline-ignore-duplicate t)
-  ;; (lsp-ui-sideline-update-mode 'point)
-  :hook (lsp-mode . company-mode))
-
-(use-package company-lsp
-  :disabled
-  :ensure t
-  :after lsp-ui
   :custom
-  (company-lsp-cache-candidates 'auto)
-  (company-lsp-enable-snippets t)
-  (company-lsp-cache-candidates t)
-  :config
-  (push 'company-lsp company-backends))
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-sideline-ignore-duplicate t)
+  :hook (lsp-mode . company-mode))
 
 (use-package js
   :ensure nil
