@@ -852,15 +852,6 @@
     :modes lisp-mode)
   (add-to-list 'flycheck-checkers 'sblint))
 
-(use-package slime
-  :disabled
-  :ensure t
-  :commands (slime)
-  :requires slime-autoloads
-  :custom
-  (inferior-lisp-program (executable-find "sbcl"))
-  (slime-contribs '(slime-fancy slime-asdf slime-indentation)))
-
 (use-package sly-asdf
   :ensure t
   :defer t)
@@ -876,14 +867,6 @@
   :custom
   (inferior-lisp-program (executable-find "sbcl")))
 ;;  (sly-contribs '(sly-asdf sly-quicklisp)))
-
-;; TODO:
-(use-package slime-company
-  :disabled
-  :ensure t
-  :after slime
-  :config
-  (slime-setup '(slime-company)))
 
 (use-package geiser
   :ensure t

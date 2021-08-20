@@ -1378,15 +1378,6 @@
           :modes lisp-mode)
         (add-to-list 'flycheck-checkers 'sblint))
 
-      (use-package slime
-        :disabled
-        :ensure t
-        :commands (slime)
-        :requires slime-autoloads
-        :custom
-        (inferior-lisp-program (executable-find "sbcl"))
-        (slime-contribs '(slime-fancy slime-asdf slime-indentation)))
-
       (use-package sly-asdf
         :ensure t
         :defer t)
@@ -1403,13 +1394,6 @@
         (inferior-lisp-program (executable-find "sbcl")))
       ;;  (sly-contribs '(sly-asdf sly-quicklisp)))
 
-      ;; TODO:
-      (use-package slime-company
-        :disabled
-        :ensure t
-        :after slime
-        :config
-        (slime-setup '(slime-company)))
     #+end_src
 
 *** Scheme
@@ -1474,44 +1458,8 @@
     #+begin_src elisp
       (use-package pyvenv
         :ensure t
-        :hook (python-mode . pyvenv-mode))
-    #+end_src
-*** COMMENT ELPY
-    #+begin_src elisp
-      ;; TODO: install python modules
-      (use-package elpy
-        :disabled
-        :ensure t
-        :delight
-        (python-mode)
-        (elpy-mode " py+")
-        :commands (elpy-enable)
-        :preface
-        (defun elpy/my-python-mode-hook ()
-          (company-mode 1)
-          (company-quickhelp-mode)
-          (elpy-mode)
-          (pyvenv-tracking-mode)
-
-          (setq flycheck-enabled-checkers '(python-pylint)
-                flycheck-python-pylint-executable "pylint")
-
-          (setq python-indent-def-block-scale 1)
-
-          (infer-indentation-style-python))
-
-        :hook ((python-mode . elpy/my-python-mode-hook)
-               (elpy-mode . flycheck-mode))
-        :custom
-        (elpy-syntax-check-command "pylint")
-        (elpy-rpc-python-command "python3")
-        (elpy-modules '(elpy-module-sane-defaults
-                        elpy-module-company
-                        elpy-module-eldoc
-                        elpy-module-pyvenv  ; TODO
-                        elpy-module-yasnippet))
-        :config
-        (elpy-enable))
+        :hook ((python-mode . pyvenv-mode)
+               (python-mode . pyvenv-tracking-mode)))
     #+end_src
 *** LSP
     #+begin_src elisp
