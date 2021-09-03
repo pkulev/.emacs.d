@@ -717,9 +717,10 @@
 
 (use-package yasnippet
   :ensure t
+  :defer 2
+  :hook (prog-mode . yas-minor-mode)
   :config
-  (yas-reload-all)
-  (yas-minor-mode))
+  (yas-reload-all))
 
 (use-package flycheck
   :ensure t
