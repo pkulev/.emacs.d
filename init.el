@@ -240,6 +240,7 @@
 
 (use-package paren
   :ensure nil
+  :demand t
   :custom
   (show-paren-delay 0)
   :config
