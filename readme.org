@@ -88,6 +88,8 @@
     - [[#copy-as-format][Copy as format]]
     - [[#links][Links]]
 - [[#password-management][Password management]]
+- [[#terminals][Terminals]]
+  - [[#vterm][vterm]]
 - [[#shell-tools][Shell tools]]
   - [[#eshell-appearance][Eshell appearance]]
   - [[#eshell-completion-and-suggestion][Eshell completion and suggestion]]
@@ -882,6 +884,13 @@
     (use-package password-store
       :ensure t)
   #+end_src
+* Terminals
+** vterm
+   #+begin_src elisp
+     (use-package vterm
+       :ensure t
+       :commands (vterm))
+   #+end_src
 * Shell tools
   #+begin_src elisp
     (use-package shell

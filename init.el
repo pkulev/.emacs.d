@@ -482,6 +482,10 @@
 (use-package password-store
   :ensure t)
 
+(use-package vterm
+  :ensure t
+  :commands (vterm))
+
 (use-package shell
   :ensure nil
   :custom
