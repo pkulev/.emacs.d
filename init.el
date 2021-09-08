@@ -590,7 +590,8 @@
         ("e s" . #'my-config-open-and-search)))
 
 (use-package prescient
-  :ensure t)
+  :ensure t
+  :defer 0.5)
 
 (use-package company
   :ensure t
@@ -670,7 +671,8 @@
   (:map ivy-minibuffer-map
         ("C-r" . ivy-previous-line-or-history))
   :config
-  (ivy-mode t))
+  (ivy-mode t)
+  (ivy-prescient-mode))
 
 (use-package ivy-rich
   :ensure t
@@ -681,6 +683,7 @@
 (use-package ivy-prescient
   :ensure t
   :after ivy prescient
+  :defer 4
   :config
   (ivy-prescient-mode))
 
