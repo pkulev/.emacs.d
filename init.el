@@ -1236,11 +1236,12 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   (add-to-list 'org-structure-template-alist '("sp" . "src python"))
   (add-to-list 'org-structure-template-alist '("se" . "src elisp")))
 
-(use-package org-tempo
-  :ensure nil)
-
 (use-package org-protocol
   :ensure nil)
+
+(use-package org-tempo
+  :ensure nil
+  :after org-mode)
 
 (use-package org-bullets
   :ensure t

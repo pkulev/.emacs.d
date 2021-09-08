@@ -1835,11 +1835,21 @@
        (add-to-list 'org-structure-template-alist '("sp" . "src python"))
        (add-to-list 'org-structure-template-alist '("se" . "src elisp")))
 
-     (use-package org-tempo
-       :ensure nil)
-
      (use-package org-protocol
        :ensure nil)
+   #+end_src
+
+*** org-tempo
+    =org-mode= now has different system for inserting code sections (=C-c C-,=), but
+    I like previous one, snippet-like, so let's enable it.
+    #+begin_src elisp
+      (use-package org-tempo
+        :ensure nil
+        :after org-mode)
+    #+end_src
+
+*** Some whistles
+    #+begin_src elisp
 
      (use-package org-bullets
        :ensure t
@@ -1854,7 +1864,7 @@
        (org-ellipsis "⤵")
        :hook
        (org-mode . org-bullets-mode))
-   #+end_src
+    #+end_src
 
 *** Org-Trello sync
     #+begin_src elisp
