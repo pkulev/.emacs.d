@@ -498,7 +498,8 @@
 
 (use-package eshell-prompt-extras
   :ensure t
-  ;; FIXME: `command (eshell eshell-toggle)` doesn't work
+  ;; FIXME: :commands doesn't work
+  ; :commands (eshell eshell-toggle)
   :demand t
   :after (eshell esh-opt)
   :custom
