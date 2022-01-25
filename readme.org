@@ -40,7 +40,6 @@
   - [[#system-package-management][System package management]]
   - [[#installation-from-sources][Installation from sources]]
   - [[#file-name-handler-hack][File Name Handler Hack]]
-  - [[#improvements-for-packageel][Improvements for =package.el=]]
   - [[#temporarily-package-installation][Temporarily package installation]]
   - [[#additional-packages][Additional packages]]
     - [[#anaphoric-macroses][Anaphoric macroses]]
@@ -270,18 +269,6 @@
          :config
          (fnhh-mode 1))
      #+end_src
-
-** Improvements for =package.el=
-   =paradox= can install packages asynchronously and has better UI for *M-x list-packages*.
-   #+begin_src elisp
-     (use-package paradox
-       :ensure t
-       :demand t
-       :custom
-       (paradox-execute-asynchronously t)
-       :config
-       (paradox-enable))
-   #+end_src
 
 ** Temporarily package installation
    =try= installs package into temp directory without polluting /.config/emacs/ and /.emacs.d/.

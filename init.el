@@ -73,14 +73,6 @@
   :config
   (fnhh-mode 1))
 
-(use-package paradox
-  :ensure t
-  :demand t
-  :custom
-  (paradox-execute-asynchronously t)
-  :config
-  (paradox-enable))
-
 (use-package try
   :ensure t
   :commands (try))
