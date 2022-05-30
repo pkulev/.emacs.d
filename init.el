@@ -659,8 +659,7 @@
   (:map ivy-minibuffer-map
         ("C-r" . ivy-previous-line-or-history))
   :config
-  (ivy-mode t)
-  (ivy-prescient-mode))
+  (ivy-mode t))
 
 (use-package ivy-rich
   :ensure t
