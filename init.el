@@ -723,6 +723,7 @@
   :custom
   (flycheck-clang-language-standard "c++17")
   (flycheck-cppcheck-standards '("c++17"))
+  (flycheck-emacs-lisp-load-path 'inherit)
   :init (global-flycheck-mode))
 
 (use-package compile
@@ -936,6 +937,10 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
     "Setup Emacs Lisp buffer for Org Babel."
     (setq lexical-binding t)
     (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
+
+(use-package flycheck-package
+  :ensure t
+  :hook (emacs-lisp-mode . flycheck-package-setup))
 
 (use-package cider
   :ensure t)

@@ -1200,6 +1200,7 @@
         :custom
         (flycheck-clang-language-standard "c++17")
         (flycheck-cppcheck-standards '("c++17"))
+        (flycheck-emacs-lisp-load-path 'inherit)
         :init (global-flycheck-mode))
     #+end_src
 
@@ -1453,6 +1454,12 @@
           "Setup Emacs Lisp buffer for Org Babel."
           (setq lexical-binding t)
           (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
+    #+end_src
+
+    #+begin_src elisp
+      (use-package flycheck-package
+        :ensure t
+        :hook (emacs-lisp-mode . flycheck-package-setup))
     #+end_src
 
 *** Clojure
