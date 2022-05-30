@@ -1956,16 +1956,6 @@
        :ensure t
        :custom
        (jiralib-url my/private-jira-url))
-
-     ;; TODO:
-     ;; https://sourceforge.net/p/confluence-el/wiki/Home/
-     (use-package confluence
-       :if (boundp 'my/private-confluence-url)
-       :ensure t
-       :defer t
-       :custom
-       (confluence-url my/private-confluence-url)
-       (confluence-default-space-alist (my/private-confluence-default-space)))
    #+end_src
 
 * Local variables

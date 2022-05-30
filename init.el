@@ -1320,16 +1320,6 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :custom
   (jiralib-url my/private-jira-url))
 
-;; TODO:
-;; https://sourceforge.net/p/confluence-el/wiki/Home/
-(use-package confluence
-  :if (boundp 'my/private-confluence-url)
-  :ensure t
-  :defer t
-  :custom
-  (confluence-url my/private-confluence-url)
-  (confluence-default-space-alist (my/private-confluence-default-space)))
-
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
