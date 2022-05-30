@@ -1,15 +1,11 @@
 ;; -*- lexical-binding: t -*-
 ;; This file was tangled (automatically generated) from `readme.org'
 
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
 (require 'package)
 
 (setq package-archives
       (append (eval (car (get 'package-archives 'standard-value)))
-              '(("org" . "http://orgmode.org/elpa/")
-                ("melpa" . "http://melpa.org/packages/")
-                ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
+              '(("melpa" . "http://melpa.org/packages/"))))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -1137,6 +1133,7 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
 
 (use-package org
   ;; :hook (auto-save . org-save-all-org-buffers)
+  :pin gnu
   :ensure t
   :init
   (defun +org/agenda-skip-all-siblings-but-first ()
@@ -1172,7 +1169,6 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
     (remove-if-not #'(lambda (x) (string-match "\\.org$" x))
                    (directory-files org-directory 'full)))
 
-  :ensure org-plus-contrib
   :bind (("C-c a" . org-agenda)
          ("C-c b" . org-iswitchb)
          ("C-c l" . org-store-link)

@@ -164,19 +164,12 @@
 ** Repositories
    Set emacs package repositories.
 
-   Temporary hack for GNU repository.
-   #+begin_src elisp
-     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-   #+end_src
-
    #+begin_src elisp
      (require 'package)
 
      (setq package-archives
            (append (eval (car (get 'package-archives 'standard-value)))
-                   '(("org" . "http://orgmode.org/elpa/")
-                     ("melpa" . "http://melpa.org/packages/")
-                     ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
+                   '(("melpa" . "http://melpa.org/packages/"))))
    #+end_src
 
 ** =use-package=
@@ -1731,6 +1724,7 @@
    #+begin_src elisp
      (use-package org
        ;; :hook (auto-save . org-save-all-org-buffers)
+       :pin gnu
        :ensure t
        :init
        (defun +org/agenda-skip-all-siblings-but-first ()
@@ -1766,7 +1760,6 @@
          (remove-if-not #'(lambda (x) (string-match "\\.org$" x))
                         (directory-files org-directory 'full)))
 
-       :ensure org-plus-contrib
        :bind (("C-c a" . org-agenda)
               ("C-c b" . org-iswitchb)
               ("C-c l" . org-store-link)
