@@ -182,10 +182,6 @@
   (prog-mode . (lambda () (setq show-trailing-whitespace t)))
   :custom
   (use-dialog-box nil "Dialogs via minibuffer only.")
-  (tool-bar-mode nil "Disable toolbar.")
-  (menu-bar-mode nil "Disable menubar.")
-  (scroll-bar-mode nil "Disable scrollbar.")
-  (blink-cursor-mode nil "Disable cursor blinking.")
   (scroll-step 1 "Scroll line by line.")
   (scroll-margin 4 "Top and bottom scrolling margin.")
   (scroll-conservatively 101 "If >100 then never recenter point.")

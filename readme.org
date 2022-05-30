@@ -32,6 +32,7 @@
 - [[#about][About]]
   - [[#usage][Usage]]
   - [[#where-it-works][Where it works]]
+- [[#early-init][Early init]]
 - [[#package-management][Package management]]
   - [[#repositories][Repositories]]
   - [[#use-package][=use-package=]]
@@ -153,6 +154,21 @@
   - [[#corporative-services][Corporative services]]
 - [[#local-variables][Local variables]]
 
+* Early init
+  Early init is loaded before package system and GUI is initialized.
+
+  #+begin_src elisp :tangle "early-init.el"
+    ;; -*- lexical-binding: t -*-
+    ;; This file was tangled (automatically generated) from `readme.org'
+
+    (setq load-prefer-newer t)
+    (scroll-bar-mode 0)
+    (tool-bar-mode 0)
+    (menu-bar-mode 0)
+    (blink-cursor-mode 0)
+    (setq frame-resize-pixelwise t)
+    (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  #+end_src
 * Package management
   Initial bootstrapping and things related to package management.
 
@@ -421,10 +437,6 @@
        (prog-mode . (lambda () (setq show-trailing-whitespace t)))
        :custom
        (use-dialog-box nil "Dialogs via minibuffer only.")
-       (tool-bar-mode nil "Disable toolbar.")
-       (menu-bar-mode nil "Disable menubar.")
-       (scroll-bar-mode nil "Disable scrollbar.")
-       (blink-cursor-mode nil "Disable cursor blinking.")
        (scroll-step 1 "Scroll line by line.")
        (scroll-margin 4 "Top and bottom scrolling margin.")
        (scroll-conservatively 101 "If >100 then never recenter point.")

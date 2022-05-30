@@ -9,6 +9,9 @@
 # emacs config source
 !readme.org
 
+# tangled early init config
+!early-init.el
+
 # tangled emacs config
 !init.el
 
