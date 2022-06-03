@@ -355,6 +355,12 @@
   :config
   (beacon-mode 1))
 
+(use-package form-feed
+  :ensure t
+  :defer 5
+  :config
+  (global-form-feed-mode))
+
 (use-package ibuffer
   :ensure nil
   :defer t

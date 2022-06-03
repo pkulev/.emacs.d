@@ -704,6 +704,17 @@
        :config
        (beacon-mode 1))
    #+end_src
+
+   Show line feed char (=^L=) as line. It's useful in help windows
+   like =C-c C-h=.
+   #+begin_src elisp
+     (use-package form-feed
+       :ensure t
+       :defer 5
+       :config
+       (global-form-feed-mode))
+   #+end_src
+
 * Buffer management
 ** COMMENT buffer selection
    #+begin_src elisp
