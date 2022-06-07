@@ -613,9 +613,7 @@
   :delight
   :defer nil
   :bind (([remap menu-bar-open] . counsel-tmm)
-         ([remap insert-char] . counsel-unicode-char)
-         ([remap isearch-forward] . counsel-grep-or-swiper)
-         ([remap isearch-backward] . counsel-grep-or-swiper))
+         ([remap insert-char] . counsel-unicode-char))
   :config
   (counsel-mode))
 
@@ -645,7 +643,8 @@
   :delight
   :defer nil
   :bind
-  (([remap isearch-forward-symbol-at-point] . #'swiper-thing-at-point)))
+  ([remap isearch-forward] . swiper-thing-at-point)
+  ([remap isearch-backward] . swiper-thing-at-point))
 
 (use-package ivy
   :ensure t
