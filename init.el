@@ -520,6 +520,7 @@
 
 (use-package exec-path-from-shell
   :ensure t
+  :if (memq window-system '(mac x ns))
   :defer 1
   :custom
   (exec-path-from-shell-check-startup-files nil)
