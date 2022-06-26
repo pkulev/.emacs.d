@@ -234,7 +234,7 @@
 (use-package faces
   :ensure nil
   :config
-  (if (eq system-type 'darwin)
+  (if (or (eq system-type 'darwin) (eq system-type 'windows-nt))
       (set-face-attribute 'default
                           nil
                           :family "Fira Code"
