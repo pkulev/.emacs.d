@@ -1606,7 +1606,6 @@
         :ensure t
         :commands (lsp)
         :custom
-        (lsp-ui-sideline-show-hover t)
         (lsp-ui-sideline-ignore-duplicate t)
         :hook (lsp-mode . company-mode))
     #+end_src

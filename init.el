@@ -1022,7 +1022,6 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :ensure t
   :commands (lsp)
   :custom
-  (lsp-ui-sideline-show-hover t)
   (lsp-ui-sideline-ignore-duplicate t)
   :hook (lsp-mode . company-mode))
 
