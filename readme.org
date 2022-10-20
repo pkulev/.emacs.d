@@ -129,6 +129,8 @@
     - [[#pyvenv][pyvenv]]
     - [[#lsp][LSP]]
   - [[#web][Web]]
+    - [[#rest-client][Rest Client]]
+    - [[#jq----json-query][jq -- JSON Query]]
     - [[#js][JS]]
     - [[#html][HTML]]
   - [[#nim][Nim]]
@@ -142,6 +144,8 @@
 - [[#email--messengers][Email & Messengers]]
 - [[#productivity--task-management][Productivity & task management]]
   - [[#org-mode][Org mode]]
+    - [[#org-tempo][org-tempo]]
+    - [[#some-whistles][Some whistles]]
     - [[#org-trello-sync][Org-Trello sync]]
     - [[#generate-table-of-contents][Generate Table of Contents]]
     - [[#org-babel][Org babel]]
@@ -1610,6 +1614,16 @@
         :hook (lsp-mode . company-mode))
     #+end_src
 ** Web
+*** Rest Client
+    #+begin_src elisp
+      (use-package restclient
+        :ensure t)
+    #+end_src
+*** jq -- JSON Query
+    #+begin_src elisp
+      (use-package restclient-jq
+        :ensure t)
+    #+end_src
 *** JS
     #+begin_src elisp
       (use-package js
@@ -1883,6 +1897,10 @@
 
       (use-package ob-async
         :ensure t)
+
+      (use-package ob-restclient
+        :ensure t
+        :mode (("\\.http\\'" . restclient-mode)))
     #+end_src
 
 *** Org export

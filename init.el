@@ -1025,6 +1025,12 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   (lsp-ui-sideline-ignore-duplicate t)
   :hook (lsp-mode . company-mode))
 
+(use-package restclient
+  :ensure t)
+
+(use-package restclient-jq
+  :ensure t)
+
 (use-package js
   :ensure nil
   :config
@@ -1252,6 +1258,10 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
 
 (use-package ob-async
   :ensure t)
+
+(use-package ob-restclient
+  :ensure t
+  :mode (("\\.http\\'" . restclient-mode)))
 
 (use-package ox-jira
   :ensure t
