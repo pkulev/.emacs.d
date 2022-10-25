@@ -90,6 +90,7 @@
 - [[#password-management][Password management]]
 - [[#terminals][Terminals]]
   - [[#vterm][vterm]]
+  - [[#vterm-toggle][vterm-toggle]]
 - [[#shell-tools][Shell tools]]
   - [[#eshell-appearance][Eshell appearance]]
   - [[#eshell-completion-and-suggestion][Eshell completion and suggestion]]
@@ -896,7 +897,21 @@
    #+begin_src elisp
      (use-package vterm
        :ensure t
-       :commands (vterm))
+       :commands (vterm)
+       :custom
+       (vterm-max-scrollback 100000))
+   #+end_src
+** vterm-toggle
+   #+begin_src elisp
+     (use-package vterm-toggle
+       :ensure t
+       :after vterm
+       :bind
+       (:map ctl-x-map
+             ("C-v" . vterm)
+             ("v" . vterm-toggle)
+             ("p" . vterm-toggle-backward)
+             ("n" . vterm-toggle-forward)))
    #+end_src
 * Shell tools
   #+begin_src elisp

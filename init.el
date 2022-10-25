@@ -474,7 +474,19 @@
 
 (use-package vterm
   :ensure t
-  :commands (vterm))
+  :commands (vterm)
+  :custom
+  (vterm-max-scrollback 100000))
+
+(use-package vterm-toggle
+  :ensure t
+  :after vterm
+  :bind
+  (:map ctl-x-map
+        ("C-v" . vterm)
+        ("v" . vterm-toggle)
+        ("p" . vterm-toggle-backward)
+        ("n" . vterm-toggle-forward)))
 
 (use-package shell
   :ensure nil
