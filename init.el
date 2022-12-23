@@ -276,13 +276,13 @@
   :config
   (reverse-im-activate "russian-computer"))
 
-(use-package fill-column-indicator
-  :ensure t
+(use-package display-fill-column-indicator
+  :ensure nil
   :custom
-  (fci-rule-width 1)
-  (fci-rule-color "cadetBlue4")
-  (fci-rule-column 80)
-  :hook (prog-mode . fci-mode))
+  (display-fill-column-indicator-column 90)
+  :custom-face
+  (fill-column-indicator ((t (:foreground "VioletRed2"))))
+  :hook (prog-mode . display-fill-column-indicator-mode))
 
 (use-package zerodark-theme
   :ensure t

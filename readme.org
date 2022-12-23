@@ -67,7 +67,7 @@
     - [[#diff-highlighting][Diff highlighting]]
     - [[#fringe-settings][Fringe settings]]
     - [[#reverse-im][=reverse-im=]]
-  - [[#line-length-indication][Line length indication]]
+  - [[#line-length-indication-boundaries][Line length indication (boundaries)]]
   - [[#theme][Theme]]
     - [[#very-cool-theme][Very cool theme]]
   - [[#icons][Icons]]
@@ -601,15 +601,15 @@
         (reverse-im-activate "russian-computer"))
     #+end_src
 
-** Line length indication
+** Line length indication (boundaries)
    #+begin_src elisp
-     (use-package fill-column-indicator
-       :ensure t
+     (use-package display-fill-column-indicator
+       :ensure nil
        :custom
-       (fci-rule-width 1)
-       (fci-rule-color "cadetBlue4")
-       (fci-rule-column 80)
-       :hook (prog-mode . fci-mode))
+       (display-fill-column-indicator-column 90)
+       :custom-face
+       (fill-column-indicator ((t (:foreground "VioletRed2"))))
+       :hook (prog-mode . display-fill-column-indicator-mode))
    #+end_src
 ** Theme
 *** COMMENT Cool theme
