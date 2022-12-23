@@ -802,6 +802,9 @@
   :custom
   (c-basic-offset 4))
 
+(use-package meson-mode
+  :ensure t)
+
 (use-package glsl-mode
   :ensure t)
 
@@ -1026,7 +1029,9 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   (defun pkulev/python-setup-indentation ()
     (setq python-indent-def-block-scale 1)
     (infer-indentation-style-python))
-  :hook ((python-mode . lsp)
+  :hook ((c-mode . lsp)
+         (c++-mode . lsp)
+         (python-mode . lsp)
          (python-mode . pkulev/pyvenv-autoload)
          (python-mode . pkulev/python-setup-indentation)))
 

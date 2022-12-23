@@ -118,6 +118,7 @@
     - [[#metrics][Metrics]]
   - [[#translations][Translations]]
   - [[#cc][C/C++]]
+    - [[#build-systems][Build systems]]
   - [[#glsl][GLSL]]
   - [[#lisp][Lisp]]
     - [[#emacs-lisp][Emacs Lisp]]
@@ -1330,7 +1331,12 @@
        :custom
        (c-basic-offset 4))
    #+end_src
-
+*** Build systems
+**** Meson
+     #+begin_src elisp
+       (use-package meson-mode
+         :ensure t)
+     #+end_src
 ** GLSL
    OpenGL Shader Language
 
@@ -1617,7 +1623,9 @@
         (defun pkulev/python-setup-indentation ()
           (setq python-indent-def-block-scale 1)
           (infer-indentation-style-python))
-        :hook ((python-mode . lsp)
+        :hook ((c-mode . lsp)
+               (c++-mode . lsp)
+               (python-mode . lsp)
                (python-mode . pkulev/pyvenv-autoload)
                (python-mode . pkulev/python-setup-indentation)))
 
