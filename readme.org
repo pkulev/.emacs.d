@@ -609,7 +609,7 @@
      (use-package display-fill-column-indicator
        :ensure nil
        :custom
-       (display-fill-column-indicator-column 90)
+       (display-fill-column-indicator-column 100)
        :custom-face
        (fill-column-indicator ((t (:foreground "VioletRed2"))))
        :hook (prog-mode . display-fill-column-indicator-mode))
