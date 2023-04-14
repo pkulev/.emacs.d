@@ -1,8 +1,11 @@
 ;; -*- lexical-binding: t -*-
 ;; This file was tangled (automatically generated) from `readme.org'
 
+(require 'tool-bar)
+
 (setq load-prefer-newer t)
-(scroll-bar-mode 0)
+(when (display-graphic-p)
+  (scroll-bar-mode 0))
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (blink-cursor-mode 0)
