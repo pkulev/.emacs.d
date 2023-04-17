@@ -48,6 +48,7 @@
     - [[#configuration-profiler][Configuration profiler]]
 - [[#help--manuals][Help & manuals]]
   - [[#better-help][Better help]]
+  - [[#useful-examples-instead-of-man-aka-tldr][Useful examples instead of man aka tldr]]
   - [[#free-keys][Free keys]]
   - [[#which-key][Which key]]
   - [[#colorize-info-nodes][Colorize info nodes]]
@@ -370,6 +371,13 @@
              ("F" . helpful-at-point)
              ("F" . helpful-function)
              ("C" . helpful-command)))
+   #+end_src
+
+** Useful examples instead of man aka tldr
+   #+begin_src elisp
+     (use-package tldr
+       :ensure t
+       :commands (tldr))
    #+end_src
 
 ** Free keys
