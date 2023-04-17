@@ -372,6 +372,13 @@
              ("C" . helpful-command)))
    #+end_src
 
+** Useful examples instead of man aka tldr
+   #+begin_src elisp
+     (use-package tldr
+       :ensure t
+       :commands (tldr))
+   #+end_src
+
 ** Free keys
    #+begin_src elisp
      (use-package free-keys

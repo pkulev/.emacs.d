@@ -129,6 +129,10 @@
         ("F" . helpful-function)
         ("C" . helpful-command)))
 
+(use-package tldr
+  :ensure t
+  :commands (tldr))
+
 (use-package free-keys
   :ensure t)
 
