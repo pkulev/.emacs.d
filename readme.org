@@ -112,6 +112,7 @@
   - [[#docker][Docker]]
 - [[#programming-modes][Programming modes]]
   - [[#common][Common]]
+    - [[#interactive-at-point-documentation][Interactive at-point documentation]]
     - [[#snippets][Snippets]]
     - [[#syntax-checking-and-linting][Syntax checking and linting]]
     - [[#env-projectile-integration][.env projectile integration]]
@@ -1238,6 +1239,15 @@
    #+end_src
 * Programming modes
 ** Common
+*** Interactive at-point documentation
+**** Eldoc
+     =Eldoc= is built-in package, which shows function arglist or variable docstring in the echo area.
+     #+begin_src elisp
+       (use-package eldoc
+         :ensure nil
+         :delight)
+     #+end_src
+
 *** Snippets
     #+begin_src elisp
       (use-package yasnippet
@@ -1642,6 +1652,11 @@
                (python-mode . lsp)
                (python-mode . pkulev/pyvenv-autoload)
                (python-mode . pkulev/python-setup-indentation)))
+
+      (use-package lsp-lens
+        :ensure t
+        :commands (lsp)
+        :delight)
 
       (use-package lsp-ui
         :ensure t
