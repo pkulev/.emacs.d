@@ -1075,7 +1075,9 @@
    #+begin_src elisp
      (use-package prescient
        :ensure t
-       :defer 0.5)
+       :defer 0.5
+       :custom
+       (prescient-use-char-folding nil "That fixes counsel-projectile-ag strange matching."))
    #+end_src
 
 ** Company

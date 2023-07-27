@@ -601,7 +601,9 @@
 
 (use-package prescient
   :ensure t
-  :defer 0.5)
+  :defer 0.5
+  :custom
+  (prescient-use-char-folding nil "That fixes counsel-projectile-ag strange matching."))
 
 (use-package company
   :ensure t
