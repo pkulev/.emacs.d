@@ -197,7 +197,8 @@
 
      (setq package-archives
            (append (eval (car (get 'package-archives 'standard-value)))
-                   '(("melpa" . "http://melpa.org/packages/"))))
+                   '(("melpa-stable" . "http://stable.melpa.org/packages/")
+                     ("melpa-unstable" . "http://melpa.org/packages/"))))
    #+end_src
 
 ** =use-package=
@@ -1799,12 +1800,8 @@
 * Email & Messengers
   #+begin_src elisp
     (use-package telega
-      :if (> emacs-major-version 25)
+      :pin melpa-stable
       :ensure nil
-      :quelpa
-      (telega :repo "zevlg/telega.el"
-              :fetcher github :upgrade t)
-      :load-path "~/proj/telega.el"
       :commands (telega)
       :defer t
       :config

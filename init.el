@@ -5,7 +5,8 @@
 
 (setq package-archives
       (append (eval (car (get 'package-archives 'standard-value)))
-              '(("melpa" . "http://melpa.org/packages/"))))
+              '(("melpa-stable" . "http://stable.melpa.org/packages/")
+                ("melpa-unstable" . "http://melpa.org/packages/"))))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -1157,12 +1158,8 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
          ("<S-f2>" . bm-previous)))
 
 (use-package telega
-  :if (> emacs-major-version 25)
+  :pin melpa-stable
   :ensure nil
-  :quelpa
-  (telega :repo "zevlg/telega.el"
-          :fetcher github :upgrade t)
-  :load-path "~/proj/telega.el"
   :commands (telega)
   :defer t
   :config
