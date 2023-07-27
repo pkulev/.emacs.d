@@ -1972,6 +1972,14 @@
         :hook (org-mode . (lambda () (require 'ox-jira))))
     #+end_src
 
+    I use *ox-gfm* for exporting README.org to README.md (GitHub flavored markdown) that
+    renders nice on GitHub.
+    #+begin_src elisp
+      (use-package ox-gfm
+        :ensure t
+        :defer t)
+  #+end_src
+
 *** Yankpad
     #+begin_src elisp
       (use-package yankpad

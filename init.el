@@ -1301,6 +1301,10 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :ensure t
   :hook (org-mode . (lambda () (require 'ox-jira))))
 
+(use-package ox-gfm
+  :ensure t
+  :defer t)
+
 (use-package yankpad
   :ensure t
   :defer org
