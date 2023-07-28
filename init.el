@@ -483,7 +483,7 @@
   :ensure t
   :commands (vterm)
   :custom
-  (vterm-max-scrollback 100000))
+  (vterm-max-scrollback 10000))
 
 (use-package vterm-toggle
   :ensure t
