@@ -236,23 +236,15 @@
   :config
   (show-paren-mode t))
 
-;; TODO: fix somehow different family across OSes
 (use-package faces
   :ensure nil
   :config
-  (if (eq system-type 'darwin)
-      (set-face-attribute 'default
-                          nil
-                          :family "Fira Code"
-                          :weight 'semi-light
-                          :width 'semi-condensed
-                          :height 130)
-    (set-face-attribute 'default
-                        nil
-                        :family "FiraCode"
-                        :weight 'semi-light
-                        :width 'semi-condensed
-                        :height 130)))
+  (set-face-attribute 'default
+                      nil
+                      :family (if (memq system-type '(darwin windows-nt)) "Fira Code" "FiraCode")
+                      :weight 'semi-light
+                      :width 'semi-condensed
+                      :height 130))
 
 (use-package hl-line
   :ensure nil
