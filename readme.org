@@ -142,6 +142,7 @@
   - [[#terraform][Terraform]]
 - [[#git-things][Git things]]
   - [[#magit][Magit]]
+  - [[#fix-magit-push-for-windows][Fix magit push for windows]]
   - [[#git-forges][Git forges]]
 - [[#bookmarks][Bookmarks]]
 - [[#email--messengers][Email & Messengers]]
@@ -1739,6 +1740,15 @@
              ("f" . #'magit-find-file)
              ("l" . #'magit-log-buffer-file)))
    #+end_src
+
+** Fix magit push for windows
+
+#+begin_src elisp
+  (use-package ssh-agency
+    :if (eq system-type 'windows-nt)
+    :init
+    (setenv "SSH_ASKPASS" "git-gui--askpass"))
+#+end_src
 
 ** Git forges
    #+begin_src elisp

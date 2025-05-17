@@ -1116,6 +1116,11 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
         ("f" . #'magit-find-file)
         ("l" . #'magit-log-buffer-file)))
 
+(use-package ssh-agency
+  :if (eq system-type 'windows-nt)
+  :init
+  (setenv "SSH_ASKPASS" "git-gui--askpass"))
+
 (use-package forge
   :if (boundp 'my/private-forges)
   :ensure t
