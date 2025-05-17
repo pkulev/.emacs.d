@@ -460,6 +460,7 @@
        (scroll-conservatively 101 "If >100 then never recenter point.")
        (inhibit-splash-screen t "Don't show the splash screen.")
        (initial-scratch-message nil "Disable initial scratch message.")
+       (ring-bell-function 'ignore "Disable the bell ring.")
 
        (indicate-empty-lines t "Visually indicate empty lines.")
        (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
