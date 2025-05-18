@@ -1048,11 +1048,6 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
          (python-mode . pkulev/pyvenv-autoload)
          (python-mode . pkulev/python-setup-indentation)))
 
-(use-package lsp-lens
-  :ensure t
-  :commands (lsp)
-  :delight)
-
 (use-package lsp-ui
   :ensure t
   :commands (lsp)
