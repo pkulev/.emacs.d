@@ -1031,6 +1031,11 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
 (use-package lsp-mode
   :ensure t
   :delight
+  :custom
+  ;; Disable old and ineffective linters, use all of the ruff!
+  (lsp-pylsp-plugins-pylint-enabled nil "Disable pylint.")
+  (lsp-pylsp-plugins-flake8-enabled nil "Disable flake8.")
+  (lsp-pylsp-plugins-pydocstyle-enabled nil)
   :preface
   ;; TODO: make configurable
   (defun pkulev/pyvenv-autoload ()
