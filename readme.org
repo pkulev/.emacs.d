@@ -122,6 +122,7 @@
   - [[#cc][C/C++]]
     - [[#build-systems][Build systems]]
   - [[#glsl][GLSL]]
+  - [[#go][Go]]
   - [[#lisp][Lisp]]
     - [[#emacs-lisp][Emacs Lisp]]
     - [[#clojure][Clojure]]
@@ -1380,6 +1381,13 @@
        (add-to-list 'company-backends 'company-glsl))
    #+end_src
 
+** Go
+   Go programming language support.
+   #+begin_src elisp
+     (use-package go-mode
+       :ensure t)
+   #+end_src
+
 ** Lisp
    #+begin_src elisp
      ;; TODO: parinfer was removed from MELPA and archived
@@ -1652,6 +1660,7 @@
           (infer-indentation-style-python))
         :hook ((c-mode . lsp-deferred)
                (c++-mode . lsp-deferred)
+               (go-mode . lsp-deferred)
                (python-mode . lsp-deferred)
                (python-mode . pkulev/pyvenv-autoload)
                (python-mode . pkulev/python-setup-indentation)))
