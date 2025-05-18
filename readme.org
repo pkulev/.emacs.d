@@ -117,6 +117,7 @@
     - [[#syntax-checking-and-linting][Syntax checking and linting]]
     - [[#env-projectile-integration][.env projectile integration]]
     - [[#projectile][Projectile]]
+    - [[#compilation][Compilation]]
     - [[#metrics][Metrics]]
   - [[#translations][Translations]]
   - [[#cc][C/C++]]
@@ -1331,6 +1332,14 @@
         (projectile-completion-system 'ivy)
         :config
         (projectile-mode))
+    #+end_src
+
+*** Compilation
+    Set ANSI color filter that will produce nice colored reports.
+    #+begin_src elisp
+      (use-package compile
+        :hook
+        (compilation-filter . ansi-color-compilation-filter))
     #+end_src
 
 *** Metrics

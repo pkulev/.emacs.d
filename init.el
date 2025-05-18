@@ -798,6 +798,10 @@
   :config
   (projectile-mode))
 
+(use-package compile
+  :hook
+  (compilation-filter . ansi-color-compilation-filter))
+
 (use-package sloc
   :ensure nil
   :quelpa
