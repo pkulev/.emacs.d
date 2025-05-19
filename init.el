@@ -434,6 +434,57 @@
          ("C-:" . avy-goto-char)
          ("C-'" . avy-goto-char-2)))
 
+(use-package puni
+  :ensure t
+  :hook (((fennel
+           ielm-mode
+           hy-mode
+           inferior-hy-mode
+           python-mode
+           inferior-python-mode
+           common-lisp-modes-mode
+           emacs-lisp-mode
+           inferior-emacs-lisp-mode
+           go-mode
+           nxml-mode) . puni-mode)
+         (puni-mode . electric-pair-mode))
+  ;; paredit-like keys
+  :bind ( :map puni-mode-map
+          ("C-M-f" . puni-forward-sexp-or-up-list)
+          ("C-M-b" . puni-backward-sexp-or-up-list)
+          ("C-M-t" . puni-transpose)
+          ;; slurping & barfing
+          ("C-<left>" . puni-barf-forward)
+          ("C-}" . puni-barf-forward)
+          ("C-<right>" . puni-slurp-forward)
+          ("C-)" . puni-slurp-forward)
+          ("C-(" . puni-slurp-backward)
+          ("C-M-<left>" . puni-slurp-backward)
+          ("C-{" . puni-barf-backward)
+          ("C-M-<right>" . puni-barf-backward)
+          ;; depth chaning
+          ("M-r" . puni-raise)
+          ("M-s" . puni-splice)
+          ("M-<up>" . puni-splice-killing-backward)
+          ("M-<down>" . puni-splice-killing-forward)
+          ("M-(" . puni-wrap-round)
+          ("M-{" . puni-wrap-curly)
+          ("M-?" . puni-convolute)
+          ("M-S" . puni-split))
+  :preface
+  (define-advice puni-kill-line (:before (&rest _) back-to-indentation)
+    "Go back to indentation before killing the line if it makes sense to."
+    (when (looking-back "^[[:space:]]*" nil)
+      (if (bound-and-true-p indent-line-function)
+          (funcall indent-line-function)
+        (back-to-indentation)))))
+
+(use-package puni
+  :when window-system
+  :bind ( :map puni-mode-map
+          ;; doesn't work in terminal
+          ("M-[" . puni-wrap-square)))
+
 (use-package delsel
   :ensure nil
   :config
@@ -836,58 +887,6 @@
 
 ;; TODO: parinfer was removed from MELPA and archived
 ;; make parinfer-rust-mode work under M1 or use something else like lispy
-
-(use-package smartparens
-  :ensure smartparens
-  :hook (((clojure-mode
-           emacs-lisp-mode
-           common-lisp-mode
-           scheme-mode
-           lisp-mode
-           racket-mode
-           fennel-mode
-           cider-repl-mode
-           racket-repl-mode
-           geiser-repl-mode
-           inferior-lisp-mode
-           inferior-emacs-lisp-mode
-           sly-mrepl-mode)
-          . smartparens-strict-mode)
-         ((eval-expression-minibuffer-setup
-           lisp-data-mode)
-          . aorst/minibuffer-enable-sp)
-         (prog-mode . smartparens-mode))
-  :bind (:map smartparens-mode-map
-         ("C-M-q" . sp-indent-defun)
-         :map smartparens-strict-mode-map
-         (";" . sp-comment))
-  :custom
-  (sp-highlight-pair-overlay nil)
-  (sp-highlight-wrap-overlay nil)
-  (sp-highlight-wrap-tag-overlay nil)
-  (sp-wrap-respect-direction t)
-  (sp-show-pair-delay 0)
-  (sp-echo-match-when-invisible nil)
-  :config
-  (require 'smartparens-config)
-  (add-to-list 'sp-lisp-modes 'fennel-mode t)
-  (sp-use-paredit-bindings)
-  (define-key smartparens-mode-map (kbd "M-r") 'sp-rewrap-sexp) ; needs to be set manually, because :bind section runs before config
-  (defun aorst/minibuffer-enable-sp ()
-    "Enable `smartparens-strict-mode' in the minibuffer, during `eval-expression'."
-    (setq-local comment-start ";")
-    (sp-local-pair 'minibuffer-pairs "'" nil :actions nil)
-    (sp-local-pair 'minibuffer-pairs "`" nil :actions nil)
-    (sp-update-local-pairs 'minibuffer-pairs)
-    (smartparens-strict-mode 1))
-  (defun aorst/wrap-fix-cursor-position (_ action _)
-    "Set cursor position inside expression when wrapping."
-    (when (and (eq action 'wrap)
-               (eq (point)
-                   (marker-position (sp-get sp-last-wrapped-region :beg))))
-      (goto-char (sp-get sp-last-wrapped-region :beg-in))))
-  (dolist (paren '("(" "[" "{"))
-    (sp-pair paren nil :post-handlers '(:add aorst/wrap-fix-cursor-position))))
 
 (use-package parinfer
   :disabled
