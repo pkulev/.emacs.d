@@ -815,13 +815,17 @@
   :ensure t
   :bind ("M-;" . smart-comment))
 
-(use-package fixmee
+(use-package hl-todo
   :ensure t
-  :delight
-  (button-lock-mode)
-  (fixmee-mode)
-  :hook (prog-mode . global-fixmee-mode)
-  :init (require 'button-lock))
+  :defer 2
+  :custom
+  (hl-todo-keyword-faces '(("TODO"   . "#FF4500")
+                           ("FIXME"  . "#FF0000")
+                           ("XXXX*"  . "#FF0000")
+                           ("NOTE"   . "#A9A9A9")
+                           ("DEBUG"  . "#1E90FF")
+                           ("STUB"   . "#A020F0")))
+  :init (global-hl-todo-mode))
 
 (use-package dotenv
   :ensure nil
