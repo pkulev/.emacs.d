@@ -52,7 +52,7 @@
     (setq system-packages-package-manager 'dnf)))
 
 (use-package use-package-ensure-system-package
-  :ensure t
+  :ensure nil
   :demand t)
 
 (use-package quelpa

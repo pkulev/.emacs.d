@@ -268,7 +268,7 @@
 
    #+begin_src elisp
      (use-package use-package-ensure-system-package
-       :ensure t
+       :ensure nil
        :demand t)
    #+end_src
 
