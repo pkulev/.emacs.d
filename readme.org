@@ -745,6 +745,7 @@
      (use-package form-feed
        :ensure t
        :defer 5
+       :delight
        :config
        (global-form-feed-mode))
    #+end_src
