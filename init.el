@@ -256,9 +256,10 @@
 
 (use-package hl-line
   :ensure nil
+  :defer 1
   :config
   (global-hl-line-mode 1)
-  (set-face-background 'hl-line "#3e4446")
+  (set-face-background 'hl-line "#EEEEEE")
   (set-face-foreground 'highlight nil))
 
 (use-package diff-hl
@@ -290,13 +291,11 @@
   (fill-column-indicator ((t (:foreground "VioletRed2"))))
   :hook (prog-mode . display-fill-column-indicator-mode))
 
-(use-package zerodark-theme
+(use-package doom-themes
   :ensure t
   :demand t
-  ;;:after flycheck  ; TODO: make PR for fixing this
   :config
-  (load-theme 'zerodark 'noconfirm))
-  ;;(zerodark-setup-modeline-format))
+  (load-theme 'doom-one-light 'noconfirm))
 
 (use-package all-the-icons
   :if window-system

@@ -63,6 +63,7 @@
   - [[#simple][Simple]]
   - [[#highlight-matching-parens][Highlight matching parens]]
   - [[#fonts--faces][Fonts & faces]]
+    - [[#font-locking-syntax-highlighting][Font locking (syntax highlighting)]]
     - [[#fira-code-font][Fira Code font]]
     - [[#current-line-highlighting][Current line highlighting]]
     - [[#diff-highlighting][Diff highlighting]]
@@ -70,7 +71,7 @@
     - [[#reverse-im][=reverse-im=]]
   - [[#line-length-indication-boundaries][Line length indication (boundaries)]]
   - [[#theme][Theme]]
-    - [[#very-cool-theme][Very cool theme]]
+    - [[#light-theme][Light theme]]
   - [[#icons][Icons]]
   - [[#whistles][Whistles]]
 - [[#buffer-management][Buffer management]]
@@ -528,6 +529,14 @@
    #+end_src
 
 ** Fonts & faces
+*** Font locking (syntax highlighting)
+    #+begin_src elisp
+     (use-package font-lock
+       :ensure nil
+       :custom-face
+       (font-lock-doc-face ((t (:slant 'normal)))))
+    #+end_src elisp
+
 *** COMMENT Fira ligatures for emacs
     Doesn't work properly yet.
     #+begin_src elisp
@@ -581,12 +590,13 @@
 *** Current line highlighting
 
     #+begin_src elisp
-    (use-package hl-line
-      :ensure nil
-      :config
-      (global-hl-line-mode 1)
-      (set-face-background 'hl-line "#3e4446")
-      (set-face-foreground 'highlight nil))
+      (use-package hl-line
+        :ensure nil
+        :defer 1
+        :config
+        (global-hl-line-mode 1)
+        (set-face-background 'hl-line "#EEEEEE")
+        (set-face-foreground 'highlight nil))
     #+end_src
 
 *** Diff highlighting
@@ -630,15 +640,7 @@
        :hook (prog-mode . display-fill-column-indicator-mode))
    #+end_src
 ** Theme
-*** COMMENT Cool theme
-    #+begin_src elisp
-      (use-package color-theme-sanityinc-tomorrow
-        :disabled
-        :ensure t
-        :init (load-theme 'sanityinc-tomorrow-eighties 'noconfirm))
-    #+end_src
-
-*** Very cool theme
+*** COMMENT Dark theme
     #+begin_src elisp
       (use-package zerodark-theme
         :ensure t
@@ -647,6 +649,14 @@
         :config
         (load-theme 'zerodark 'noconfirm))
         ;;(zerodark-setup-modeline-format))
+    #+end_src
+*** Light theme
+    #+begin_src elisp
+      (use-package doom-themes
+        :ensure t
+        :demand t
+        :config
+        (load-theme 'doom-one-light 'noconfirm))
     #+end_src
 ** Icons
    #+begin_src elisp
