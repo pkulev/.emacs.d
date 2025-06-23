@@ -126,6 +126,7 @@
     - [[#build-systems][Build systems]]
   - [[#glsl][GLSL]]
   - [[#go][Go]]
+  - [[#godot-gdscript][Godot GDScript]]
   - [[#lisp][Lisp]]
     - [[#emacs-lisp][Emacs Lisp]]
     - [[#clojure][Clojure]]
@@ -1464,6 +1465,14 @@
        :ensure t)
    #+end_src
 
+** Godot GDScript
+   #+begin_src elisp
+     (use-package gdscript-mode
+       :ensure t
+       :custom
+       (gdscript-use-tab-indents nil "Gosh."))
+   #+end_src
+
 ** Lisp
    #+begin_src elisp
      ;; TODO: parinfer was removed from MELPA and archived
@@ -1690,6 +1699,7 @@
         :hook ((c-mode . lsp-deferred)
                (c++-mode . lsp-deferred)
                (go-mode . lsp-deferred)
+               (gdscript-mode . lsp-deferred)
                (python-mode . lsp-deferred)
                (python-mode . pkulev/pyvenv-autoload)
                (python-mode . pkulev/python-setup-indentation)))

@@ -881,6 +881,11 @@
 (use-package go-mode
   :ensure t)
 
+(use-package gdscript-mode
+  :ensure t
+  :custom
+  (gdscript-use-tab-indents nil "Gosh."))
+
 ;; TODO: parinfer was removed from MELPA and archived
 ;; make parinfer-rust-mode work under M1 or use something else like lispy
 
@@ -1052,6 +1057,7 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :hook ((c-mode . lsp-deferred)
          (c++-mode . lsp-deferred)
          (go-mode . lsp-deferred)
+         (gdscript-mode . lsp-deferred)
          (python-mode . lsp-deferred)
          (python-mode . pkulev/pyvenv-autoload)
          (python-mode . pkulev/python-setup-indentation)))
