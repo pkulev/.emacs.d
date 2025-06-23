@@ -434,6 +434,7 @@
            python-mode
            inferior-python-mode
            common-lisp-modes-mode
+           clojure-mode
            emacs-lisp-mode
            inferior-emacs-lisp-mode
            go-mode
