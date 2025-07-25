@@ -428,6 +428,7 @@
 (use-package puni
   :ensure t
   :hook (((fennel
+           lua
            ielm-mode
            hy-mode
            inferior-hy-mode
@@ -1011,6 +1012,12 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   (geiser-default-implementation 'guile))
 
 (use-package hy-mode
+  :ensure t)
+
+(use-package fennel-mode
+  :ensure t)
+
+(use-package lua-mode
   :ensure t)
 
 (use-package python

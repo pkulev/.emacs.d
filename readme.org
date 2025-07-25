@@ -133,6 +133,8 @@
     - [[#common-lisp][Common Lisp]]
     - [[#scheme][Scheme]]
     - [[#hy][Hy]]
+    - [[#fennel][Fennel]]
+  - [[#lua][Lua]]
   - [[#python][Python]]
     - [[#poetry][Poetry]]
     - [[#pyvenv][pyvenv]]
@@ -858,6 +860,7 @@
   (use-package puni
     :ensure t
     :hook (((fennel
+             lua
              ielm-mode
              hy-mode
              inferior-hy-mode
@@ -1624,6 +1627,18 @@
       (use-package hy-mode
         :ensure t)
     #+end_src
+
+*** Fennel
+    #+begin_src elisp
+      (use-package fennel-mode
+        :ensure t)
+    #+end_src
+
+** Lua
+   #+begin_src elisp
+     (use-package lua-mode
+       :ensure t)
+   #+end_src
 
 ** Python
    Python is my primary language for now.
