@@ -1431,13 +1431,18 @@
 
 ** C/C++
    #+begin_src elisp
-     (use-package cc-vars
+     (use-package cc-mode
        :ensure nil
+       :preface
+       (c-add-style "my-c-style"
+                    '("k&r"
+                      (c-basic-offset . 4)
+                      (c-offsets-alist . ((case-label . 0)
+                                          (inlambda . 0)
+                                          (inline-open . 0)
+                                          (innamespace . 4)))))
        :hook
-       (c-mode-hook . (lambda () (c-set-style "k&r")))
-       (c++-mode-hook . (lambda () (c-set-style "k&r")))
-       :custom
-       (c-basic-offset 4))
+       (c-mode-common-hook . (lambda () (c-set-style "my-c-style"))))
    #+end_src
 *** Build systems
 **** Meson
