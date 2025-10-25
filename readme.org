@@ -154,6 +154,8 @@
   - [[#git-forges][Git forges]]
 - [[#bookmarks][Bookmarks]]
 - [[#email--messengers][Email & Messengers]]
+- [[#downloading][Downloading]]
+  - [[#mentor---rtorrent-xmlrpc-client][mentor - rTorrent XMLRPC client]]
 - [[#productivity--task-management][Productivity & task management]]
   - [[#org-mode][Org mode]]
     - [[#org-tempo][org-tempo]]
@@ -1872,6 +1874,16 @@
       :config
       (add-hook 'telega-root-mode-hook (lambda () (telega-notifications-mode 1))))
   #+end_src
+
+* Downloading
+** mentor - rTorrent XMLRPC client
+   #+begin_src elisp
+     ;; TODO: fix autocomplete for loading local file (`l' key)
+     (use-package mentor
+       :ensure t
+       :when (executable-find "rtorrent"))
+   #+end_src
+
 * Productivity & task management
 ** Org mode
    #+begin_src elisp

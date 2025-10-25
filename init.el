@@ -1188,6 +1188,11 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :config
   (add-hook 'telega-root-mode-hook (lambda () (telega-notifications-mode 1))))
 
+;; TODO: fix autocomplete for loading local file (`l' key)
+(use-package mentor
+  :ensure t
+  :when (executable-find "rtorrent"))
+
 (use-package org
   ;; :hook (auto-save . org-save-all-org-buffers)
   :pin gnu
