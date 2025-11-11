@@ -1070,7 +1070,9 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :ensure t)
 
 (use-package lua-mode
-  :ensure t)
+  :ensure t
+  :custom
+  (lua-indent-level 4 "3 is too uncommon for me."))
 
 (use-package python
   :ensure nil

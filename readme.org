@@ -1668,7 +1668,9 @@
 ** Lua
    #+begin_src elisp
      (use-package lua-mode
-       :ensure t)
+       :ensure t
+       :custom
+       (lua-indent-level 4 "3 is too uncommon for me."))
    #+end_src
 
 ** Python
