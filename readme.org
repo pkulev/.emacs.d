@@ -139,6 +139,8 @@
   - [[#git-forges][Git forges]]
 - [[#bookmarks][Bookmarks]]
 - [[#email--messengers][Email & Messengers]]
+- [[#pdf-and-other-documents][PDF and other documents]]
+  - [[#doc-view-the-built-in-document-viewer][Doc View, the built-in document viewer]]
 - [[#downloading][Downloading]]
   - [[#mentor---rtorrent-xmlrpc-client][mentor - rTorrent XMLRPC client]]
 - [[#productivity--task-management][Productivity & task management]]
@@ -1897,6 +1899,16 @@
       :config
       (add-hook 'telega-root-mode-hook (lambda () (telega-notifications-mode 1))))
   #+end_src
+
+* PDF and other documents
+** Doc View, the built-in document viewer
+   #+begin_src elisp
+     (use-package doc-view
+       :ensure nil
+       :config
+       (doc-view-continuous t)
+       (doc-view-resolution 300))
+   #+end_src
 
 * Downloading
 ** mentor - rTorrent XMLRPC client
