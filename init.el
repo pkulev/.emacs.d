@@ -1417,16 +1417,6 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :ensure t
   :defer t)
 
-(use-package wakatime-mode
-  :ensure t
-  :if (boundp 'my/private-wakatime-api-key)
-  :delight "👀"
-  :custom
-  (wakatime-api-key my/private-wakatime-api-key)
-  (wakatime-cli-path my/private-wakatime-cli-path)
-  :config
-  (global-wakatime-mode))
-
 (use-package calendar
   :ensure nil
   :commands (calendar)

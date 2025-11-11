@@ -154,7 +154,6 @@
     - [[#yankpad][Yankpad]]
     - [[#utils][Utils]]
   - [[#productivity][Productivity]]
-    - [[#wakatime][Wakatime]]
   - [[#calendar][Calendar]]
   - [[#corporative-services][Corporative services]]
 - [[#local-variables][Local variables]]
@@ -2133,18 +2132,7 @@
        :ensure t
        :defer t)
    #+end_src
-*** Wakatime
-    #+begin_src elisp
-      (use-package wakatime-mode
-        :ensure t
-        :if (boundp 'my/private-wakatime-api-key)
-        :delight "👀"
-        :custom
-        (wakatime-api-key my/private-wakatime-api-key)
-        (wakatime-cli-path my/private-wakatime-cli-path)
-        :config
-        (global-wakatime-mode))
-    #+end_src
+
 ** Calendar
    #+begin_src elisp
      (use-package calendar
