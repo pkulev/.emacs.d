@@ -103,7 +103,6 @@
   - [[#autosaves][Autosaves]]
   - [[#quick-emacs-configuration-file-access][Quick emacs configuration file access]]
 - [[#autocomplete][Autocomplete]]
-  - [[#prescient][Prescient]]
   - [[#company][Company]]
   - [[#counsel][Counsel]]
   - [[#swiper][Swiper]]
@@ -117,8 +116,8 @@
     - [[#interactive-at-point-documentation][Interactive at-point documentation]]
     - [[#snippets][Snippets]]
     - [[#syntax-checking-and-linting][Syntax checking and linting]]
-    - [[#env-projectile-integration][.env projectile integration]]
-    - [[#projectile][Projectile]]
+    - [[#env-project-integration][.env project integration]]
+    - [[#project-management][Project management]]
     - [[#compilation][Compilation]]
     - [[#metrics][Metrics]]
   - [[#translations][Translations]]
@@ -465,13 +464,20 @@
        ;; I want to see trailing spaces
        (prog-mode . (lambda () (setq show-trailing-whitespace t)))
        :custom
-       (use-dialog-box nil "Dialogs via minibuffer only.")
        (scroll-step 1 "Scroll line by line.")
        (scroll-margin 4 "Top and bottom scrolling margin.")
        (scroll-conservatively 101 "If >100 then never recenter point.")
        (inhibit-splash-screen t "Don't show the splash screen.")
        (initial-scratch-message nil "Disable initial scratch message.")
        (ring-bell-function 'ignore "Disable the bell ring.")
+
+       (use-dialog-box nil "Dialogs via minibuffer only.")
+       (context-menu-mode 1 "Enable context menu.")
+       (enable-recursive-minibuffers t "Allow nesting minibuffers.")
+       (read-extended-command-predicate #'command-completion-default-include-p
+                                        "Hide commands do not work in the current mode.")
+       (minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
 
        (indicate-empty-lines t "Visually indicate empty lines.")
        (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
@@ -1059,7 +1065,7 @@
       :bind
       ("M-`" . eshell-toggle)
       :custom
-      (eshell-toggle-use-projectile-root t)
+      (eshell-toggle-find-project-root-package 'project "Use built-in project package.")
       (eshell-toggle-run-command "ls"))
   #+end_src
 
@@ -1138,15 +1144,6 @@
              ("e s" . #'my-config-open-and-search)))
    #+end_src
 * Autocomplete
-** Prescient
-   #+begin_src elisp
-     (use-package prescient
-       :ensure t
-       :defer 0.5
-       :custom
-       (prescient-use-char-folding nil "That fixes counsel-projectile-ag strange matching."))
-   #+end_src
-
 ** Company
    #+begin_src elisp
      (use-package company
@@ -1192,16 +1189,6 @@
               ([remap insert-char] . counsel-unicode-char))
        :config
        (counsel-mode))
-   #+end_src
-
-   #+begin_src elisp
-     (use-package counsel-projectile
-       :ensure t
-       :after ag counsel projectile
-       :bind
-       ("C-c p s" . counsel-projectile-ag)
-       :config
-       (counsel-projectile-mode))
    #+end_src
 
    #+begin_src elisp
@@ -1273,14 +1260,6 @@
        :custom
        (tramp-terminal-type "tramp" "This allows to distinguish TRAMP from others.")
        (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
-
-     ;; TODO
-     (use-package counsel-tramp
-       :after counsel tramp
-       :hook ((counsel-tramp-pre-counsel . (lambda () (projectile-mode 0)))
-              (consel-tramp-quit . (lambda () (projectile-mode 1))))
-       :bind
-       (:map mode-specific-map ("s s" . #'counsel-tramp)))
    #+end_src
 *** Save local files as root
     #+begin_src elisp
@@ -1375,36 +1354,43 @@
          :init (global-hl-todo-mode))
      #+end_src
 
-*** .env projectile integration
+*** .env project integration
     #+begin_src elisp
       (use-package dotenv
         :ensure nil
-        :after projectile
         :demand t
         :quelpa
         (dotenv :repo "pkulev/dotenv.el"
                 :fetcher github :upgrade t)
         :init
-        (defun dotenv-projectile-hook ()
-          "Projectile hook."
-          (dotenv-update-project-env (projectile-project-root)))
+        (defun dotenv-absolutify-pythonpath (k v)
+          (list k (dotenv-absolutify-path-var-in-project v)))
+
         :config
-        (add-to-list 'prog-mode-hook 'dotenv-projectile-hook))
+        (add-to-list
+         'dotenv-transform-alist
+         '((lambda (k v) (string= k "PYTHONPATH")) . dotenv-absolutify-pythonpath))
+
+        :hook
+        (prog-mode . (lambda () (dotenv-update-current-env t))))
     #+end_src
 
-*** Projectile
+*** Project management
     #+begin_src elisp
-      ;; TODO: c2 projectile integration
-      (use-package projectile
-        :ensure t
-        :defer nil
-        :bind
-        (:map mode-specific-map ("p" . projectile-command-map))
-        :delight '(:eval (concat " [" (projectile-project-name) "]"))
+      (use-package xref
+        :ensure nil
         :custom
-        (projectile-completion-system 'ivy)
-        :config
-        (projectile-mode))
+        (xref-search-program 'ripgrep "Use as project search backend."))
+
+      (use-package project
+        :ensure nil
+        :bind
+        ([remap project-vc-dir] . magit-status)
+        :bind-keymap
+        (("C-c p" . project-prefix-map))
+        :custom
+        (project-mode-line t)
+        (project-switch-commands 'project-find-file "Default command to run after switching."))
     #+end_src
 
 *** Compilation

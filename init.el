@@ -186,13 +186,20 @@
   ;; I want to see trailing spaces
   (prog-mode . (lambda () (setq show-trailing-whitespace t)))
   :custom
-  (use-dialog-box nil "Dialogs via minibuffer only.")
   (scroll-step 1 "Scroll line by line.")
   (scroll-margin 4 "Top and bottom scrolling margin.")
   (scroll-conservatively 101 "If >100 then never recenter point.")
   (inhibit-splash-screen t "Don't show the splash screen.")
   (initial-scratch-message nil "Disable initial scratch message.")
   (ring-bell-function 'ignore "Disable the bell ring.")
+
+  (use-dialog-box nil "Dialogs via minibuffer only.")
+  (context-menu-mode 1 "Enable context menu.")
+  (enable-recursive-minibuffers t "Allow nesting minibuffers.")
+  (read-extended-command-predicate #'command-completion-default-include-p
+                                   "Hide commands do not work in the current mode.")
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt))
 
   (indicate-empty-lines t "Visually indicate empty lines.")
   (indicate-buffer-boundaries 'left "Show buffer boundaries at left fringe.")
@@ -578,7 +585,7 @@
   :bind
   ("M-`" . eshell-toggle)
   :custom
-  (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-find-project-root-package 'project "Use built-in project package.")
   (eshell-toggle-run-command "ls"))
 
 (use-package exec-path-from-shell
@@ -643,12 +650,6 @@
         ("e e" . #'my-config-eval)
         ("e s" . #'my-config-open-and-search)))
 
-(use-package prescient
-  :ensure t
-  :defer 0.5
-  :custom
-  (prescient-use-char-folding nil "That fixes counsel-projectile-ag strange matching."))
-
 (use-package company
   :ensure t
   :delight
@@ -682,14 +683,6 @@
          ([remap insert-char] . counsel-unicode-char))
   :config
   (counsel-mode))
-
-(use-package counsel-projectile
-  :ensure t
-  :after ag counsel projectile
-  :bind
-  ("C-c p s" . counsel-projectile-ag)
-  :config
-  (counsel-projectile-mode))
 
 (use-package counsel-dash
   :ensure t
@@ -747,14 +740,6 @@
   :custom
   (tramp-terminal-type "tramp" "This allows to distinguish TRAMP from others.")
   (tramp-default-method "ssh" "SSH is slightly faster that default SCP."))
-
-;; TODO
-(use-package counsel-tramp
-  :after counsel tramp
-  :hook ((counsel-tramp-pre-counsel . (lambda () (projectile-mode 0)))
-         (consel-tramp-quit . (lambda () (projectile-mode 1))))
-  :bind
-  (:map mode-specific-map ("s s" . #'counsel-tramp)))
 
 (use-package sudo-edit
   :ensure t
@@ -822,29 +807,36 @@
 
 (use-package dotenv
   :ensure nil
-  :after projectile
   :demand t
   :quelpa
   (dotenv :repo "pkulev/dotenv.el"
           :fetcher github :upgrade t)
   :init
-  (defun dotenv-projectile-hook ()
-    "Projectile hook."
-    (dotenv-update-project-env (projectile-project-root)))
-  :config
-  (add-to-list 'prog-mode-hook 'dotenv-projectile-hook))
+  (defun dotenv-absolutify-pythonpath (k v)
+    (list k (dotenv-absolutify-path-var-in-project v)))
 
-;; TODO: c2 projectile integration
-(use-package projectile
-  :ensure t
-  :defer nil
-  :bind
-  (:map mode-specific-map ("p" . projectile-command-map))
-  :delight '(:eval (concat " [" (projectile-project-name) "]"))
-  :custom
-  (projectile-completion-system 'ivy)
   :config
-  (projectile-mode))
+  (add-to-list
+   'dotenv-transform-alist
+   '((lambda (k v) (string= k "PYTHONPATH")) . dotenv-absolutify-pythonpath))
+
+  :hook
+  (prog-mode . (lambda () (dotenv-update-current-env t))))
+
+(use-package xref
+  :ensure nil
+  :custom
+  (xref-search-program 'ripgrep "Use as project search backend."))
+
+(use-package project
+  :ensure nil
+  :bind
+  ([remap project-vc-dir] . magit-status)
+  :bind-keymap
+  (("C-c p" . project-prefix-map))
+  :custom
+  (project-mode-line t)
+  (project-switch-commands 'project-find-file "Default command to run after switching."))
 
 (use-package compile
   :hook
