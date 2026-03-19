@@ -546,7 +546,7 @@
        :ensure nil
        :custom-face
        (font-lock-doc-face ((t (:slant 'normal)))))
-    #+end_src elisp
+    #+end_src
 
 *** COMMENT Fira ligatures for emacs
     Doesn't work properly yet.

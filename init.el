@@ -243,6 +243,11 @@
   :config
   (show-paren-mode t))
 
+(use-package font-lock
+  :ensure nil
+  :custom-face
+  (font-lock-doc-face ((t (:slant 'normal)))))
+
 (use-package faces
   :ensure nil
   :config
