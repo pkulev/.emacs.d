@@ -243,11 +243,6 @@
   :config
   (show-paren-mode t))
 
-(use-package font-lock
-  :ensure nil
-  :custom-face
-  (font-lock-doc-face ((t (:slant 'normal)))))
-
 (use-package faces
   :ensure nil
   :config
@@ -299,7 +294,10 @@
   :ensure t
   :demand t
   :config
-  (load-theme 'doom-one-light 'noconfirm))
+  (load-theme 'doom-one-light 'noconfirm)
+  ;; NOTE: this theme overrides doc-face. I like non-italic documentation strings, they must be
+  ;;       visible for a programmer, not hidden!
+  (set-face-attribute 'font-lock-doc-face nil :slant 'normal))
 
 (use-package all-the-icons
   :if window-system

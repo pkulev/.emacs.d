@@ -63,7 +63,6 @@
   - [[#simple][Simple]]
   - [[#highlight-matching-parens][Highlight matching parens]]
   - [[#fonts--faces][Fonts & faces]]
-    - [[#font-locking-syntax-highlighting][Font locking (syntax highlighting)]]
     - [[#fira-code-font][Fira Code font]]
     - [[#current-line-highlighting][Current line highlighting]]
     - [[#diff-highlighting][Diff highlighting]]
@@ -540,14 +539,6 @@
    #+end_src
 
 ** Fonts & faces
-*** Font locking (syntax highlighting)
-    #+begin_src elisp
-     (use-package font-lock
-       :ensure nil
-       :custom-face
-       (font-lock-doc-face ((t (:slant 'normal)))))
-    #+end_src
-
 *** COMMENT Fira ligatures for emacs
     Doesn't work properly yet.
     #+begin_src elisp
@@ -659,7 +650,10 @@
         :ensure t
         :demand t
         :config
-        (load-theme 'doom-one-light 'noconfirm))
+        (load-theme 'doom-one-light 'noconfirm)
+        ;; NOTE: this theme overrides doc-face. I like non-italic documentation strings, they must be
+        ;;       visible for a programmer, not hidden!
+        (set-face-attribute 'font-lock-doc-face nil :slant 'normal))
     #+end_src
 ** Icons
    #+begin_src elisp
