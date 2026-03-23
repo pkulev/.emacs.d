@@ -6,6 +6,8 @@
   =use-package= allows declarative description of packages and it's settings, =org-mode=
   allows to represent this configuration as document and generate config from it.
 
+  Requires at least version 28.1 of Emacs, but lately I used only 30+, so it may not work on earlier versions.
+
 ** Usage
    Just clone repository to =~/.config/emacs= (XDG-compatible new directory) =~/.emacs.d= (old directory) and run emacs.
    #+begin_src bash
@@ -14,24 +16,9 @@
      $ emacs
    #+end_src
 
-** Where it works
-   Here the matrix of distributions and environments i've tested my configuration deployment.
-
-   |---------------+------------+------------|
-   | Emacs/Dist    | Emacs 26.3 | Emacs 27.1 |
-   |---------------+------------+------------|
-   | Fedora 29     | works      | not tested |
-   | Fedora 30     | works      | not tested |
-   | Centos 7      | works      | not tested |
-   | Gentoo        | works      | works      |
-   | Ubuntu 16 WSL | works      | works      |
-   | Termux        | works      | not tested |
-   |---------------+------------+------------|
-
 ** Table of Contents                                                    :TOC@3:
 - [[#about][About]]
   - [[#usage][Usage]]
-  - [[#where-it-works][Where it works]]
 - [[#early-init][Early init]]
 - [[#package-management][Package management]]
   - [[#repositories][Repositories]]
