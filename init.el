@@ -972,36 +972,11 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
 (use-package cider
   :ensure t)
 
-(use-package lisp-mode
-  :disabled
-  :ensure nil
-  :after flycheck
-  :hook ((lisp-mode . (lambda () (setq flycheck-enabled-checkers '(sblint)))))
-  :config
-  (flycheck-define-checker sblint
-    "A Common Lisp checker using `sblint'."
-    ;; :command ("sblint" source)
-    :command ("echo ok" source)
-    :error-patterns
-    ((error line-start (file-name) ":" line ": error: " (message) line-end))
-    :modes lisp-mode)
-  (add-to-list 'flycheck-checkers 'sblint))
-
-(use-package sly-asdf
-  :ensure t
-  :defer t)
-
-(use-package sly-quicklisp
-  :ensure t
-  :defer t)
-
 (use-package sly
   :ensure t
   :defer t
-  :after (sly-asdf sly-quicklisp)
   :custom
   (inferior-lisp-program (executable-find "sbcl")))
-;;  (sly-contribs '(sly-asdf sly-quicklisp)))
 
 (use-package geiser
   :ensure t
