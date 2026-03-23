@@ -107,6 +107,7 @@
     - [[#compilation][Compilation]]
     - [[#metrics][Metrics]]
   - [[#translations][Translations]]
+  - [[#fish-shell][Fish shell]]
   - [[#cc][C/C++]]
     - [[#build-systems][Build systems]]
   - [[#glsl][GLSL]]
@@ -1481,6 +1482,12 @@
      (use-package po-mode
        :ensure t)
    #+end_src
+
+** Fish shell
+#+begin_src elisp
+  (use-package fish-mode
+    :ensure t)
+#+end_src
 
 ** C/C++
    #+begin_src elisp

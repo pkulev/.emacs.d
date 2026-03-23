@@ -932,6 +932,9 @@
 (use-package po-mode
   :ensure t)
 
+(use-package fish-mode
+  :ensure t)
+
 (use-package cc-mode
   :ensure nil
   :preface
