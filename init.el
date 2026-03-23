@@ -118,9 +118,6 @@
 (use-package helpful
   :ensure t
   :demand t
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
   :bind
   (:map help-mode-map
         ("f" . helpful-callable)
@@ -299,30 +296,31 @@
   ;;       visible for a programmer, not hidden!
   (set-face-attribute 'font-lock-doc-face nil :slant 'normal))
 
-(use-package all-the-icons
-  :if window-system
+(use-package nerd-icons-completion
   :ensure t
-  :config
-  (setq all-the-icons-mode-icon-alist
-        `(,@all-the-icons-mode-icon-alist
-          (package-menu-mode all-the-icons-octicon "package" :v-adjust 0.0))))
-
-(use-package all-the-icons-dired
-  :if window-system
-  :ensure t
+  :after marginalia
   :hook
-  (dired-mode . all-the-icons-dired-mode))
-
-(use-package all-the-icons-ivy
-  :if window-system
-  :ensure t
-  :after ivy
-  :custom
-  (all-the-icons-ivy-buffer-commands '() "Don't use for buffers.")
+  (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :config
-  (unless (file-exists-p "~/.local/share/fonts/all-the-icons.ttf")
-    (all-the-icons-install-fonts t))
-  (all-the-icons-ivy-setup))
+  (nerd-icons-completion-mode))
+
+(use-package nerd-icons-dired
+  :ensure t
+  :init
+  (defun my/dired-subtree-add-nerd-icons ()
+    "Add nerd icons into subtree."
+    (interactive)
+    (revert-buffer))
+
+  (defun my/dired-subtree-toggle-nerd-icons ()
+    (when (require 'dired-subtree nil t)
+      (if nerd-icons-dired-mode
+          (advice-add #'dired-subtree-toggle :after #'my/dired-subtree-add-nerd-icons)
+        (advice-remove #'dired-subtree-toggle #'my/dired-subtree-add-nerd-icons))))
+
+  :hook
+  (dired-mode . nerd-icons-dired-mode)
+  (nerd-icons-dired-mode . my/dired-subtree-toggle-nerd-icons))
 
 (use-package time
   :ensure nil
@@ -620,7 +618,6 @@
 
 (use-package my-config
   :ensure nil
-  :after counsel
   :preface
   (defun my-config-open ()
     (interactive)
@@ -641,7 +638,7 @@
   (defun my-config-open-and-search ()
     (interactive)
     (my-config-open)
-    (counsel-grep-or-swiper))
+    (isearch-forward))
 
   (provide 'my-config)
 
@@ -675,67 +672,147 @@
   :config
   (add-to-list 'company-backends 'company-shell))
 
-(use-package ag
-  :ensure t)
-
-(use-package counsel
+(use-package vertico
   :ensure t
-  :delight
-  :defer nil
-  :bind (([remap menu-bar-open] . counsel-tmm)
-         ([remap insert-char] . counsel-unicode-char))
-  :config
-  (counsel-mode))
+  ;; :custom
+  ;; (vertico-scroll-margin 0) ;; Different scroll margin
+  ;; (vertico-count 20) ;; Show more candidates
+  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
 
-(use-package counsel-dash
+(use-package savehist
+  :ensure nil
+  :init
+  (savehist-mode))
+
+(use-package orderless
   :ensure t
-  :after counsel eww
-  :requires eww
-  :bind
-  ;; (:map mode-specific-map ("d i" . counsel-dash-install-docset)
-  ;;                         ("d u" . counsel-dash-uninstall-docset))
-  ;;                          (""))
-  :config
-  (add-hook 'python-mode-hook (lambda () (setq-local counsel-dash-docsets '("Python"))))
   :custom
-  (counsel-dash-browser-func 'eww-browse-url))
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
+  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-category-defaults nil) ;; Disable defaults, use our settings
+  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
-(use-package swiper
+(use-package marginalia
   :ensure t
-  :delight
-  :defer nil
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; NOTE: Marginalia must be activated in the :init section of use-package.
+  :init
+  (marginalia-mode))
+
+(use-package consult
+  :ensure t
   :bind
-  ([remap isearch-forward] . swiper-thing-at-point)
-  ([remap isearch-backward] . swiper-thing-at-point))
+  (("C-c M-x" . consult-mode-command)
+   ("C-c h" . consult-history)
+   ("C-c k" . consult-kmacro)
+   ("C-c m" . consult-man)
+   ("C-c i" . consult-info)
+   ([remap Info-search] . consult-info)
 
-(use-package ivy
+   ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+   ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+   ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+   ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+   ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
+   ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+   ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+   ;; Custom M-# bindings for fast register access
+   ("M-#" . consult-register-load)
+   ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+   ("C-M-#" . consult-register)
+   ;; Other custom bindings
+   ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+   ;; M-g bindings in `goto-map'
+   ("M-g e" . consult-compile-error)
+   ("M-g r" . consult-grep-match)
+   ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+   ("M-g g" . consult-goto-line)             ;; orig. goto-line
+   ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+   ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+   ("M-g m" . consult-mark)
+   ("M-g k" . consult-global-mark)
+   ("M-g i" . consult-imenu)
+   ("M-g I" . consult-imenu-multi)
+   ;; M-s bindings in `search-map'
+   ("M-s d" . consult-find)                  ;; Alternative: consult-fd
+   ("M-s c" . consult-locate)
+   ("M-s g" . consult-grep)
+   ("M-s G" . consult-git-grep)
+   ("M-s r" . consult-ripgrep)
+   ("M-s l" . consult-line)
+   ("M-s L" . consult-line-multi)
+   ("M-s k" . consult-keep-lines)
+   ("M-s u" . consult-focus-lines)
+   ;; Isearch integration
+   ("M-s e" . consult-isearch-history)
+   :map isearch-mode-map
+   ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+   ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+   ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+   ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+   ;; Minibuffer history
+   :map minibuffer-local-map
+   ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+   ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+
+  ;; Tweak the register preview for `consult-register-load',
+  ;; `consult-register-store' and the built-in commands.  This improves the
+  ;; register formatting, adds thin separator lines, register sorting and hides
+  ;; the window mode line.
+  (advice-add #'register-preview :override #'consult-register-window)
+  (setq register-preview-delay 0.5)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Configure other variables and modes in the :config section,
+  ;; after lazily loading the package.
+  :config
+
+  ;; Optionally configure preview. The default value
+  ;; is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  ;; (setq consult-preview-key "M-.")
+  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+  ;; For some commands and buffer sources it is useful to configure the
+  ;; :preview-key on a per-command basis using the `consult-customize' macro.
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep consult-man
+   consult-bookmark consult-recent-file consult-xref
+   consult-source-bookmark consult-source-file-register
+   consult-source-recent-file consult-source-project-recent-file
+   ;; :preview-key "M-."
+   :preview-key '(:debounce 0.4 any))
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; "C-+"
+
+  ;; Optionally make narrowing help available in the minibuffer.
+  ;; You may want to use `embark-prefix-help-command' or which-key instead.
+  ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
+)
+
+(use-package consult-dash
   :ensure t
-  :delight
-  :custom
-  (ivy-use-virtual-buffers t)
-  (ivy-re-builders-alist '((t . ivy--regex-plus) (t . ivy--regex-fuzzy)))
-  (ivy-count-format "%d/%d " "Show anzu-like counter.")
-  (ivy-use-selectable-prompt t "Make the prompt line selectable.")
-  :custom-face
-  (ivy-current-match ((t (:inherit 'hl-line))))
   :bind
-  (:map ivy-minibuffer-map
-        ("C-r" . ivy-previous-line-or-history))
+  (("M-s D" . consult-dash))
   :config
-  (ivy-mode t))
-
-(use-package ivy-rich
-  :ensure t
-  :after ivy
-  :config
-  (ivy-rich-mode))
-
-(use-package ivy-prescient
-  :ensure t
-  :after ivy prescient
-  :defer 4
-  :config
-  (ivy-prescient-mode))
+  (consult-customize consult-dash :initial (thing-at-point 'symbol))
+  (add-hook 'python-mode-hook (lambda () (setq-local consult-dash-docsets '("Python 3" "NumPy")))))
 
 (use-package tramp
   :ensure nil
