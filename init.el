@@ -441,6 +441,7 @@
            hy-mode
            inferior-hy-mode
            python-mode
+           scheme-mode
            inferior-python-mode
            common-lisp-modes-mode
            clojure-mode
@@ -1057,11 +1058,16 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
 
 (use-package geiser
   :ensure t
-  :if (executable-find "guile")
+  :if (or (executable-find "guile") (executable-find "chicken"))
   :bind
   ("C-c i" . geiser-insert-lambda)
   :custom
   (geiser-default-implementation 'guile))
+
+(use-package geiser-chicken
+  :ensure t
+  :if (executable-find "chicken")
+  :delight "scm/ch")
 
 (use-package hy-mode
   :ensure t)
