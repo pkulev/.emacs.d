@@ -1531,7 +1531,8 @@
    Go programming language support.
    #+begin_src elisp
      (use-package go-mode
-       :ensure t)
+       :ensure t
+       :hook (before-save-hook . gofmt-before-save))
    #+end_src
 
 ** Godot GDScript

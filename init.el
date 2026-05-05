@@ -962,7 +962,8 @@
   (add-to-list 'company-backends 'company-glsl))
 
 (use-package go-mode
-  :ensure t)
+  :ensure t
+  :hook (before-save-hook . gofmt-before-save))
 
 (use-package gdscript-mode
   :ensure t
