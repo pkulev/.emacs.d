@@ -217,6 +217,7 @@
   :ensure nil
   :bind
   ("C-z" . nil)
+  ("C-x C-z" . nil)
   ("C-c C-z" . nil))
 
 (use-package simple
