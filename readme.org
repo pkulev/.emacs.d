@@ -624,16 +624,6 @@
        :hook (prog-mode . display-fill-column-indicator-mode))
    #+end_src
 ** Theme
-*** COMMENT Dark theme
-    #+begin_src elisp
-      (use-package zerodark-theme
-        :ensure t
-        :demand t
-        ;;:after flycheck  ; TODO: make PR for fixing this
-        :config
-        (load-theme 'zerodark 'noconfirm))
-        ;;(zerodark-setup-modeline-format))
-    #+end_src
 *** Light theme
     #+begin_src elisp
       (use-package doom-themes
@@ -683,17 +673,6 @@
        :ensure nil
        :custom
        (display-time-mode nil "Don't display time at modeline."))
-   #+end_src
-
-   #+begin_src elisp
-     (use-package nyan-mode
-       :ensure t
-       :after zerodark-mode
-       :custom
-       (nyan-bar-length 16)
-       :config
-       (nyan-mode)
-       (zerodark-modeline-setup-format))
    #+end_src
 
    #+begin_src elisp

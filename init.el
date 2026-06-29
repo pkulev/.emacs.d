@@ -328,15 +328,6 @@
   :custom
   (display-time-mode nil "Don't display time at modeline."))
 
-(use-package nyan-mode
-  :ensure t
-  :after zerodark-mode
-  :custom
-  (nyan-bar-length 16)
-  :config
-  (nyan-mode)
-  (zerodark-modeline-setup-format))
-
 (use-package highlight-indent-guides
   :ensure t
   :defer t
