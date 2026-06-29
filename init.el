@@ -844,6 +844,9 @@
   :ensure t
   :defer t)
 
+(use-package rg
+  :ensure t)
+
 (use-package eldoc
   :ensure nil
   :delight)
@@ -916,6 +919,11 @@
   ([remap project-vc-dir] . magit-status)
   :bind-keymap
   (("C-c p" . project-prefix-map))
+  :bind
+  (:map project-prefix-map
+   ("S" . project-shell)
+   ("s" . rg-menu)
+   ("." . rg-dwim-project-dir))
   :custom
   (project-mode-line t)
   (project-switch-commands 'project-find-file "Default command to run after switching."))
