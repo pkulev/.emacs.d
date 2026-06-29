@@ -691,6 +691,7 @@
 
 (use-package orderless
   :ensure t
+  :demand t
   :custom
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
