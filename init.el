@@ -5,8 +5,8 @@
 
 (setq package-archives
       (append (eval (car (get 'package-archives 'standard-value)))
-              '(("melpa-stable" . "http://stable.melpa.org/packages/")
-                ("melpa-unstable" . "http://melpa.org/packages/"))))
+              '(("melpa-stable" . "https://stable.melpa.org/packages/")
+                ("melpa-unstable" . "https://melpa.org/packages/"))))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
