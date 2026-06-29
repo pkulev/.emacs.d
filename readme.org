@@ -97,6 +97,7 @@
   - [[#tramp][Tramp]]
     - [[#save-local-files-as-root][Save local files as root]]
   - [[#docker][Docker]]
+  - [[#earthly][Earthly]]
 - [[#programming-modes][Programming modes]]
   - [[#common][Common]]
     - [[#search-project-and-directory-files][Search project and directory files]]
@@ -1353,6 +1354,11 @@
      (use-package docker-compose-mode
        :ensure t
        :defer t)
+   #+end_src
+** Earthly
+   #+begin_src elisp
+     (use-package earthfile-mode
+       :ensure t)
    #+end_src
 * Programming modes
 ** Common

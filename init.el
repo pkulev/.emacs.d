@@ -844,6 +844,9 @@
   :ensure t
   :defer t)
 
+(use-package earthfile-mode
+  :ensure t)
+
 (use-package rg
   :ensure t)
 
