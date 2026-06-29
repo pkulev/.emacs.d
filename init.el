@@ -710,6 +710,28 @@
   :init
   (marginalia-mode))
 
+(use-package embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)
+   ("M-." . embark-dwim)
+   ("C-h B" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))
+               t)
+  (with-eval-after-load 'vertico
+    (add-to-list 'vertico-multiform-categories '(embark-keybinding grid))
+    (vertico-multiform-mode 1)))
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult))
+
 (use-package consult
   :ensure t
   :bind

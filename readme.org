@@ -92,6 +92,7 @@
   - [[#company][Company]]
   - [[#vertico][Vertico]]
     - [[#order-and-visuals][Order and visuals]]
+    - [[#embark][Embark]]
     - [[#search][Search]]
 - [[#containers-and-remote-servers][Containers and remote servers]]
   - [[#tramp][Tramp]]
@@ -1205,6 +1206,32 @@
        ;; NOTE: Marginalia must be activated in the :init section of use-package.
        :init
        (marginalia-mode))
+   #+end_src
+
+*** Embark
+   Context-aware actions on completion candidates and things at point.
+   #+begin_src elisp
+     (use-package embark
+       :ensure t
+       :bind
+       (("C-." . embark-act)
+        ("M-." . embark-dwim)
+        ("C-h B" . embark-bindings))
+       :init
+       (setq prefix-help-command #'embark-prefix-help-command)
+       :config
+       (add-to-list 'display-buffer-alist
+                    '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                      nil
+                      (window-parameters (mode-line-format . none)))
+                    t)
+       (with-eval-after-load 'vertico
+         (add-to-list 'vertico-multiform-categories '(embark-keybinding grid))
+         (vertico-multiform-mode 1)))
+
+     (use-package embark-consult
+       :ensure t
+       :after (embark consult))
    #+end_src
 
 *** Search
