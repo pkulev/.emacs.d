@@ -1090,7 +1090,8 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
   :ensure t
   :if (or (executable-find "guile") (executable-find "chicken"))
   :bind
-  ("C-c i" . geiser-insert-lambda)
+  (:map geiser-mode-map
+        ("C-c i" . geiser-insert-lambda))
   :custom
   (geiser-default-implementation 'guile))
 
