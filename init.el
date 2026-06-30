@@ -1211,12 +1211,17 @@ https://github.com/hlissner/doom-emacs/blob/b03fdabe4fa8a07a7bd74cd02d9413339a48
 ;;  '((((class color) (background light)) (:foreground "SaddleBrown"))
 ;;    (((class color) (background dark)) (:foreground "burlywood1")))))
 
-(use-package racer
-  :hook ((rust-mode . racer-mode)
-         (racer-mode . eldoc-mode))
+(use-package rust-mode
+  :ensure t
+  :init
+  (setq rust-mode-treesitter-derive t))
+
+(use-package rustic
+  :ensure t
+  :after rust-mode
+  :hook (rustic-mode . lsp-deferred)
   :custom
-  (rust-rustfmt-bin "~/.cargo/bin/rustfmt")
-  (rust-cargo-bin "~/.cargo/bin/cargo"))
+  (rustic-format-on-save t))
 
 (use-package terraform-mode
   :ensure t)

@@ -1862,13 +1862,19 @@
      ;;    (((class color) (background dark)) (:foreground "burlywood1")))))
    #+end_src
 ** Rust
+   Requires =rust-analyzer= on =PATH= (e.g. =rustup component add rust-analyzer=).
    #+begin_src elisp
-     (use-package racer
-       :hook ((rust-mode . racer-mode)
-              (racer-mode . eldoc-mode))
+     (use-package rust-mode
+       :ensure t
+       :init
+       (setq rust-mode-treesitter-derive t))
+
+     (use-package rustic
+       :ensure t
+       :after rust-mode
+       :hook (rustic-mode . lsp-deferred)
        :custom
-       (rust-rustfmt-bin "~/.cargo/bin/rustfmt")
-       (rust-cargo-bin "~/.cargo/bin/cargo"))
+       (rustic-format-on-save t))
    #+end_src
 ** Terraform
    #+begin_src elisp
