@@ -119,13 +119,11 @@
   :ensure t
   :demand t
   :bind
-  (:map help-mode-map
-        ("f" . helpful-callable)
-        ("v" . helpful-variable)
-        ("k" . helpful-key)
-        ("F" . helpful-at-point)
-        ("F" . helpful-function)
-        ("C" . helpful-command)))
+  (([remap describe-function] . helpful-callable)
+   ([remap describe-variable] . helpful-variable)
+   ([remap describe-key] . helpful-key)
+   ([remap describe-symbol] . helpful-function)
+   ("C-h ." . helpful-at-point)))
 
 (use-package tldr
   :ensure t
